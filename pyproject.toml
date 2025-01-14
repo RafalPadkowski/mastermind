@@ -1,0 +1,20 @@
+[tool.poetry]
+name = "mastermind"
+version = "0.1.0"
+description = ""
+authors = ["Rafal Padkowski <rafaelp@poczta.onet.pl>"]
+readme = "README.md"
+
+[tool.poetry.dependencies]
+python = "^3.13"
+textual = "^1.0.0"
+
+[tool.poetry.group.dev.dependencies]
+textual-dev = "^1.7.0"
+
+[build-system]
+requires = ["poetry-core"]
+build-backend = "poetry.core.masonry.api"
+
+[tool.poetry.scripts]
+mm = "mastermind:main"
