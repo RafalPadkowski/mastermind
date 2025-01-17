@@ -1,0 +1,14 @@
+[pegs]
+code_pegs = ["🔴", "🟡", "🟣", "🟢", "🟤", "🔵", "⚪", "🟠"]
+key_pegs = ["🔴", "⚪"]
+hole = "⭕"
+
+[variations]
+original = { num_rows = 10, num_pegs = 4, num_colors = 6 }
+mini = { num_rows = 6, num_pegs = 4, num_colors = 6 }
+super = { num_rows = 12, num_pegs = 5, num_colors = 8 }
+
+[options]
+variation = "mini"
+blank_color = false
+duplicate_colors = false
