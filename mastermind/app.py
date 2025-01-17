@@ -5,6 +5,8 @@ from textual.app import App, ComposeResult
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Select, Static
 
+from mastermind.settings import Settings
+
 
 class MastermindApp(App):
     TITLE = "Mastermind"
@@ -17,12 +19,26 @@ class MastermindApp(App):
         with open(Path(__file__).parent / "config.toml", mode="rb") as toml:
             self.config = tomllib.load(toml)
 
-        self.board: VerticalScroll = VerticalScroll(id="board")
+        variation = self.config["settings"]["variation"]
 
-        self.color_pegs: list[Select]
+        self.settings = Settings(
+            self.config["variations"][variation]["num_rows"],
+            self.config["variations"][variation]["num_pegs"],
+            self.config["variations"][variation]["num_colors"],
+            self.config["settings"]["blank_color"],
+            self.config["settings"]["duplicate_colors"],
+        )
+
+        self.board: VerticalScroll
+        self.code_pegs: list[Select]
 
     def compose(self) -> ComposeResult:
-        yield Header(icon="❔")
+        yield Header(icon=self.config["general"]["icon"])
+
+        self.board = VerticalScroll()
+        yield self.board
+
+        yield Footer()
 
         # yield Horizontal(
         #     Static("01", classes="num"),
@@ -34,37 +50,32 @@ class MastermindApp(App):
         #     classes="row",
         # )
 
-        yield self.board
-        yield Footer()
+    def on_mount(self) -> None:
+        self.create_new_game()
 
-    def new_game(self) -> None:
-        self.color_pegs = [
-            Select(
-                options=zip(self.config["pegs"]["color_pegs"], range(1, 9)),
-                prompt=self.config["pegs"]["hole"],
-                classes="color_peg",
-            )
-            for _ in range(4)
-        ]
+    def create_new_game(self) -> None:
+        self.create_code_pegs()
 
-        horizontal = Horizontal(
+        row = Horizontal(
             Static("01", classes="num"),
-            *self.color_pegs,
+            *self.code_pegs,
             Button("❔", classes="check"),
             classes="row",
         )
 
-        self.board.mount(horizontal)
+        self.board.mount(row)
 
-        # horizontal = Horizontal(classes="row")
-        # self.board.mount(horizontal)
+    def create_code_pegs(self) -> None:
+        num_pegs = self.settings.num_pegs
+        num_colors = self.settings.num_colors
 
-        # horizontal.mount()
-
-        # for widget in self.row:
-        #     horizontal.mount(widget)
-
-        # horizontal.mount()
-
-    def on_mount(self) -> None:
-        self.new_game()
+        self.code_pegs = [
+            Select(
+                options=zip(
+                    self.config["colors"]["code_peg_colors"], range(1, num_colors + 1)
+                ),
+                prompt=self.config["colors"]["blank_color"],
+                classes="code_peg",
+            )
+            for _ in range(num_pegs)
+        ]

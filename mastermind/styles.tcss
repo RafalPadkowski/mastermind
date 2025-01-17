@@ -15,20 +15,20 @@ Header {
     background: indigo;
 }
 
-.color_peg {
+.code_peg {
     width: 12;
     margin-left: 2;
 }
 
-.color_peg SelectCurrent {
+.code_peg SelectCurrent {
     border: tall $border;
 }
 
-.color_peg SelectCurrent #label {
+.code_peg SelectCurrent #label {
     padding-left: 2;
 }
 
-.color_peg SelectOverlay {
+.code_peg SelectOverlay {
     text-align: center;
 }
 
