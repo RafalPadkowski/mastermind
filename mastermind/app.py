@@ -19,17 +19,7 @@ class MastermindApp(App):
 
         self.board: VerticalScroll = VerticalScroll(id="board")
 
-        self.color_pegs: list[str] = self.config["pegs"]["color_pegs"]
-        self.hole: str = self.config["pegs"]["hole"]
-
-        self.row: list[Select] = [
-            Select(
-                options=zip(self.color_pegs, range(1, 9)),
-                prompt=self.hole,
-                classes="color_peg",
-            )
-            for _ in range(4)
-        ]
+        self.color_pegs: list[Select]
 
     def compose(self) -> ComposeResult:
         yield Header(icon="❔")
@@ -40,7 +30,7 @@ class MastermindApp(App):
         #     Static("🔴", classes="static_color_peg"),
         #     Static("🟢", classes="static_color_peg"),
         #     Static("🟣", classes="static_color_peg"),
-        #     Static("🔴 ⚪ ⭕ ⭕", classes="feedback"),
+        #     Static("🔴 ⚪ ⭕ ⭕", classes="feedback_pegs"),
         #     classes="row",
         # )
 
@@ -48,17 +38,18 @@ class MastermindApp(App):
         yield Footer()
 
     def new_game(self) -> None:
-        # with Horizontal(classes="row"):
-        #     yield Static("02", classes="num")
-
-        #     for widget in self.row:
-        #         yield widget
-
-        #     yield Button("❔", classes="check")
+        self.color_pegs = [
+            Select(
+                options=zip(self.config["pegs"]["color_pegs"], range(1, 9)),
+                prompt=self.config["pegs"]["hole"],
+                classes="color_peg",
+            )
+            for _ in range(4)
+        ]
 
         horizontal = Horizontal(
             Static("01", classes="num"),
-            *self.row,
+            *self.color_pegs,
             Button("❔", classes="check"),
             classes="row",
         )

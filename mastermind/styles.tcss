@@ -39,7 +39,7 @@ Header {
     text_style: none;
 }
 
-.feedback {
+.feedback_pegs {
     width: 15;
     margin-top: 1;
     margin-left: 4;
