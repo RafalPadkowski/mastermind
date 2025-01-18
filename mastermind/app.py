@@ -18,9 +18,9 @@ class MastermindApp(App):
 
         config_path = Path(__file__).parent / "config.toml"
         with config_path.open(mode="rb") as toml:
-            self.config = tomllib.load(toml)
+            self.config: dict = tomllib.load(toml)
 
-        variation = self.config["settings"]["variation"]
+        variation: str = self.config["settings"]["variation"]
 
         self.settings = Settings(
             self.config["variations"][variation]["num_rows"],
@@ -67,8 +67,8 @@ class MastermindApp(App):
         self.board.mount(row)
 
     def create_code_pegs(self) -> None:
-        num_pegs = self.settings.num_pegs
-        num_colors = self.settings.num_colors
+        num_pegs: int = self.settings.num_pegs
+        num_colors: int = self.settings.num_colors
 
         self.code_pegs = [
             Select(
