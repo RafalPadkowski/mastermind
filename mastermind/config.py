@@ -4,6 +4,7 @@ from dataclasses import dataclass
 @dataclass
 class General:
     icon: str
+    settings_filename: str
 
 
 @dataclass
@@ -28,7 +29,7 @@ class Config:
 
 
 app_config = Config(
-    general=General(icon="❔"),
+    general=General(icon="❔", settings_filename="settings.toml"),
     colors=Colors(
         code_peg_colors=["🔴", "🟡", "🟣", "🟢", "🟤", "🔵", "⚪", "🟠"],
         feedback_peg_colors=["🔴", "⚪"],

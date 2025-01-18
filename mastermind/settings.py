@@ -12,7 +12,8 @@ class Settings:
     duplicate_colors: bool
 
 
-settings_path = Path(__file__).parent / "settings.toml"
+settings_filename = app_config.general.settings_filename
+settings_path = Path(__file__).parent / settings_filename
 with settings_path.open(mode="rb") as toml_file:
     toml_data: dict = tomllib.load(toml_file)
 
