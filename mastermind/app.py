@@ -16,7 +16,8 @@ class MastermindApp(App):
     def __init__(self) -> None:
         super().__init__()
 
-        with open(Path(__file__).parent / "config.toml", mode="rb") as toml:
+        config_path = Path(__file__).parent / "config.toml"
+        with config_path.open(mode="rb") as toml:
             self.config = tomllib.load(toml)
 
         variation = self.config["settings"]["variation"]
