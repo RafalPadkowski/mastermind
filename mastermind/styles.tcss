@@ -4,7 +4,6 @@ Header {
 
 .row {
     height: 5;
-    width: 100;
 }
 
 .num {

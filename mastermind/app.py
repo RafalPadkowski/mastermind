@@ -1,11 +1,9 @@
-import tomllib
-from pathlib import Path
-
 from textual.app import App, ComposeResult
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Select, Static
 
-from mastermind.settings import Settings
+from mastermind.config import app_config
+from mastermind.settings import app_settings
 
 
 class MastermindApp(App):
@@ -16,25 +14,14 @@ class MastermindApp(App):
     def __init__(self) -> None:
         super().__init__()
 
-        config_path = Path(__file__).parent / "config.toml"
-        with config_path.open(mode="rb") as toml:
-            self.config: dict = tomllib.load(toml)
-
-        variation: str = self.config["settings"]["variation"]
-
-        self.settings = Settings(
-            self.config["variations"][variation]["num_rows"],
-            self.config["variations"][variation]["num_pegs"],
-            self.config["variations"][variation]["num_colors"],
-            self.config["settings"]["blank_color"],
-            self.config["settings"]["duplicate_colors"],
-        )
+        self.config = app_config
+        self.settings = app_settings
 
         self.board: VerticalScroll
         self.code_pegs: list[Select]
 
     def compose(self) -> ComposeResult:
-        yield Header(icon=self.config["general"]["icon"])
+        yield Header(icon=self.config.general.icon)
 
         self.board = VerticalScroll()
         yield self.board
@@ -67,15 +54,15 @@ class MastermindApp(App):
         self.board.mount(row)
 
     def create_code_pegs(self) -> None:
-        num_pegs: int = self.settings.num_pegs
-        num_colors: int = self.settings.num_colors
+        num_pegs: int = self.settings.variation.num_pegs
+        num_colors: int = self.settings.variation.num_colors
 
         self.code_pegs = [
             Select(
                 options=zip(
-                    self.config["colors"]["code_peg_colors"], range(1, num_colors + 1)
+                    self.config.colors.code_peg_colors, range(1, num_colors + 1)
                 ),
-                prompt=self.config["colors"]["blank_color"],
+                prompt=self.config.colors.blank_color,
                 classes="code_peg",
             )
             for _ in range(num_pegs)
