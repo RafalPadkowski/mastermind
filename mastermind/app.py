@@ -1,9 +1,11 @@
+from pathlib import Path
+
 from textual.app import App, ComposeResult
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Select, Static
 
-from mastermind.config import app_config
-from mastermind.settings import app_settings
+from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS, ICON, SETTINGS_FILENAME
+from mastermind.settings import load_settings
 
 
 class MastermindApp(App):
@@ -14,14 +16,13 @@ class MastermindApp(App):
     def __init__(self) -> None:
         super().__init__()
 
-        self.config = app_config
-        self.settings = app_settings
+        self.settings = load_settings(Path(__file__).parent / SETTINGS_FILENAME)
 
         self.board: VerticalScroll
         self.code_pegs: list[Select]
 
     def compose(self) -> ComposeResult:
-        yield Header(icon=self.config.general.icon)
+        yield Header(icon=ICON)
 
         self.board = VerticalScroll()
         yield self.board
@@ -59,10 +60,8 @@ class MastermindApp(App):
 
         self.code_pegs = [
             Select(
-                options=zip(
-                    self.config.colors.code_peg_colors, range(1, num_colors + 1)
-                ),
-                prompt=self.config.colors.blank_color,
+                options=zip(CODE_PEG_COLORS, range(1, num_colors + 1)),
+                prompt=BLANK_COLOR,
                 classes="code_peg",
             )
             for _ in range(num_pegs)
