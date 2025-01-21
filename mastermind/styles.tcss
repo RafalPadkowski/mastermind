@@ -58,11 +58,20 @@ SettingsScreen {
 
 #settings_dialog {
     grid-size: 2;
+    grid-rows: 1 4 1 4 1 4 3;
     grid-gutter: 1 2;
-    /* grid-rows: 1fr 3; */
-    padding: 0 2;
+    padding: 1 5;
     width: 60;
-    height: 10;
+    height: 28;
     border: tall dimgrey;
     background: $surface;
+}
+
+#settings_dialog Widget {
+    column_span: 2;
+}
+
+#settings_dialog Button {
+    column_span: 1;
+    width: 100%;
 }
