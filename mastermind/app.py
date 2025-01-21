@@ -1,10 +1,8 @@
-from pathlib import Path
-
 from textual.app import App, ComposeResult
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Select, Static
 
-from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS, ICON, SETTINGS_FILENAME
+from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS, ICON, SETTINGS_PATH
 from mastermind.settings import load_settings
 
 
@@ -16,7 +14,7 @@ class MastermindApp(App):
     def __init__(self) -> None:
         super().__init__()
 
-        self.settings = load_settings(Path(__file__).parent / SETTINGS_FILENAME)
+        self.settings = load_settings(SETTINGS_PATH)
 
         self.board: VerticalScroll
         self.code_pegs: list[Select]

@@ -1,11 +1,11 @@
+from pathlib import Path
 from typing import Final
 
 from mastermind.variation import Variation
 
 ICON: Final[str] = "❔"
 
-SETTINGS_FILENAME: Final[str] = "settings.toml"
-
+SETTINGS_PATH: Final[Path] = Path(__file__).parent / "settings.toml"
 
 BLANK_COLOR: Final[str] = "⭕"
 CODE_PEG_COLORS: Final[list[str]] = ["🔴", "🟡", "🟣", "🟢", "🟤", "🔵", "⚪", "🟠"]
