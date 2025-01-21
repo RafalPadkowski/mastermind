@@ -1,15 +1,18 @@
 from textual.app import App, ComposeResult
 from textual.containers import Horizontal, VerticalScroll
-from textual.widgets import Button, Footer, Header, Select, Static
+from textual.widgets import Button, Footer, Header, Label, Select
 
 from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS, ICON, SETTINGS_PATH
+from mastermind.screens import SettingsScreen
 from mastermind.settings import load_settings
 
 
 class MastermindApp(App):
     TITLE = "Mastermind"
-
     CSS_PATH = "styles.tcss"
+    BINDINGS = [
+        ("s", "settings", "Settings"),
+    ]
 
     def __init__(self) -> None:
         super().__init__()
@@ -37,14 +40,17 @@ class MastermindApp(App):
         #     classes="row",
         # )
 
+        print("--- COMPOSE ---")
+
     def on_mount(self) -> None:
+        print("--- MOUNT ---")
         self.create_new_game()
 
     def create_new_game(self) -> None:
         self.create_code_pegs()
 
         row = Horizontal(
-            Static("01", classes="num"),
+            Label("01", classes="num"),
             *self.code_pegs,
             Button("❔", classes="check"),
             classes="row",
@@ -64,3 +70,6 @@ class MastermindApp(App):
             )
             for _ in range(num_pegs)
         ]
+
+    def action_settings(self) -> None:
+        self.push_screen(SettingsScreen())
