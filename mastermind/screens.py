@@ -35,21 +35,21 @@ class SettingsScreen(ModalScreen):
         ]
 
         self.dialog = Grid(
-            Label("Language:"),
+            Label("\nLanguage:"),
             Select(
                 options=zip(LANGUAGES.values(), range(len(LANGUAGES))),
                 value=list(LANGUAGES.keys()).index(app.settings.language),
                 allow_blank=False,
             ),
-            Label("Variation:"),
+            Label("\nVariation:"),
             Select(
                 options=zip(variation_list, range(len(VARIATIONS))),
                 value=list(VARIATIONS.keys()).index(app.settings.variation),
                 allow_blank=False,
             ),
-            Label("Blank color:"),
+            Label("\nKolory mogą się powtarzać:"),
             Switch(value=False),
-            Label("Duplicate colors:"),
+            Label("\nPuste miejsce jako dodatkowy kolor:"),
             Switch(value=False),
             Button("Save", variant="primary", id="save"),
             Button("Cancel", variant="error", id="cancel"),
