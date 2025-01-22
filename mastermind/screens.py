@@ -1,19 +1,50 @@
+from typing import TYPE_CHECKING, cast
+
 from textual.app import ComposeResult
 from textual.containers import Grid
 from textual.screen import ModalScreen
 from textual.widgets import Button, Label, Select, Switch
 
+from mastermind.constants import LANGUAGES, VARIATIONS
+
+if TYPE_CHECKING:
+    from mastermind.app import MastermindApp
+
 
 class SettingsScreen(ModalScreen):
     def compose(self) -> ComposeResult:
+        app = cast("MastermindApp", self.app)
+
+        variation_names = list(VARIATIONS.keys())
+
+        variation_list = [
+            "".join(
+                [
+                    name,
+                    " (",
+                    str(VARIATIONS[name].num_rows),
+                    " rows, ",
+                    str(VARIATIONS[name].num_pegs),
+                    " pegs, ",
+                    str(VARIATIONS[name].num_colors),
+                    " colors",
+                    ")",
+                ]
+            )
+            for name in variation_names
+        ]
+
         self.dialog = Grid(
+            Label("Language:"),
+            Select(
+                options=zip(LANGUAGES.values(), range(len(LANGUAGES))),
+                value=list(LANGUAGES.keys()).index(app.settings.language),
+                allow_blank=False,
+            ),
             Label("Variation:"),
             Select(
-                options=[
-                    ("mini (6 rows, 4 pegs, 6 colors)", 1),
-                    ("original (10 rows, 4 pegs, 6 colors)", 2),
-                    ("super (12 rows, 5 pegs, 8 colors)", 3),
-                ],
+                options=zip(variation_list, range(len(VARIATIONS))),
+                value=list(VARIATIONS.keys()).index(app.settings.variation),
                 allow_blank=False,
             ),
             Label("Blank color:"),

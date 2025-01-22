@@ -19,8 +19,13 @@ Header {
     margin-left: 2;
 }
 
-.code_peg SelectCurrent {
-    border: tall $border;
+SelectCurrent {
+  border: tall dimgrey;
+}
+
+Select:focus > SelectCurrent {
+  border: tall $border;
+  background-tint: $foreground 5%;
 }
 
 .code_peg SelectCurrent #label {
@@ -36,6 +41,10 @@ Header {
     min-width: 10;
     border: tall dimgrey;
     text_style: none;
+}
+
+.check:focus {
+    border: tall $border;
 }
 
 .feedback_pegs {
@@ -58,20 +67,24 @@ SettingsScreen {
 
 #settings_dialog {
     grid-size: 2;
-    grid-rows: 1 4 1 4 1 4 3;
+    grid-rows: 4 4 4 5;
     grid-gutter: 1 2;
-    padding: 1 5;
-    width: 60;
-    height: 28;
+    padding: 2 5;
+    width: 110;
+    height: auto;
     border: tall dimgrey;
     background: $surface;
 }
 
-#settings_dialog Widget {
-    column_span: 2;
+#settings_dialog Button {
+    margin-top: 1;
+    width: 100%;
 }
 
-#settings_dialog Button {
-    column_span: 1;
-    width: 100%;
+Switch {
+  border: tall dimgrey;
+}
+
+Switch:focus {
+  border: tall $border;
 }
