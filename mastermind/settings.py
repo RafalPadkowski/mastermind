@@ -25,9 +25,10 @@ def load_settings(settings_path: Path) -> dict[str, Any]:
 
 
 def parse_settings(settings_dict: dict[str, Any]) -> Settings:
-    variation: Variation = VARIATIONS[settings_dict.pop("variation")]
-
-    return Settings(variation=variation, **settings_dict)
+    return Settings(
+        variation=VARIATIONS[settings_dict["variation"]],
+        **{key: value for key, value in settings_dict.items() if key != "variation"},
+    )
 
 
 def save_settings(settings_dict: dict[str, Any], settings_path: Path) -> None:

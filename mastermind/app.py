@@ -79,5 +79,5 @@ class MastermindApp(App):
 
     def check_settings(self, settings_dict: dict[str, Any] | None) -> None:
         if settings_dict is not None:
-            save_settings(settings_dict, SETTINGS_PATH)
             self.settings = parse_settings(settings_dict)
+            save_settings(settings_dict, SETTINGS_PATH)
