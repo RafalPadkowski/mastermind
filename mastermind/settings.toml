@@ -1,4 +1,4 @@
 language = "en"
 variation = "mini"
+duplicate_colors = true
 blank_color = false
-duplicate_colors = false

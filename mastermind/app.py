@@ -43,16 +43,16 @@ class MastermindApp(App):
         #     classes="row",
         # )
 
-        print("--- COMPOSE ---")
+        # print("--- COMPOSE ---")
 
     def on_mount(self) -> None:
-        print("--- MOUNT ---")
+        # print("--- MOUNT ---")
         self.create_new_game()
 
     def create_new_game(self) -> None:
         self.create_code_pegs()
 
-        row = Horizontal(
+        row: Horizontal = Horizontal(
             Label("01", classes="num"),
             *self.code_pegs,
             Button("❔", classes="check"),
@@ -75,4 +75,8 @@ class MastermindApp(App):
         ]
 
     def action_settings(self) -> None:
-        self.push_screen(SettingsScreen())
+        self.push_screen(SettingsScreen(), callback=self.check_settings)
+
+    def check_settings(self, settings_dict: dict[str, Any] | None) -> None:
+        if settings_dict is not None:
+            self.settings = parse_settings(settings_dict)
