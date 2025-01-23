@@ -13,9 +13,9 @@ LANGUAGES: Final[dict[str, str]] = {
 }
 
 VARIATIONS: Final[dict[str, Variation]] = {
-    "original": Variation(num_rows=10, num_pegs=4, num_colors=6),
-    "mini": Variation(num_rows=6, num_pegs=4, num_colors=6),
-    "super": Variation(num_rows=12, num_pegs=5, num_colors=8),
+    "original": Variation(name="original", num_rows=10, num_pegs=4, num_colors=6),
+    "mini": Variation(name="mini", num_rows=6, num_pegs=4, num_colors=6),
+    "super": Variation(name="super", num_rows=12, num_pegs=5, num_colors=8),
 }
 
 BLANK_COLOR: Final[str] = "⭕"

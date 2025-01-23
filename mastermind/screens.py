@@ -3,9 +3,9 @@ from typing import TYPE_CHECKING, cast
 from textual.app import ComposeResult
 from textual.containers import Grid
 from textual.screen import ModalScreen
-from textual.widgets import Button, Label, Select, Switch
+from textual.widgets import Button, Header, Label, Select, Switch
 
-from mastermind.constants import LANGUAGES, VARIATIONS
+from mastermind.constants import ICON, LANGUAGES, VARIATIONS
 
 if TYPE_CHECKING:
     from mastermind.app import MastermindApp
@@ -14,25 +14,6 @@ if TYPE_CHECKING:
 class SettingsScreen(ModalScreen):
     def compose(self) -> ComposeResult:
         app = cast("MastermindApp", self.app)
-
-        variation_names = list(VARIATIONS.keys())
-
-        variation_list = [
-            "".join(
-                [
-                    name,
-                    " (",
-                    str(VARIATIONS[name].num_rows),
-                    " rows, ",
-                    str(VARIATIONS[name].num_pegs),
-                    " pegs, ",
-                    str(VARIATIONS[name].num_colors),
-                    " colors",
-                    ")",
-                ]
-            )
-            for name in variation_names
-        ]
 
         self.dialog = Grid(
             Label("\nLanguage:"),
@@ -43,8 +24,11 @@ class SettingsScreen(ModalScreen):
             ),
             Label("\nVariation:"),
             Select(
-                options=zip(variation_list, range(len(VARIATIONS))),
-                value=list(VARIATIONS.keys()).index(app.settings.variation),
+                options=zip(
+                    [variation.description for variation in VARIATIONS.values()],
+                    range(len(VARIATIONS)),
+                ),
+                value=list(VARIATIONS.keys()).index(app.settings.variation.name),
                 allow_blank=False,
             ),
             Label("\nKolory mogą się powtarzać:"),
@@ -56,6 +40,7 @@ class SettingsScreen(ModalScreen):
             id="settings_dialog",
         )
 
+        yield Header(icon=ICON)
         yield self.dialog
 
     def on_mount(self) -> None:
