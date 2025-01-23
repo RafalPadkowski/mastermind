@@ -1,10 +1,12 @@
+from typing import Any
+
 from textual.app import App, ComposeResult
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Label, Select
 
 from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS, ICON, SETTINGS_PATH
 from mastermind.screens import SettingsScreen
-from mastermind.settings import Settings, load_settings
+from mastermind.settings import Settings, load_settings, parse_settings
 
 
 class MastermindApp(App):
@@ -17,7 +19,8 @@ class MastermindApp(App):
     def __init__(self) -> None:
         super().__init__()
 
-        self.settings: Settings = load_settings(SETTINGS_PATH)
+        settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
+        self.settings: Settings = parse_settings(settings_dict)
 
         self.board: VerticalScroll
         self.code_pegs: list[Select]

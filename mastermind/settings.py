@@ -1,6 +1,7 @@
 import tomllib
 from dataclasses import dataclass
 from pathlib import Path
+from typing import Any
 
 from mastermind.constants import VARIATIONS
 from mastermind.variation import Variation
@@ -14,13 +15,14 @@ class Settings:
     blank_color: bool
 
 
-def load_settings(settings_path: Path) -> Settings:
-    with settings_path.open(mode="rb") as toml_file:
-        toml_data: dict = tomllib.load(toml_file)
+def parse_settings(settings_dict: dict[str, Any]) -> Settings:
+    variation: Variation = VARIATIONS[settings_dict.pop("variation")]
 
-    return Settings(
-        language=toml_data["language"],
-        variation=VARIATIONS[toml_data["variation"]],
-        duplicate_colors=toml_data["duplicate_colors"],
-        blank_color=toml_data["blank_color"],
-    )
+    return Settings(variation=variation, **settings_dict)
+
+
+def load_settings(settings_path: Path) -> dict[str, Any]:
+    with settings_path.open(mode="rb") as toml_file:
+        toml_data: dict[str, Any] = tomllib.load(toml_file)
+
+    return toml_data
