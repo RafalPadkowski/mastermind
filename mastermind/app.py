@@ -6,7 +6,7 @@ from textual.widgets import Button, Footer, Header, Label, Select
 
 from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS, ICON, SETTINGS_PATH
 from mastermind.screens import SettingsScreen
-from mastermind.settings import Settings, load_settings, parse_settings
+from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
 
 class MastermindApp(App):
@@ -79,4 +79,5 @@ class MastermindApp(App):
 
     def check_settings(self, settings_dict: dict[str, Any] | None) -> None:
         if settings_dict is not None:
+            save_settings(settings_dict, SETTINGS_PATH)
             self.settings = parse_settings(settings_dict)

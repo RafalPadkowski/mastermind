@@ -70,6 +70,7 @@ class SettingsScreen(ModalScreen[dict[str, Any] | None]):
                 duplicate_colors=self.duplicate_colors_switch.value,
                 blank_color=self.blank_color_switch.value,
             )
+            print(settings_dict)
             self.dismiss(settings_dict)
         else:
             self.dismiss(None)

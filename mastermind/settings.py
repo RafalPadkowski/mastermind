@@ -3,6 +3,8 @@ from dataclasses import dataclass
 from pathlib import Path
 from typing import Any
 
+import tomli_w
+
 from mastermind.constants import VARIATIONS
 from mastermind.variation import Variation
 
@@ -26,3 +28,8 @@ def parse_settings(settings_dict: dict[str, Any]) -> Settings:
     variation: Variation = VARIATIONS[settings_dict.pop("variation")]
 
     return Settings(variation=variation, **settings_dict)
+
+
+def save_settings(settings_dict: dict[str, Any], settings_path: Path) -> None:
+    with settings_path.open(mode="wb") as toml_file:
+        tomli_w.dump(settings_dict, toml_file)
