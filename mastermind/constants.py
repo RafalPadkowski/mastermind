@@ -1,6 +1,8 @@
 from pathlib import Path
 from typing import Final
 
+from textual.binding import Binding
+
 from mastermind.variation import Variation
 
 ICON: Final[str] = "❔"
@@ -22,7 +24,34 @@ BLANK_COLOR: Final[str] = "⭕"
 CODE_PEG_COLORS: Final[list[str]] = ["🔴", "🟡", "🟣", "🟢", "🟤", "🔵", "⚪", "🟠"]
 FEEDBACK_PEG_COLORS: Final[list[str]] = ["🔴", "⚪"]
 
-BINDING_DESCRIPTIONS: Final[dict[str, str]] = {
-    "f2": "New game",
-    "f3": "Settings",
+
+KEY_TO_BINDING: Final[dict[str, Binding]] = {
+    "ctrl+c": Binding(
+        key="ctrl+c",
+        action="nothing",
+        description="",
+    ),
+    "ctrl+q": Binding(
+        key="ctrl+q",
+        action="nothing",
+        description="",
+    ),
+    "f2": Binding(
+        key="f2",
+        action="new_game",
+        description="New game",
+        key_display="F2",
+    ),
+    "f3": Binding(
+        key="f3",
+        action="settings",
+        description="Settings",
+        key_display="F3",
+    ),
+    "f12": Binding(
+        key="f12",
+        action="quit",
+        description="Quit",
+        key_display="F12",
+    ),
 }

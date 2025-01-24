@@ -8,10 +8,10 @@ from textual.widgets import Button, Footer, Header, Label, Select
 from textual.widgets._header import HeaderIcon
 
 from mastermind.constants import (
-    BINDING_DESCRIPTIONS,
     BLANK_COLOR,
     CODE_PEG_COLORS,
     ICON,
+    KEY_TO_BINDING,
     SETTINGS_PATH,
 )
 from mastermind.i18n import _, set_translation
@@ -19,21 +19,13 @@ from mastermind.screens import SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
 
-class MastermindHeaderIcon(HeaderIcon):
-    def on_click(self, event):
-        event.stop()
-        self.app.exit()
-
-
 class MastermindApp(App):
     TITLE = "Master Mind"
 
     CSS_PATH = "styles.tcss"
 
-    BINDINGS = [
-        ("f2", "new_game", "New game"),
-        ("f3", "settings", "Settings"),
-    ]
+    BINDINGS = list(KEY_TO_BINDING.values())
+
     ENABLE_COMMAND_PALETTE = False
 
     def __init__(self) -> None:
@@ -69,53 +61,17 @@ class MastermindApp(App):
 
     def on_mount(self) -> None:
         # print("--- MOUNT ---")
-
-        header_icon: HeaderIcon = self.query_one(HeaderIcon)
-        header_icon.remove()
-
-        header: Header = self.query_one(Header)
-
-        header_icon = MastermindHeaderIcon()
-        header.mount(header_icon)
-
-        mastermind_header_icon: MastermindHeaderIcon = self.query_one(
-            MastermindHeaderIcon
-        )
-        mastermind_header_icon.tooltip = None
-        mastermind_header_icon.icon = ICON
+        self.query_one(HeaderIcon).tooltip = None
 
         self.create_new_game()
-
-    def get_key_display(self, binding: Binding) -> str:
-        return binding.key.upper()
-
-    def action_help_quit(self) -> None:
-        """Bound to ctrl+C to alert the user that it no longer quits."""
-        # Doing this because users will reflexively hit ctrl+C to exit
-        # Ctrl+C is now bound to copy if an input / textarea is focused.
-        # This makes is possible, even likely, that a user may do it accidentally
-        # -- which would be maddening.
-        # Rather than do nothing, we can make an educated guess the user was trying
-        # to quit, and inform them how you really quit.
-        for key, active_binding in self.active_bindings.items():
-            if active_binding.binding.action in ("quit", "app.quit"):
-                # self.notify(
-                #     f"Press [b]{key}[/b] to quit the app",
-                #     title="Do you want to quit?"
-                # )
-                self.notify(
-                    f"{_("Press")} [b]{key}[/b] {_("to quit the app")}",
-                    title=_("Do you want to quit?"),
-                )
-                return
 
     def translate(self) -> None:
         set_translation(self.settings.language)
 
-        for key, description in BINDING_DESCRIPTIONS.items():
-            binding: Binding = self._bindings.key_to_bindings[key][0]
+        for key, binding in KEY_TO_BINDING.items():
+            current_binding: Binding = self._bindings.key_to_bindings[key][0]
             self._bindings.key_to_bindings[key] = [
-                dataclasses.replace(binding, description=_(description))
+                dataclasses.replace(current_binding, description=_(binding.description))
             ]
 
     def create_new_game(self) -> None:

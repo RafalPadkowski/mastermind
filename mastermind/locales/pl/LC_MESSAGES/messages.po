@@ -57,11 +57,5 @@ msgstr "5 pionków"
 msgid "colors"
 msgstr "kolorów"
 
-msgid "Do you want to quit?"
-msgstr "Chcesz wyjść?"
-
-msgid "Press"
-msgstr "Naciśnij"
-
-msgid "to quit the app"
-msgstr "żeby wyjść z aplikacji"
+msgid "Quit"
+msgstr "Wyjście"
