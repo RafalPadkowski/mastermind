@@ -3,7 +3,7 @@ Header {
 }
 
 HeaderIcon:hover {
-  background: $panel;
+  /* background: $panel; */
 }
 
 .row {

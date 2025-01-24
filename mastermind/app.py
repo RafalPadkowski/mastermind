@@ -19,6 +19,12 @@ from mastermind.screens import SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
 
+class MastermindHeaderIcon(HeaderIcon):
+    def on_click(self, event):
+        event.stop()
+        self.app.exit()
+
+
 class MastermindApp(App):
     TITLE = "Master Mind"
 
@@ -63,7 +69,20 @@ class MastermindApp(App):
 
     def on_mount(self) -> None:
         # print("--- MOUNT ---")
-        self.query_one(HeaderIcon).tooltip = None
+
+        header_icon: HeaderIcon = self.query_one(HeaderIcon)
+        header_icon.remove()
+
+        header: Header = self.query_one(Header)
+
+        header_icon = MastermindHeaderIcon()
+        header.mount(header_icon)
+
+        mastermind_header_icon: MastermindHeaderIcon = self.query_one(
+            MastermindHeaderIcon
+        )
+        mastermind_header_icon.tooltip = None
+        mastermind_header_icon.icon = ICON
 
         self.create_new_game()
 
