@@ -1,5 +1,7 @@
 from dataclasses import dataclass
 
+from mastermind.i18n import _
+
 
 @dataclass(frozen=True)
 class Variation:
@@ -10,7 +12,9 @@ class Variation:
 
     @property
     def description(self) -> str:
+        num_pegs_str = f"{self.num_pegs} pegs"
+
         return (
-            f"{self.name} ({self.num_rows} rows, "
-            f"{self.num_pegs} pegs, {self.num_colors} colors)"
+            f"{self.name} ({self.num_rows} {_('rows')}, "
+            f"{_(num_pegs_str)}, {self.num_colors} {_('colors')})"
         )

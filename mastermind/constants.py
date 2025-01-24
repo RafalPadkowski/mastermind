@@ -21,3 +21,8 @@ VARIATIONS: Final[dict[str, Variation]] = {
 BLANK_COLOR: Final[str] = "⭕"
 CODE_PEG_COLORS: Final[list[str]] = ["🔴", "🟡", "🟣", "🟢", "🟤", "🔵", "⚪", "🟠"]
 FEEDBACK_PEG_COLORS: Final[list[str]] = ["🔴", "⚪"]
+
+BINDING_DESCRIPTIONS: Final[dict[str, str]] = {
+    "f2": "New game",
+    "f3": "Settings",
+}

@@ -2,6 +2,10 @@ Header {
     margin-bottom: 2;
 }
 
+HeaderIcon:hover {
+  background: $panel;
+}
+
 .row {
     height: 5;
 }

@@ -25,7 +25,7 @@ class SettingsScreen(ModalScreen[dict[str, Any] | None]):
         app = cast("MastermindApp", self.app)
 
         self.language_select = Select(
-            options=zip(LANGUAGES.values(), LANGUAGES.keys()),
+            options=zip([_(value) for value in LANGUAGES.values()], LANGUAGES.keys()),
             value=app.settings.language,
             allow_blank=False,
         )

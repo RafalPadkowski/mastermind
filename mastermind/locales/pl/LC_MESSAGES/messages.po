@@ -15,6 +15,9 @@ msgstr ""
 "Generated-By: pygettext.py 1.5\n"
 
 
+msgid "New game"
+msgstr "Nowa gra"
+
 msgid "Settings"
 msgstr "Ustawienia"
 
@@ -35,3 +38,30 @@ msgstr "Zapisz"
 
 msgid "Cancel"
 msgstr "Anuluj"
+
+msgid "Polish"
+msgstr "polski"
+
+msgid "English"
+msgstr "angielski"
+
+msgid "rows"
+msgstr "rzędów"
+
+msgid "4 pegs"
+msgstr "4 pionki"
+
+msgid "5 pegs"
+msgstr "5 pionków"
+
+msgid "colors"
+msgstr "kolorów"
+
+msgid "Do you want to quit?"
+msgstr "Chcesz wyjść?"
+
+msgid "Press"
+msgstr "Naciśnij"
+
+msgid "to quit the app"
+msgstr "żeby wyjść z aplikacji"
