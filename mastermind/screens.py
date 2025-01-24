@@ -6,6 +6,7 @@ from textual.screen import ModalScreen
 from textual.widgets import Button, Header, Label, Select, Switch
 
 from mastermind.constants import ICON, LANGUAGES, VARIATIONS
+from mastermind.i18n import _
 
 if TYPE_CHECKING:
     from mastermind.app import MastermindApp
@@ -43,16 +44,16 @@ class SettingsScreen(ModalScreen[dict[str, Any] | None]):
         self.blank_color_switch = Switch(value=app.settings.blank_color)
 
         self.dialog = Grid(
-            Label("\nLanguage:"),
+            Label(_("Language:")),
             self.language_select,
-            Label("\nVariation:"),
+            Label(_("Variation:")),
             self.variation_select,
-            Label("\nKolory mogą się powtarzać:"),
+            Label(_("Duplicate colors:")),
             self.duplicate_colors_switch,
-            Label("\nPuste miejsce jako dodatkowy kolor:"),
+            Label(_("Blank color:")),
             self.blank_color_switch,
-            Button("Save", variant="primary", id="save"),
-            Button("Cancel", variant="error", id="cancel"),
+            Button(_("Save"), variant="primary", id="save"),
+            Button(_("Cancel"), variant="error", id="cancel"),
             id="settings_dialog",
         )
 
@@ -60,7 +61,7 @@ class SettingsScreen(ModalScreen[dict[str, Any] | None]):
         yield self.dialog
 
     def on_mount(self) -> None:
-        self.dialog.border_title = "Settings"
+        self.dialog.border_title = _("Settings")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "save":

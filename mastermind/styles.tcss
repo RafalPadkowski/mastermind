@@ -77,6 +77,11 @@ SettingsScreen {
     background: $surface;
 }
 
+#settings_dialog Label {
+    height: 3;
+    content-align-vertical: middle;
+}
+
 #settings_dialog Button {
     margin-top: 1;
     width: 100%;

@@ -1,26 +1,37 @@
 from typing import Any
 
 from textual.app import App, ComposeResult
+from textual.binding import Binding
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Label, Select
+from textual.widgets._header import HeaderIcon
 
 from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS, ICON, SETTINGS_PATH
+from mastermind.i18n import _, set_translation
 from mastermind.screens import SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
 
+class MyBinding(Binding):
+    pass
+
+
 class MastermindApp(App):
-    TITLE = "Mastermind"
+    TITLE = "Master Mind"
     CSS_PATH = "styles.tcss"
     BINDINGS = [
-        ("s", "settings", "Settings"),
+        MyBinding("f3", "settings", "Settings"),
     ]
+    ENABLE_COMMAND_PALETTE = False
 
     def __init__(self) -> None:
         super().__init__()
 
         settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
         self.settings: Settings = parse_settings(settings_dict)
+
+        set_translation(self.settings.language)
+        self.translate()
 
         self.board: VerticalScroll
         self.code_pegs: list[Select]
@@ -47,7 +58,12 @@ class MastermindApp(App):
 
     def on_mount(self) -> None:
         # print("--- MOUNT ---")
+        self.query_one(HeaderIcon).tooltip = None
         self.create_new_game()
+
+    def translate(self) -> None:
+        for _, binding in self._bindings:
+            binding.description = _("Settings")
 
     def create_new_game(self) -> None:
         self.create_code_pegs()

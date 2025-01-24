@@ -1,0 +1,37 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR ORGANIZATION
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: 1.0\n"
+"POT-Creation-Date: 2025-01-23 22:32+0100\n"
+"PO-Revision-Date: 2025-01-23 22:45+0100\n"
+"Last-Translator: Rafal Padkowski <rafaelp@poczta.onet.pl>\n"
+"Language-Team: Polish <rafaelp@poczta.onet.pl>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Generated-By: pygettext.py 1.5\n"
+
+
+msgid "Settings"
+msgstr "Ustawienia"
+
+msgid "Language:"
+msgstr "Język:"
+
+msgid "Variation:"
+msgstr "Wersja:"
+
+msgid "Duplicate colors:"
+msgstr "Kolory mogą się powtarzać:"
+
+msgid "Blank color:"
+msgstr "Puste miejsce jako dodatkowy kolor:"
+
+msgid "Save"
+msgstr "Zapisz"
+
+msgid "Cancel"
+msgstr "Anuluj"
