@@ -1,15 +1,44 @@
 from typing import TYPE_CHECKING, Any, cast
 
+from rich.text import Text
 from textual.app import ComposeResult
 from textual.containers import Grid
 from textual.screen import ModalScreen
-from textual.widgets import Button, Header, Label, Select, Switch
+from textual.widgets import Button, Label, Link, Select, Switch
 
-from mastermind.constants import ICON, LANGUAGES, VARIATIONS
+from mastermind.constants import LANGUAGES, VARIATIONS
 from mastermind.i18n import _
 
 if TYPE_CHECKING:
     from mastermind.app import MastermindApp
+
+
+class AboutScreen(ModalScreen):
+    def __init__(self) -> None:
+        super().__init__()
+
+    def compose(self) -> ComposeResult:
+        from mastermind.app import __author__, __email__, __version__
+
+        app_name = f"Master Mind {__version__}"
+
+        self.dialog = Grid(
+            Label(Text(app_name, style="bold green")),
+            Label(_(__author__)),
+            Link(__email__, url=f"mailto:{__email__}"),
+            Button("Ok", variant="primary", id="ok"),
+            id="about_dialog",
+        )
+
+        yield self.dialog
+
+    def on_mount(self) -> None:
+        self.dialog.border_subtitle = "Master Mind"
+        self.dialog.border_title = _("About")
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "ok":
+            self.app.pop_screen()
 
 
 class SettingsScreen(ModalScreen[dict[str, Any] | None]):
@@ -57,10 +86,10 @@ class SettingsScreen(ModalScreen[dict[str, Any] | None]):
             id="settings_dialog",
         )
 
-        yield Header(icon=ICON)
         yield self.dialog
 
     def on_mount(self) -> None:
+        self.dialog.border_subtitle = "Master Mind"
         self.dialog.border_title = _("Settings")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:

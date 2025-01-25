@@ -14,9 +14,14 @@ from mastermind.constants import (
     KEY_TO_BINDING,
     SETTINGS_PATH,
 )
+from mastermind.header_icon import MastermindHeaderIcon
 from mastermind.i18n import _, set_translation
 from mastermind.screens import SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
+
+__author__ = "Rafal Padkowski"
+__version__ = "2.0"
+__email__ = "rafaelp@poczta.onet.pl"
 
 
 class MastermindApp(App):
@@ -33,8 +38,6 @@ class MastermindApp(App):
 
         settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
         self.settings: Settings = parse_settings(settings_dict)
-
-        self.translate()
 
         self.board: VerticalScroll
         self.code_pegs: list[Select]
@@ -59,14 +62,26 @@ class MastermindApp(App):
 
         # print("--- COMPOSE ---")
 
-    def on_mount(self) -> None:
+    async def on_mount(self) -> None:
         # print("--- MOUNT ---")
-        self.query_one(HeaderIcon).tooltip = None
+        header_icon = self.query_one(HeaderIcon)
+        header_icon.remove()
+
+        header = self.query_one(Header)
+        header_icon = MastermindHeaderIcon()
+        await header.mount(header_icon)
+        header_icon.icon = ICON
+        # header_icon.tooltip = "About"
+
+        self.translate()
 
         self.create_new_game()
 
     def translate(self) -> None:
         set_translation(self.settings.language)
+
+        header_icon: MastermindHeaderIcon = self.query_one(MastermindHeaderIcon)
+        header_icon.tooltip = _("About")
 
         for key, binding in KEY_TO_BINDING.items():
             current_binding: Binding = self._bindings.key_to_bindings[key][0]

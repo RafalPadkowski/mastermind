@@ -59,3 +59,9 @@ msgstr "kolorów"
 
 msgid "Quit"
 msgstr "Wyjście"
+
+msgid "Rafal Padkowski"
+msgstr "Rafał Padkowski"
+
+msgid "About"
+msgstr "O programie"

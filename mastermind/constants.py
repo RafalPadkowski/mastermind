@@ -26,13 +26,14 @@ FEEDBACK_PEG_COLORS: Final[list[str]] = ["🔴", "⚪"]
 
 
 KEY_TO_BINDING: Final[dict[str, Binding]] = {
-    "ctrl+c": Binding(
-        key="ctrl+c",
-        action="nothing",
-        description="",
-    ),
     "ctrl+q": Binding(
         key="ctrl+q",
+        action="quit",
+        description="Quit",
+        key_display="Ctrl+Q",
+    ),
+    "ctrl+c": Binding(
+        key="ctrl+c",
         action="nothing",
         description="",
     ),
@@ -47,11 +48,5 @@ KEY_TO_BINDING: Final[dict[str, Binding]] = {
         action="settings",
         description="Settings",
         key_display="F3",
-    ),
-    "f12": Binding(
-        key="f12",
-        action="quit",
-        description="Quit",
-        key_display="F12",
     ),
 }
