@@ -3,7 +3,7 @@ Header {
 }
 
 HeaderIcon:hover {
-    background: $panel;
+    /* background: $panel; */
 }
 
 .row {
@@ -92,30 +92,39 @@ SettingsScreen {
 }
 
 Switch {
-  border: tall dimgrey;
+    border: tall dimgrey;
 }
 
 Switch:focus {
-  border: tall $border;
+    border: tall $border;
 }
 
 AboutScreen {
-  align: center middle;
-  background: $background;
+    align: center middle;
+    background: $background;
 }
 
 #about_dialog {
-  grid-size: 1;
-  grid-rows: 1 1 1 5;
-  grid-gutter: 1 2;
-  padding: 1 2 1 2;
-  width: 40;
-  height: auto;
-  border: tall dimgrey;
-  background: $surface;
+    grid-size: 1;
+    grid-rows: 1 1 1 4;
+    grid-gutter: 1 2;
+    padding: 1 2 1 2;
+    width: 40;
+    height: auto;
+    border: tall dimgrey;
+    background: $surface;
+}
+
+#about_dialog Label {
+    margin-left: 6;
+}
+
+#about_dialog Link {
+  margin-left: 6;
 }
 
 #about_dialog Button {
   margin-top: 1;
-  width: 100%;
+  margin-left: 9;
+  /* width: 100%; */
 }
