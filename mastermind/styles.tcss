@@ -105,10 +105,7 @@ AboutScreen {
 }
 
 #about_dialog {
-    grid-size: 1;
-    grid-rows: 1 1 1 4;
-    grid-gutter: 1 2;
-    padding: 1 2 1 2;
+    padding: 1 2;
     width: 40;
     height: auto;
     border: tall dimgrey;
@@ -117,13 +114,15 @@ AboutScreen {
 
 #about_dialog Label {
     margin-left: 6;
+    margin-bottom: 1;
 }
 
 #about_dialog Link {
     margin-left: 6;
+    margin-bottom: 1;
 }
 
 #about_dialog Button {
-    margin-top: 1;
     margin-left: 9;
+    margin-top: 2;
 }

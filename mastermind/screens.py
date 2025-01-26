@@ -2,7 +2,7 @@ from typing import TYPE_CHECKING, Any, cast
 
 from rich.text import Text
 from textual.app import ComposeResult
-from textual.containers import Grid
+from textual.containers import Grid, Vertical
 from textual.screen import ModalScreen
 from textual.widgets import Button, Label, Link, Select, Switch
 
@@ -20,9 +20,9 @@ class AboutScreen(ModalScreen):
     def compose(self) -> ComposeResult:
         from mastermind.app import __author__, __email__, __version__
 
-        app_name = f"Master Mind {__version__}"
+        app_name = f"Master Mind {__version__}  🔴 ⚪"
 
-        self.dialog = Grid(
+        self.dialog = Vertical(
             Label(Text(app_name, style="bold green")),
             Label(_(__author__)),
             Link(__email__, url=f"mailto:{__email__}"),
