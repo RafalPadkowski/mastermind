@@ -48,8 +48,6 @@ class MastermindApp(App):
         self.board = VerticalScroll()
         yield self.board
 
-        yield Footer()
-
         # yield Horizontal(
         #     Static("01", classes="num"),
         #     Static("🔵", classes="static_color_peg"),
@@ -71,9 +69,10 @@ class MastermindApp(App):
         header_icon = MastermindHeaderIcon()
         await header.mount(header_icon)
         header_icon.icon = ICON
-        # header_icon.tooltip = "About"
 
         self.translate()
+
+        self.mount(Footer())
 
         self.create_new_game()
 
