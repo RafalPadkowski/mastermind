@@ -41,6 +41,30 @@ class AboutScreen(ModalScreen):
             self.app.pop_screen()
 
 
+class ConfirmNewGameScreen(ModalScreen[bool]):
+    def compose(self) -> ComposeResult:
+        self.dialog = Grid(
+            Label(_("Are you sure you want to start a new game?"), id="question"),
+            Button(_("Yes"), variant="primary", id="yes"),
+            Button(_("No"), variant="error", id="no"),
+            id="confirm_new_game_dialog",
+        )
+
+        yield self.dialog
+
+    def on_mount(self) -> None:
+        self.dialog.border_subtitle = "Master Mind"
+        self.dialog.border_title = _("New game")
+
+        self.query_one("#no", Button).focus()
+
+    def on_button_pressed(self, event: Button.Pressed) -> None:
+        if event.button.id == "yes":
+            self.dismiss(True)
+        else:
+            self.dismiss(False)
+
+
 class SettingsScreen(ModalScreen[dict[str, Any] | None]):
     def __init__(self) -> None:
         super().__init__()

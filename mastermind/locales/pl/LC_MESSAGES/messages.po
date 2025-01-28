@@ -65,3 +65,12 @@ msgstr "Rafał Padkowski"
 
 msgid "About"
 msgstr "O programie"
+
+msgid "Are you sure you want to start a new game?"
+msgstr "Czy na pewno chcesz rozpocząć nową grę?"
+
+msgid "Yes"
+msgstr "Tak"
+
+msgid "No"
+msgstr "Nie"

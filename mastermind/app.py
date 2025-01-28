@@ -16,7 +16,7 @@ from mastermind.constants import (
 )
 from mastermind.header_icon import MastermindHeaderIcon
 from mastermind.i18n import _, set_translation
-from mastermind.screens import SettingsScreen
+from mastermind.screens import ConfirmNewGameScreen, SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
 __author__ = "Rafal Padkowski"
@@ -39,14 +39,13 @@ class MastermindApp(App):
         settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
         self.settings: Settings = parse_settings(settings_dict)
 
-        self.board: VerticalScroll
+        self.board: VerticalScroll = VerticalScroll()
+
+        self.row_number: int
         self.code_pegs: list[Select]
 
     def compose(self) -> ComposeResult:
-        yield Header(icon=ICON)
-
-        self.board = VerticalScroll()
-        yield self.board
+        yield Header()
 
         # yield Horizontal(
         #     Static("01", classes="num"),
@@ -61,20 +60,20 @@ class MastermindApp(App):
         # print("--- COMPOSE ---")
 
     async def on_mount(self) -> None:
-        # print("--- MOUNT ---")
         header_icon = self.query_one(HeaderIcon)
         header_icon.remove()
 
         header = self.query_one(Header)
         header_icon = MastermindHeaderIcon()
-        await header.mount(header_icon)
         header_icon.icon = ICON
+        await header.mount(header_icon)
 
         self.translate()
 
-        self.mount(Footer())
-
+        self.mount(self.board)
         self.create_new_game()
+
+        self.mount(Footer())
 
     def translate(self) -> None:
         set_translation(self.settings.language)
@@ -88,11 +87,28 @@ class MastermindApp(App):
                 dataclasses.replace(current_binding, description=_(binding.description))
             ]
 
+    def action_new_game(self) -> None:
+        self.push_screen(ConfirmNewGameScreen(), callback=self.check_new_game)
+
+    def check_new_game(self, confirmed: bool | None):
+        if confirmed:
+            self.board.remove()
+            self.board = VerticalScroll()
+            self.mount(self.board)
+            self.board.focus()
+
+            self.create_new_game()
+
     def create_new_game(self) -> None:
+        self.row_number = 1
+
+        self.create_new_row()
+
+    def create_new_row(self) -> None:
         self.create_code_pegs()
 
         row: Horizontal = Horizontal(
-            Label("01", classes="num"),
+            Label(f"{self.row_number:02}", classes="num"),
             *self.code_pegs,
             Button("❔", classes="check"),
             classes="row",
