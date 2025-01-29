@@ -139,13 +139,13 @@ frozenlist = ">=1.1.0"
 
 [[package]]
 name = "attrs"
-version = "24.3.0"
+version = "25.1.0"
 description = "Classes Without Boilerplate"
 optional = false
 python-versions = ">=3.8"
 files = [
-    {file = "attrs-24.3.0-py3-none-any.whl", hash = "sha256:ac96cd038792094f438ad1f6ff80837353805ac950cd2aa0e0625ef19850c308"},
-    {file = "attrs-24.3.0.tar.gz", hash = "sha256:8f5c07333d543103541ba7be0e2ce16eeee8130cb0b3f9238ab904ce1e85baff"},
+    {file = "attrs-25.1.0-py3-none-any.whl", hash = "sha256:c75a69e28a550a7e93789579c22aa26b0f5b83b75dc4e08fe092980051e1090a"},
+    {file = "attrs-25.1.0.tar.gz", hash = "sha256:1c97078a80c814273a76b2a298a932eb681c87415c11dee0a6921de7f1b02c3e"},
 ]
 
 [package.extras]
@@ -830,6 +830,21 @@ rich = "*"
 textual = ">=0.66.0"
 
 [[package]]
+name = "textual-utils"
+version = "0.1.0"
+description = "Utilities for use with the Textual package"
+optional = false
+python-versions = "^3.13"
+files = []
+develop = false
+
+[package.source]
+type = "git"
+url = "https://github.com/RafalPadkowski/textual-utils.git"
+reference = "HEAD"
+resolved_reference = "3a189f09d0d50158d03c80fe5184a2423ff16670"
+
+[[package]]
 name = "tomli-w"
 version = "1.2.0"
 description = "A lil' TOML writer"
@@ -964,4 +979,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "02c711c7f4c33062a0e401c7e733837b5506e98ba99d91356ef024aca2360366"
+content-hash = "b2b49a5f5b2ac6404a04e73954a7abbe796303c7b5485b2c50e685b75db4ad51"

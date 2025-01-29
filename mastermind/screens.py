@@ -5,8 +5,8 @@ from textual.app import ComposeResult
 from textual.containers import Grid
 from textual.screen import ModalScreen
 from textual.widgets import Button, Label, Link, Select, Switch
+from textual_utils import AppMetadata
 
-from mastermind.app_metadata import AppMetadata
 from mastermind.constants import LANGUAGES, VARIATIONS
 from mastermind.i18n import _
 

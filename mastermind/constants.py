@@ -2,8 +2,8 @@ from pathlib import Path
 from typing import Final
 
 from textual.binding import Binding
+from textual_utils import AppMetadata
 
-from mastermind.app_metadata import AppMetadata
 from mastermind.variation import Variation
 
 APP_METADATA = AppMetadata(

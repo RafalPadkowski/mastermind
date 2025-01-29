@@ -1,7 +1,7 @@
 from textual.events import Click
 from textual.widgets._header import HeaderIcon
+from textual_utils import AppMetadata
 
-from mastermind.app_metadata import AppMetadata
 from mastermind.screens import AboutScreen
 
 
