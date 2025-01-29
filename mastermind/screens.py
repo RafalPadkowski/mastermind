@@ -12,34 +12,6 @@ if TYPE_CHECKING:
     from mastermind.app import MastermindApp
 
 
-class ConfirmScreen(ModalScreen[bool]):
-    CSS_PATH = ["screens.tcss", "confirm_screen.tcss"]
-
-    def compose(self) -> ComposeResult:
-        self.dialog = Grid(
-            Label(_("Are you sure you want to start a new game?"), id="question"),
-            Button(_("Yes"), variant="primary", id="yes"),
-            Button(_("No"), variant="error", id="no"),
-            id="confirm_dialog",
-        )
-
-        yield self.dialog
-
-    def on_mount(self) -> None:
-        self.dialog.border_subtitle = "Master Mind"
-        self.dialog.border_title = _("New game")
-
-        self.dialog.styles.grid_columns = "20"
-
-        # self.query_one("#no", Button).focus()
-
-    def on_button_pressed(self, event: Button.Pressed) -> None:
-        if event.button.id == "yes":
-            self.dismiss(True)
-        else:
-            self.dismiss(False)
-
-
 class SettingsScreen(ModalScreen[dict[str, Any] | None]):
     CSS_PATH = ["screens.tcss", "settings_screen.tcss"]
 

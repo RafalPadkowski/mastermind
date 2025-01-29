@@ -6,7 +6,13 @@ from textual.binding import Binding
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Label, Select
 from textual.widgets._header import HeaderIcon
-from textual_utils import AboutHeaderIcon, _, init_translation, set_translation
+from textual_utils import (
+    AboutHeaderIcon,
+    ConfirmScreen,
+    _,
+    init_translation,
+    set_translation,
+)
 
 from mastermind.constants import (
     APP_METADATA,
@@ -17,7 +23,7 @@ from mastermind.constants import (
     LOCALEDIR,
     SETTINGS_PATH,
 )
-from mastermind.screens import ConfirmScreen, SettingsScreen
+from mastermind.screens import SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
 
@@ -86,7 +92,14 @@ class MastermindApp(App):
             ]
 
     def action_new_game(self) -> None:
-        self.push_screen(ConfirmScreen(), callback=self.check_new_game)
+        self.push_screen(
+            ConfirmScreen(
+                dialog_title=_("New game"),
+                dialog_subtitle=APP_METADATA.name,
+                question=_("Are you sure you want to start a new game?"),
+            ),
+            callback=self.check_new_game,
+        )
 
     def check_new_game(self, confirmed: bool | None):
         if confirmed:
