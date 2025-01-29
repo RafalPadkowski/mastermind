@@ -6,6 +6,7 @@ from textual.binding import Binding
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Label, Select
 from textual.widgets._header import HeaderIcon
+from textual_utils import _, init_translation, set_translation
 
 from mastermind.constants import (
     APP_METADATA,
@@ -13,10 +14,10 @@ from mastermind.constants import (
     CODE_PEG_COLORS,
     ICON,
     KEY_TO_BINDING,
+    LOCALEDIR,
     SETTINGS_PATH,
 )
 from mastermind.header_icon import MastermindHeaderIcon
-from mastermind.i18n import _, set_translation
 from mastermind.screens import ConfirmScreen, SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
@@ -32,6 +33,8 @@ class MastermindApp(App):
 
     def __init__(self) -> None:
         super().__init__()
+
+        init_translation(LOCALEDIR)
 
         settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
         self.settings: Settings = parse_settings(settings_dict)

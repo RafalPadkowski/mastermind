@@ -5,10 +5,9 @@ from textual.app import ComposeResult
 from textual.containers import Grid
 from textual.screen import ModalScreen
 from textual.widgets import Button, Label, Link, Select, Switch
-from textual_utils import AppMetadata
+from textual_utils import AppMetadata, _
 
 from mastermind.constants import LANGUAGES, VARIATIONS
-from mastermind.i18n import _
 
 if TYPE_CHECKING:
     from mastermind.app import MastermindApp

@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 
-from mastermind.i18n import _
+from textual_utils import _
 
 
 @dataclass(frozen=True)

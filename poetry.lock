@@ -838,11 +838,14 @@ python-versions = "^3.13"
 files = []
 develop = false
 
+[package.dependencies]
+textual = "^1.0.0"
+
 [package.source]
 type = "git"
 url = "https://github.com/RafalPadkowski/textual-utils.git"
 reference = "HEAD"
-resolved_reference = "5ef597fbcb5b65e2ec5c1b555cf049d7d9af78dd"
+resolved_reference = "6b3d75b788f9e264e8097212555c677535112985"
 
 [[package]]
 name = "tomli-w"

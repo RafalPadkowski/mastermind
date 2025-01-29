@@ -6,6 +6,8 @@ from textual_utils import AppMetadata
 
 from mastermind.variation import Variation
 
+LOCALEDIR = Path(__file__).parent / "locale"
+
 APP_METADATA = AppMetadata(
     name="Master Mind",
     version="2.0",
