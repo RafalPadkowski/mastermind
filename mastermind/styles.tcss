@@ -61,85 +61,8 @@ Select:focus > SelectCurrent {
     border: tall grey;
 }
 
-ModalScreen {
-    align: center middle;
-    background: $background;
-}
-
-#settings_dialog {
-    grid-size: 2;
-    grid-rows: 4 4 4 5;
-    grid-gutter: 1 2;
-    padding: 1 5;
-    width: 110;
-    height: auto;
-    border: round dimgrey;
-    background: $surface;
-}
-
-#settings_dialog Label {
-    height: 3;
-    content-align-vertical: middle;
-}
-
-#settings_dialog Button {
-    margin-top: 1;
-    width: 100%;
-}
-
-Switch {
-    border: tall dimgrey;
-}
-
-Switch:focus {
-    border: tall $border;
-}
-
-#about_dialog {
-    padding: 1 2;
-    width: 40;
-    height: auto;
-    border: round dimgrey;
-    background: $surface;
-}
-
-#about_dialog Label {
-    margin-left: 6;
-    margin-bottom: 1;
-}
-
-#about_dialog Link {
-    margin-left: 6;
-    margin-bottom: 1;
-}
-
-#about_dialog Button {
-    margin-left: 9;
-    margin-top: 2;
-}
-
 FooterKey:first-of-type  {
-    dock: right;
-    padding-right: 1;
-    border-left: vkey $foreground 20%;
-}
-
-#confirm_new_game_dialog {
-    grid-size: 2;
-    grid-rows: 1 4;
-    grid-gutter: 1 2;
-    padding: 1 5;
-    width: 60;
-    height: auto;
-    border: round dimgrey;
-    background: $surface;
-}
-
-#confirm_new_game_dialog #question {
-    column_span: 2;
-}
-
-#confirm_new_game_dialog Button {
-    margin-top: 1;
-    width: 100%;
+  dock: right;
+  padding-right: 1;
+  border-left: vkey $foreground 20%;
 }

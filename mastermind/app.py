@@ -8,6 +8,7 @@ from textual.widgets import Button, Footer, Header, Label, Select
 from textual.widgets._header import HeaderIcon
 
 from mastermind.constants import (
+    APP_METADATA,
     BLANK_COLOR,
     CODE_PEG_COLORS,
     ICON,
@@ -16,12 +17,8 @@ from mastermind.constants import (
 )
 from mastermind.header_icon import MastermindHeaderIcon
 from mastermind.i18n import _, set_translation
-from mastermind.screens import ConfirmNewGameScreen, SettingsScreen
+from mastermind.screens import ConfirmScreen, SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
-
-__author__ = "Rafal Padkowski"
-__version__ = "2.0"
-__email__ = "rafaelp@poczta.onet.pl"
 
 
 class MastermindApp(App):
@@ -64,7 +61,7 @@ class MastermindApp(App):
         header_icon.remove()
 
         header = self.query_one(Header)
-        header_icon = MastermindHeaderIcon()
+        header_icon = MastermindHeaderIcon(APP_METADATA)
         header_icon.icon = ICON
         await header.mount(header_icon)
 
@@ -88,7 +85,7 @@ class MastermindApp(App):
             ]
 
     def action_new_game(self) -> None:
-        self.push_screen(ConfirmNewGameScreen(), callback=self.check_new_game)
+        self.push_screen(ConfirmScreen(), callback=self.check_new_game)
 
     def check_new_game(self, confirmed: bool | None):
         if confirmed:

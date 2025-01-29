@@ -2,10 +2,11 @@ from typing import TYPE_CHECKING, Any, cast
 
 from rich.text import Text
 from textual.app import ComposeResult
-from textual.containers import Grid, Vertical
+from textual.containers import Grid
 from textual.screen import ModalScreen
 from textual.widgets import Button, Label, Link, Select, Switch
 
+from mastermind.app_metadata import AppMetadata
 from mastermind.constants import LANGUAGES, VARIATIONS
 from mastermind.i18n import _
 
@@ -14,18 +15,23 @@ if TYPE_CHECKING:
 
 
 class AboutScreen(ModalScreen):
-    def __init__(self) -> None:
+    CSS_PATH = ["screens.tcss", "about_screen.tcss"]
+
+    def __init__(self, app_metadata: AppMetadata) -> None:
         super().__init__()
 
+        self.app_metadata = app_metadata
+
     def compose(self) -> ComposeResult:
-        from mastermind.app import __author__, __email__, __version__
+        app_name = (
+            f"{self.app_metadata.name} {self.app_metadata.version}"
+            f"  {self.app_metadata.codename}"
+        )
 
-        app_name = f"Master Mind {__version__}  🔴 ⚪"
-
-        self.dialog = Vertical(
+        self.dialog = Grid(
             Label(Text(app_name, style="bold green")),
-            Label(_(__author__)),
-            Link(__email__, url=f"mailto:{__email__}"),
+            Label(_(self.app_metadata.author)),
+            Link(self.app_metadata.email, url=f"mailto:{self.app_metadata.email}"),
             Button("Ok", variant="primary", id="ok"),
             id="about_dialog",
         )
@@ -33,7 +39,7 @@ class AboutScreen(ModalScreen):
         yield self.dialog
 
     def on_mount(self) -> None:
-        self.dialog.border_subtitle = "Master Mind"
+        self.dialog.border_subtitle = self.app_metadata.name
         self.dialog.border_title = _("About")
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
@@ -41,13 +47,15 @@ class AboutScreen(ModalScreen):
             self.app.pop_screen()
 
 
-class ConfirmNewGameScreen(ModalScreen[bool]):
+class ConfirmScreen(ModalScreen[bool]):
+    CSS_PATH = ["screens.tcss", "confirm_screen.tcss"]
+
     def compose(self) -> ComposeResult:
         self.dialog = Grid(
             Label(_("Are you sure you want to start a new game?"), id="question"),
             Button(_("Yes"), variant="primary", id="yes"),
             Button(_("No"), variant="error", id="no"),
-            id="confirm_new_game_dialog",
+            id="confirm_dialog",
         )
 
         yield self.dialog
@@ -56,7 +64,9 @@ class ConfirmNewGameScreen(ModalScreen[bool]):
         self.dialog.border_subtitle = "Master Mind"
         self.dialog.border_title = _("New game")
 
-        self.query_one("#no", Button).focus()
+        self.dialog.styles.grid_columns = "20"
+
+        # self.query_one("#no", Button).focus()
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "yes":
@@ -66,6 +76,8 @@ class ConfirmNewGameScreen(ModalScreen[bool]):
 
 
 class SettingsScreen(ModalScreen[dict[str, Any] | None]):
+    CSS_PATH = ["screens.tcss", "settings_screen.tcss"]
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -115,6 +127,9 @@ class SettingsScreen(ModalScreen[dict[str, Any] | None]):
     def on_mount(self) -> None:
         self.dialog.border_subtitle = "Master Mind"
         self.dialog.border_title = _("Settings")
+
+        self.dialog.styles.width = 110
+        self.dialog.styles.grid_columns = "48"
 
     def on_button_pressed(self, event: Button.Pressed) -> None:
         if event.button.id == "save":

@@ -3,7 +3,16 @@ from typing import Final
 
 from textual.binding import Binding
 
+from mastermind.app_metadata import AppMetadata
 from mastermind.variation import Variation
+
+APP_METADATA = AppMetadata(
+    name="Master Mind",
+    version="2.0",
+    codename="🔴 ⚪",
+    author="Rafal Padkowski",
+    email="rafaelp@poczta.onet.pl",
+)
 
 ICON: Final[str] = "❔"
 
