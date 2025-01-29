@@ -845,7 +845,7 @@ textual = "^1.0.0"
 type = "git"
 url = "https://github.com/RafalPadkowski/textual-utils.git"
 reference = "HEAD"
-resolved_reference = "12e000f2a05f8cb3a708149ab5c70bf20d8a4149"
+resolved_reference = "7c5bb09fbf2e72596423faae837071577206c35f"
 
 [[package]]
 name = "tomli-w"

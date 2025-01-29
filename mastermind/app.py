@@ -6,7 +6,7 @@ from textual.binding import Binding
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Label, Select
 from textual.widgets._header import HeaderIcon
-from textual_utils import _, init_translation, set_translation
+from textual_utils import AboutHeaderIcon, _, init_translation, set_translation
 
 from mastermind.constants import (
     APP_METADATA,
@@ -17,7 +17,6 @@ from mastermind.constants import (
     LOCALEDIR,
     SETTINGS_PATH,
 )
-from mastermind.header_icon import MastermindHeaderIcon
 from mastermind.screens import ConfirmScreen, SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
@@ -64,9 +63,8 @@ class MastermindApp(App):
         header_icon.remove()
 
         header = self.query_one(Header)
-        header_icon = MastermindHeaderIcon(APP_METADATA)
-        header_icon.icon = ICON
-        await header.mount(header_icon)
+        about_header_icon = AboutHeaderIcon(ICON, APP_METADATA)
+        await header.mount(about_header_icon)
 
         self.translate()
 
@@ -78,8 +76,8 @@ class MastermindApp(App):
     def translate(self) -> None:
         set_translation(self.settings.language)
 
-        header_icon: MastermindHeaderIcon = self.query_one(MastermindHeaderIcon)
-        header_icon.tooltip = _("About")
+        about_header_icon: AboutHeaderIcon = self.query_one(AboutHeaderIcon)
+        about_header_icon.tooltip = _("About")
 
         for key, binding in KEY_TO_BINDING.items():
             current_binding: Binding = self._bindings.key_to_bindings[key][0]
