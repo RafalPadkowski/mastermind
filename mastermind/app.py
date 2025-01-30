@@ -5,7 +5,6 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Footer, Header, Label, Select, Switch
-from textual.widgets._header import HeaderIcon
 from textual_utils import (
     AboutHeaderIcon,
     ConfirmScreen,
@@ -13,6 +12,7 @@ from textual_utils import (
     SettingsScreen,
     _,
     init_translation,
+    mount_about_header_icon,
     set_translation,
 )
 
@@ -68,12 +68,11 @@ class MastermindApp(App):
         # print("--- COMPOSE ---")
 
     async def on_mount(self) -> None:
-        header_icon = self.query_one(HeaderIcon)
-        header_icon.remove()
-
-        header = self.query_one(Header)
-        about_header_icon = AboutHeaderIcon(ICON, APP_METADATA)
-        await header.mount(about_header_icon)
+        await mount_about_header_icon(
+            current_app=self,
+            icon=ICON,
+            app_metadata=APP_METADATA,
+        )
 
         self.translate()
 
