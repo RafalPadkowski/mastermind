@@ -4,11 +4,13 @@ from typing import Any
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, VerticalScroll
-from textual.widgets import Button, Footer, Header, Label, Select
+from textual.widgets import Button, Footer, Header, Label, Select, Switch
 from textual.widgets._header import HeaderIcon
 from textual_utils import (
     AboutHeaderIcon,
     ConfirmScreen,
+    SettingRow,
+    SettingsScreen,
     _,
     init_translation,
     set_translation,
@@ -20,10 +22,11 @@ from mastermind.constants import (
     CODE_PEG_COLORS,
     ICON,
     KEY_TO_BINDING,
+    LANGUAGES,
     LOCALEDIR,
     SETTINGS_PATH,
+    VARIATIONS,
 )
-from mastermind.screens import SettingsScreen
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
 
 
@@ -94,9 +97,9 @@ class MastermindApp(App):
     def action_new_game(self) -> None:
         self.push_screen(
             ConfirmScreen(
-                dialog_title=_("New game"),
+                dialog_title="New game",
                 dialog_subtitle=APP_METADATA.name,
-                question=_("Are you sure you want to start a new game?"),
+                question="Are you sure you want to start a new game?",
             ),
             callback=self.check_new_game,
         )
@@ -141,7 +144,52 @@ class MastermindApp(App):
         ]
 
     def action_settings(self) -> None:
-        self.push_screen(SettingsScreen(), callback=self.check_settings)
+        setting_rows = [
+            SettingRow(
+                key="language",
+                label="Language:",
+                widget=Select(
+                    options=zip(
+                        [_(value) for value in LANGUAGES.values()], LANGUAGES.keys()
+                    ),
+                    value=self.settings.language,
+                    allow_blank=False,
+                ),
+            ),
+            SettingRow(
+                key="variation",
+                label="Variation:",
+                widget=Select(
+                    options=zip(
+                        [variation.description for variation in VARIATIONS.values()],
+                        VARIATIONS.keys(),
+                    ),
+                    value=self.settings.variation.name,
+                    allow_blank=False,
+                ),
+            ),
+            SettingRow(
+                key="duplicate_colors",
+                label="Duplicate colors:",
+                widget=Switch(value=self.settings.duplicate_colors),
+            ),
+            SettingRow(
+                key="blank_color",
+                label="Blank color:",
+                widget=Switch(value=self.settings.blank_color),
+            ),
+        ]
+
+        self.push_screen(
+            SettingsScreen(
+                *setting_rows,
+                dialog_title="Settings",
+                dialog_subtitle=APP_METADATA.name,
+                dialog_width=110,
+                dialog_grid_columns="48",
+            ),
+            callback=self.check_settings,
+        )
 
     def check_settings(self, settings_dict: dict[str, Any] | None) -> None:
         if settings_dict is not None:
