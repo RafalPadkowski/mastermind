@@ -831,21 +831,17 @@ textual = ">=0.66.0"
 
 [[package]]
 name = "textual-utils"
-version = "0.1.0"
+version = "1.0.0"
 description = "Utilities for use with the Textual package"
 optional = false
-python-versions = "^3.13"
-files = []
-develop = false
+python-versions = "<4.0,>=3.13"
+files = [
+    {file = "textual_utils-1.0.0-py3-none-any.whl", hash = "sha256:13061d8a3e99c5e3b20534b0f3e29f90f763cb70974a0ba76d0824735ef1f0d6"},
+    {file = "textual_utils-1.0.0.tar.gz", hash = "sha256:515afd13741d32dd50a6525475f960f2c8d1d3b552a8f1b0fbfad0bcc78d87c6"},
+]
 
 [package.dependencies]
-textual = "^1.0.0"
-
-[package.source]
-type = "git"
-url = "https://github.com/RafalPadkowski/textual-utils.git"
-reference = "HEAD"
-resolved_reference = "91e99045ef9d07f762360f0734c467af61597fcd"
+textual = ">=1.0.0,<2.0.0"
 
 [[package]]
 name = "tomli-w"
@@ -982,4 +978,4 @@ propcache = ">=0.2.0"
 [metadata]
 lock-version = "2.0"
 python-versions = "^3.13"
-content-hash = "b2b49a5f5b2ac6404a04e73954a7abbe796303c7b5485b2c50e685b75db4ad51"
+content-hash = "d290f277d64694502ec565f651fa5b2a87c02f144c77142a1bad411465749a9d"
