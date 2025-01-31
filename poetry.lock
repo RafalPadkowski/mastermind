@@ -831,13 +831,13 @@ textual = ">=0.66.0"
 
 [[package]]
 name = "textual-utils"
-version = "1.0.0"
+version = "1.0.2"
 description = "Utilities for use with the Textual package"
 optional = false
 python-versions = "<4.0,>=3.13"
 files = [
-    {file = "textual_utils-1.0.0-py3-none-any.whl", hash = "sha256:13061d8a3e99c5e3b20534b0f3e29f90f763cb70974a0ba76d0824735ef1f0d6"},
-    {file = "textual_utils-1.0.0.tar.gz", hash = "sha256:515afd13741d32dd50a6525475f960f2c8d1d3b552a8f1b0fbfad0bcc78d87c6"},
+    {file = "textual_utils-1.0.2-py3-none-any.whl", hash = "sha256:4436903fac9dd26c4a952be484a5e411445a76c358971ad5925049c1a347d570"},
+    {file = "textual_utils-1.0.2.tar.gz", hash = "sha256:e138e1d8c7eeab402dc10a994743dee3f46561ba1cbda7522b74a1877549616f"},
 ]
 
 [package.dependencies]

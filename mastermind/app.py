@@ -143,9 +143,8 @@ class MastermindApp(App):
         ]
 
     def action_settings(self) -> None:
-        setting_rows = [
-            SettingRow(
-                key="language",
+        setting_rows = {
+            "language": SettingRow(
                 label="Language:",
                 widget=Select(
                     options=zip(
@@ -155,8 +154,7 @@ class MastermindApp(App):
                     allow_blank=False,
                 ),
             ),
-            SettingRow(
-                key="variation",
+            "variation": SettingRow(
                 label="Variation:",
                 widget=Select(
                     options=zip(
@@ -167,25 +165,23 @@ class MastermindApp(App):
                     allow_blank=False,
                 ),
             ),
-            SettingRow(
-                key="duplicate_colors",
+            "duplicate_colors": SettingRow(
                 label="Duplicate colors:",
                 widget=Switch(value=self.settings.duplicate_colors),
             ),
-            SettingRow(
-                key="blank_color",
+            "blank_color": SettingRow(
                 label="Blank color:",
                 widget=Switch(value=self.settings.blank_color),
             ),
-        ]
+        }
 
         self.push_screen(
             SettingsScreen(
-                *setting_rows,
                 dialog_title="Settings",
                 dialog_subtitle=APP_METADATA.name,
                 dialog_width=110,
                 dialog_grid_columns="48",
+                setting_rows=setting_rows,
             ),
             callback=self.check_settings,
         )
