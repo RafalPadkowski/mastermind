@@ -143,36 +143,46 @@ class MastermindApp(App):
         ]
 
     def action_settings(self) -> None:
-        setting_rows = {
-            "language": SettingRow(
-                label="Language:",
-                widget=Select(
-                    options=zip(
-                        [_(value) for value in LANGUAGES.values()], LANGUAGES.keys()
+        setting_rows: dict[str, SettingRow] = {
+            key: value
+            for key, value in zip(
+                self.settings.__dict__.keys(),
+                [
+                    SettingRow(
+                        label="Language:",
+                        widget=Select(
+                            options=zip(
+                                [_(value) for value in LANGUAGES.values()],
+                                LANGUAGES.keys(),
+                            ),
+                            value=self.settings.language,
+                            allow_blank=False,
+                        ),
                     ),
-                    value=self.settings.language,
-                    allow_blank=False,
-                ),
-            ),
-            "variation": SettingRow(
-                label="Variation:",
-                widget=Select(
-                    options=zip(
-                        [variation.description for variation in VARIATIONS.values()],
-                        VARIATIONS.keys(),
+                    SettingRow(
+                        label="Variation:",
+                        widget=Select(
+                            options=zip(
+                                [
+                                    variation.description
+                                    for variation in VARIATIONS.values()
+                                ],
+                                VARIATIONS.keys(),
+                            ),
+                            value=self.settings.variation.name,
+                            allow_blank=False,
+                        ),
                     ),
-                    value=self.settings.variation.name,
-                    allow_blank=False,
-                ),
-            ),
-            "duplicate_colors": SettingRow(
-                label="Duplicate colors:",
-                widget=Switch(value=self.settings.duplicate_colors),
-            ),
-            "blank_color": SettingRow(
-                label="Blank color:",
-                widget=Switch(value=self.settings.blank_color),
-            ),
+                    SettingRow(
+                        label="Duplicate colors:",
+                        widget=Switch(value=self.settings.duplicate_colors),
+                    ),
+                    SettingRow(
+                        label="Blank color:",
+                        widget=Switch(value=self.settings.blank_color),
+                    ),
+                ],
+            )
         }
 
         self.push_screen(
