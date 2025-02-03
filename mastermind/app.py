@@ -1,6 +1,7 @@
 import dataclasses
 from typing import Any
 
+from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal, VerticalScroll
@@ -24,6 +25,7 @@ from mastermind.constants import (
     KEY_TO_BINDING,
     LANGUAGES,
     LOCALEDIR,
+    SETTINGS_DIALOG_WIDTH,
     SETTINGS_PATH,
     VARIATIONS,
 )
@@ -93,22 +95,18 @@ class MastermindApp(App):
                 dataclasses.replace(current_binding, description=_(binding.description))
             ]
 
-    def action_new_game(self) -> None:
-        self.push_screen(
+    @work
+    async def action_new_game(self) -> None:
+        if await self.push_screen_wait(
             ConfirmScreen(
                 dialog_title="New game",
                 dialog_subtitle=APP_METADATA.name,
                 question="Are you sure you want to start a new game?",
-            ),
-            callback=self.check_new_game,
-        )
-
-    def check_new_game(self, confirmed: bool | None):
-        if confirmed:
+            )
+        ):
             self.board.remove()
             self.board = VerticalScroll()
             self.mount(self.board)
-            self.board.focus()
 
             self.create_new_game()
 
@@ -142,7 +140,8 @@ class MastermindApp(App):
             for _ in range(num_pegs)
         ]
 
-    def action_settings(self) -> None:
+    @work
+    async def action_settings(self) -> None:
         setting_rows: dict[str, SettingRow] = {
             key: value
             for key, value in zip(
@@ -185,17 +184,15 @@ class MastermindApp(App):
             )
         }
 
-        self.push_screen(
+        settings_dict = await self.push_screen_wait(
             SettingsScreen(
                 dialog_title="Settings",
                 dialog_subtitle=APP_METADATA.name,
-                dialog_width=106,
+                dialog_width=SETTINGS_DIALOG_WIDTH,
                 setting_rows=setting_rows,
-            ),
-            callback=self.check_settings,
+            )
         )
 
-    def check_settings(self, settings_dict: dict[str, Any] | None) -> None:
         if settings_dict is not None:
             self.settings = parse_settings(settings_dict)
             self.translate()

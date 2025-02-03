@@ -20,6 +20,8 @@ ICON: Final[str] = "❔"
 
 SETTINGS_PATH: Final[Path] = Path(__file__).parent / "settings.toml"
 
+SETTINGS_DIALOG_WIDTH: Final[int] = 106
+
 LANGUAGES: Final[dict[str, str]] = {
     "en": "English",
     "pl": "Polish",
