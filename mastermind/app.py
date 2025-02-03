@@ -189,8 +189,7 @@ class MastermindApp(App):
             SettingsScreen(
                 dialog_title="Settings",
                 dialog_subtitle=APP_METADATA.name,
-                dialog_width=110,
-                dialog_grid_columns="48",
+                dialog_width=106,
                 setting_rows=setting_rows,
             ),
             callback=self.check_settings,
