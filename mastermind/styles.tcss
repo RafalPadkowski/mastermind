@@ -61,8 +61,10 @@ Select:focus > SelectCurrent {
     border: tall grey;
 }
 
+/*
 FooterKey:first-of-type  {
   dock: right;
   padding-right: 1;
   border-left: vkey $foreground 20%;
 }
+*/
