@@ -25,7 +25,6 @@ from mastermind.constants import (
     KEY_TO_BINDING,
     LANGUAGES,
     LOCALEDIR,
-    SETTINGS_DIALOG_WIDTH,
     SETTINGS_PATH,
     VARIATIONS,
 )
@@ -188,7 +187,6 @@ class MastermindApp(App):
             SettingsScreen(
                 dialog_title="Settings",
                 dialog_subtitle=APP_METADATA.name,
-                dialog_width=SETTINGS_DIALOG_WIDTH,
                 setting_rows=setting_rows,
             )
         )
