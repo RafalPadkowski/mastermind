@@ -4,8 +4,7 @@ from typing import Any
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.containers import Horizontal, VerticalScroll
-from textual.widgets import Button, Footer, Header, Label, Select, Switch
+from textual.widgets import Footer, Header, Select, Switch
 from textual_utils import (
     AboutHeaderIcon,
     ConfirmScreen,
@@ -19,8 +18,6 @@ from textual_utils import (
 
 from mastermind.constants import (
     APP_METADATA,
-    BLANK_COLOR,
-    CODE_PEG_COLORS,
     ICON,
     KEY_TO_BINDING,
     LANGUAGES,
@@ -29,6 +26,7 @@ from mastermind.constants import (
     VARIATIONS,
 )
 from mastermind.settings import Settings, load_settings, parse_settings, save_settings
+from mastermind.widgets import Board
 
 
 class MastermindApp(App):
@@ -48,25 +46,14 @@ class MastermindApp(App):
         settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
         self.settings: Settings = parse_settings(settings_dict)
 
-        self.board: VerticalScroll = VerticalScroll()
+        self.board: Board = Board()
 
-        self.row_number: int
+        self.row_number: int = 1
         self.code_pegs: list[Select]
 
     def compose(self) -> ComposeResult:
         yield Header()
-
-        # yield Horizontal(
-        #     Static("01", classes="num"),
-        #     Static("🔵", classes="static_color_peg"),
-        #     Static("🔴", classes="static_color_peg"),
-        #     Static("🟢", classes="static_color_peg"),
-        #     Static("🟣", classes="static_color_peg"),
-        #     Static("🔴 ⚪ ⭕ ⭕", classes="feedback_pegs"),
-        #     classes="row",
-        # )
-
-        # print("--- COMPOSE ---")
+        yield self.board
 
     async def on_mount(self) -> None:
         await mount_about_header_icon(
@@ -76,9 +63,6 @@ class MastermindApp(App):
         )
 
         self.translate()
-
-        self.mount(self.board)
-        self.create_new_game()
 
         self.mount(Footer())
 
@@ -104,40 +88,10 @@ class MastermindApp(App):
             )
         ):
             self.board.remove()
-            self.board = VerticalScroll()
+            self.board = Board()
             self.mount(self.board)
 
-            self.create_new_game()
-
-    def create_new_game(self) -> None:
-        self.row_number = 1
-
-        self.create_new_row()
-
-    def create_new_row(self) -> None:
-        self.create_code_pegs()
-
-        row: Horizontal = Horizontal(
-            Label(f"{self.row_number:02}", classes="num"),
-            *self.code_pegs,
-            Button("❔", classes="check"),
-            classes="row",
-        )
-
-        self.board.mount(row)
-
-    def create_code_pegs(self) -> None:
-        num_pegs: int = self.settings.variation.num_pegs
-        num_colors: int = self.settings.variation.num_colors
-
-        self.code_pegs = [
-            Select(
-                options=zip(CODE_PEG_COLORS, range(1, num_colors + 1)),
-                prompt=BLANK_COLOR,
-                classes="code_peg",
-            )
-            for _ in range(num_pegs)
-        ]
+            self.row_number = 1
 
     @work
     async def action_settings(self) -> None:
