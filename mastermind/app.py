@@ -25,7 +25,13 @@ from mastermind.constants import (
     SETTINGS_PATH,
     VARIATIONS,
 )
-from mastermind.settings import Settings, load_settings, parse_settings, save_settings
+from mastermind.settings import (
+    Settings,
+    get_settings,
+    load_settings,
+    save_settings,
+    set_settings,
+)
 from mastermind.widgets import Board
 
 
@@ -44,7 +50,7 @@ class MastermindApp(App):
         init_translation(LOCALEDIR)
 
         settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
-        self.settings: Settings = parse_settings(settings_dict)
+        set_settings(settings_dict)
 
         self.board: Board = Board()
 
@@ -67,7 +73,8 @@ class MastermindApp(App):
         self.mount(Footer())
 
     def translate(self) -> None:
-        set_translation(self.settings.language)
+        app_settings: Settings = get_settings()
+        set_translation(app_settings.language)
 
         about_header_icon: AboutHeaderIcon = self.query_one(AboutHeaderIcon)
         about_header_icon.tooltip = _("About")
@@ -95,10 +102,12 @@ class MastermindApp(App):
 
     @work
     async def action_settings(self) -> None:
+        app_settings: Settings = get_settings()
+
         setting_rows: dict[str, SettingRow] = {
             key: value
             for key, value in zip(
-                self.settings.__dict__.keys(),
+                app_settings.__dict__.keys(),
                 [
                     SettingRow(
                         label="Language:",
@@ -107,7 +116,7 @@ class MastermindApp(App):
                                 [_(value) for value in LANGUAGES.values()],
                                 LANGUAGES.keys(),
                             ),
-                            value=self.settings.language,
+                            value=app_settings.language,
                             allow_blank=False,
                         ),
                     ),
@@ -121,17 +130,17 @@ class MastermindApp(App):
                                 ],
                                 VARIATIONS.keys(),
                             ),
-                            value=self.settings.variation.name,
+                            value=app_settings.variation.name,
                             allow_blank=False,
                         ),
                     ),
                     SettingRow(
                         label="Duplicate colors:",
-                        widget=Switch(value=self.settings.duplicate_colors),
+                        widget=Switch(value=app_settings.duplicate_colors),
                     ),
                     SettingRow(
                         label="Blank color:",
-                        widget=Switch(value=self.settings.blank_color),
+                        widget=Switch(value=app_settings.blank_color),
                     ),
                 ],
             )
@@ -146,6 +155,6 @@ class MastermindApp(App):
         )
 
         if settings_dict is not None:
-            self.settings = parse_settings(settings_dict)
+            set_settings(settings_dict)
             self.translate()
             save_settings(settings_dict, SETTINGS_PATH)

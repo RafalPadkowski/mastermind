@@ -1,13 +1,15 @@
 from textual.containers import Horizontal
 from textual.widgets import Button, Label
 
+from mastermind.settings import Settings, get_settings
+
 from .code_peg import CodePeg
 
 
 class Row(Horizontal):
     def __init__(self, row_number: int) -> None:
-        # num_pegs: int = current_app.settings.variation.num_pegs
-        num_pegs = 4
+        app_settings: Settings = get_settings()
+        num_pegs: int = app_settings.variation.num_pegs
 
         code_pegs = [CodePeg() for _ in range(num_pegs)]
 
