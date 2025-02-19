@@ -12,7 +12,9 @@ from textual_utils import (
     SettingsScreen,
     _,
     init_translation,
+    load_settings,
     mount_about_header_icon,
+    save_settings,
     set_translation,
 )
 
@@ -25,13 +27,7 @@ from mastermind.constants import (
     SETTINGS_PATH,
     VARIATIONS,
 )
-from mastermind.settings import (
-    Settings,
-    get_settings,
-    load_settings,
-    save_settings,
-    set_settings,
-)
+from mastermind.settings import app_settings, set_settings
 from mastermind.widgets import Board
 
 
@@ -73,7 +69,6 @@ class MastermindApp(App):
         self.mount(Footer())
 
     def translate(self) -> None:
-        app_settings: Settings = get_settings()
         set_translation(app_settings.language)
 
         about_header_icon: AboutHeaderIcon = self.query_one(AboutHeaderIcon)
@@ -102,8 +97,6 @@ class MastermindApp(App):
 
     @work
     async def action_settings(self) -> None:
-        app_settings: Settings = get_settings()
-
         setting_rows: dict[str, SettingRow] = {
             key: value
             for key, value in zip(
