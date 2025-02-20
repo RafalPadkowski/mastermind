@@ -2,8 +2,7 @@ from textual.containers import Horizontal
 from textual.widgets import Button, Label
 
 from mastermind.settings import app_settings
-
-from .code_peg import CodePeg
+from mastermind.widgets.code_peg import CodePeg
 
 
 class Row(Horizontal):

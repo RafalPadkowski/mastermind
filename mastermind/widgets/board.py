@@ -1,6 +1,6 @@
 from textual.containers import VerticalScroll
 
-from .row import Row
+from mastermind.widgets.row import Row
 
 
 class Board(VerticalScroll):
