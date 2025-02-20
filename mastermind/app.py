@@ -64,7 +64,7 @@ class MastermindApp(App):
             app_metadata=APP_METADATA,
         )
 
-        self.translate_header_icon()
+        self.translate_about_header_icon()
 
     def translate_bindings(self) -> None:
         for key, binding in KEY_TO_BINDING.items():
@@ -73,12 +73,12 @@ class MastermindApp(App):
                 dataclasses.replace(current_binding, description=_(binding.description))
             ]
 
-    def translate_header_icon(self) -> None:
+    def translate_about_header_icon(self) -> None:
         about_header_icon: AboutHeaderIcon = self.query_one(AboutHeaderIcon)
         about_header_icon.tooltip = _("About")
 
     def translate(self) -> None:
-        self.translate_header_icon()
+        self.translate_about_header_icon()
         self.translate_bindings()
 
     @work
