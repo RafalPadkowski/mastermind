@@ -78,8 +78,8 @@ class MastermindApp(App):
         about_header_icon.tooltip = _("About")
 
     def translate(self) -> None:
-        self.translate_about_header_icon()
         self.translate_bindings()
+        self.translate_about_header_icon()
 
     @work
     async def action_new_game(self) -> None:
