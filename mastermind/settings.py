@@ -6,14 +6,14 @@ from mastermind.variation import Variation
 
 
 @dataclass
-class Settings:
+class _Settings:
     language: str = "pl"
     variation: Variation = VARIATIONS["mini"]
     duplicate_colors: bool = False
     blank_color: bool = False
 
 
-app_settings: Settings = Settings()
+app_settings: _Settings = _Settings()
 
 
 def set_settings(settings_dict: dict[str, Any]) -> None:
