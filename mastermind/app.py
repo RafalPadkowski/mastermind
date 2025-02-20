@@ -33,20 +33,19 @@ from mastermind.widgets import Board
 
 class MastermindApp(App):
     TITLE = "Master Mind"
-
     CSS_PATH = "styles.tcss"
-
-    BINDINGS = list(KEY_TO_BINDING.values())
-
     ENABLE_COMMAND_PALETTE = False
+    BINDINGS = list(KEY_TO_BINDING.values())
 
     def __init__(self) -> None:
         super().__init__()
 
-        init_translation(LOCALEDIR)
-
         settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
         set_settings(settings_dict)
+
+        init_translation(LOCALEDIR)
+        set_translation(app_settings.language)
+        self.translate_bindings()
 
         self.board: Board = Board()
 
@@ -56,6 +55,7 @@ class MastermindApp(App):
     def compose(self) -> ComposeResult:
         yield Header()
         yield self.board
+        yield Footer()
 
     async def on_mount(self) -> None:
         await mount_about_header_icon(
@@ -64,21 +64,22 @@ class MastermindApp(App):
             app_metadata=APP_METADATA,
         )
 
-        self.translate()
+        self.translate_header_icon()
 
-        self.mount(Footer())
-
-    def translate(self) -> None:
-        set_translation(app_settings.language)
-
-        about_header_icon: AboutHeaderIcon = self.query_one(AboutHeaderIcon)
-        about_header_icon.tooltip = _("About")
-
+    def translate_bindings(self) -> None:
         for key, binding in KEY_TO_BINDING.items():
             current_binding: Binding = self._bindings.key_to_bindings[key][0]
             self._bindings.key_to_bindings[key] = [
                 dataclasses.replace(current_binding, description=_(binding.description))
             ]
+
+    def translate_header_icon(self) -> None:
+        about_header_icon: AboutHeaderIcon = self.query_one(AboutHeaderIcon)
+        about_header_icon.tooltip = _("About")
+
+    def translate(self) -> None:
+        self.translate_header_icon()
+        self.translate_bindings()
 
     @work
     async def action_new_game(self) -> None:
@@ -148,6 +149,12 @@ class MastermindApp(App):
         )
 
         if settings_dict is not None:
+            old_language = app_settings.language
+
             set_settings(settings_dict)
-            self.translate()
+
+            if old_language != app_settings.language:
+                set_translation(app_settings.language)
+                self.translate()
+
             save_settings(settings_dict, SETTINGS_PATH)
