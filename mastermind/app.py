@@ -4,7 +4,7 @@ from typing import Any
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.widgets import Footer, Header, Select, Switch
+from textual.widgets import Button, Footer, Header, Select, Switch
 from textual_utils import (
     AboutHeaderIcon,
     ConfirmScreen,
@@ -49,9 +49,6 @@ class MastermindApp(App):
 
         self.board: Board = Board()
 
-        self.row_number: int = 1
-        self.code_pegs: list[Select]
-
     def compose(self) -> ComposeResult:
         yield Header()
         yield self.board
@@ -81,6 +78,22 @@ class MastermindApp(App):
         self.translate_bindings()
         self.translate_about_header_icon()
 
+    def on_button_pressed(self, message: Button.Pressed):
+        if message.button.id != "check":
+            return
+
+        message.button.remove()
+
+        self.board.current_row.disabled = True
+
+        for code_peg in self.board.current_row.code_pegs:
+            code_peg.children[0].children[1].remove()
+
+        if self.board.current_row_number < app_settings.variation.num_rows:
+            self.board.add_row()
+        else:
+            self.notify("Koniec", timeout=2)
+
     @work
     async def action_new_game(self) -> None:
         if await self.push_screen_wait(
@@ -93,8 +106,6 @@ class MastermindApp(App):
             self.board.remove()
             self.board = Board()
             self.mount(self.board)
-
-            self.row_number = 1
 
     @work
     async def action_settings(self) -> None:

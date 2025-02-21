@@ -1,9 +1,9 @@
 Header {
-    margin-bottom: 2;
+    margin-bottom: 1;
 }
 
 .row {
-    height: 5;
+    height: 4;
 }
 
 .num {
@@ -19,13 +19,16 @@ Header {
     margin-left: 2;
 }
 
+.code_peg:disabled {
+    opacity: 1;
+}
+
 SelectCurrent {
   border: tall dimgrey;
 }
 
 Select:focus > SelectCurrent {
   border: tall $border;
-  background-tint: $foreground 5%;
 }
 
 .code_peg SelectCurrent #label {
@@ -47,6 +50,7 @@ Select:focus > SelectCurrent {
     border: tall $border;
 }
 
+/*
 .feedback_pegs {
     width: 15;
     margin-top: 1;
@@ -60,6 +64,7 @@ Select:focus > SelectCurrent {
     text-align: center;
     border: tall grey;
 }
+*/
 
 FooterKey:first-of-type  {
   dock: right;
