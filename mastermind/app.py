@@ -22,12 +22,10 @@ from mastermind.constants import (
     APP_METADATA,
     ICON,
     KEY_TO_BINDING,
-    LANGUAGES,
     LOCALEDIR,
     SETTINGS_PATH,
-    VARIATIONS,
 )
-from mastermind.settings import app_settings, set_settings
+from mastermind.settings import LANGUAGES, VARIATIONS, app_settings
 from mastermind.widgets import Board
 
 
@@ -41,7 +39,7 @@ class MastermindApp(App):
         super().__init__()
 
         settings_dict: dict[str, Any] = load_settings(SETTINGS_PATH)
-        set_settings(settings_dict)
+        app_settings.set(settings_dict)
 
         init_translation(LOCALEDIR)
         set_translation(app_settings.language)
@@ -162,7 +160,7 @@ class MastermindApp(App):
         if settings_dict is not None:
             old_language = app_settings.language
 
-            set_settings(settings_dict)
+            app_settings.set(settings_dict)
 
             if old_language != app_settings.language:
                 set_translation(app_settings.language)
