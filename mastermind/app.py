@@ -26,7 +26,7 @@ from mastermind.constants import (
     SETTINGS_PATH,
 )
 from mastermind.settings import LANGUAGES, VARIATIONS, app_settings
-from mastermind.widgets import Board
+from mastermind.widgets.board import Board
 
 
 class MastermindApp(App):
