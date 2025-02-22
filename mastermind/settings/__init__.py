@@ -1,12 +1,30 @@
 from dataclasses import dataclass, fields
 from typing import Any, Final
 
-from .variation import Variation
+from textual_utils import _
 
 LANGUAGES: Final[dict[str, str]] = {
     "en": "English",
     "pl": "Polish",
 }
+
+
+@dataclass(frozen=True)
+class Variation:
+    name: str
+    num_rows: int
+    num_pegs: int
+    num_colors: int
+
+    @property
+    def description(self) -> str:
+        num_pegs_str = f"{self.num_pegs} pegs"
+
+        return (
+            f"{self.name} ({self.num_rows} {_('rows')}, "
+            f"{_(num_pegs_str)}, {self.num_colors} {_('colors')})"
+        )
+
 
 VARIATIONS: Final[dict[str, Variation]] = {
     "original": Variation(name="original", num_rows=10, num_pegs=4, num_colors=6),
@@ -16,7 +34,7 @@ VARIATIONS: Final[dict[str, Variation]] = {
 
 
 @dataclass
-class _Settings:
+class Settings:
     language: str = "pl"
     variation: Variation = VARIATIONS["mini"]
     duplicate_colors: bool = False
@@ -31,4 +49,4 @@ class _Settings:
             setattr(self, field.name, settings_dict[field.name])
 
 
-app_settings: _Settings = _Settings()
+app_settings: Settings = Settings()
