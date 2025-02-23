@@ -183,7 +183,7 @@ class MastermindApp(App):
                 or old_blank_color != app_settings.blank_color
             ):
                 self.notify(
-                    "Zmieniły się ustawienia gry. Rozpocznij nową grę.", timeout=3
+                    _("New game settings will be applied to a new game"), timeout=5
                 )
 
             save_settings(settings_dict, SETTINGS_PATH)
