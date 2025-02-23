@@ -4,7 +4,7 @@ from typing import Any
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.widgets import Button, Footer, Header, Select, Switch
+from textual.widgets import Footer, Header, Select, Switch
 from textual_utils import (
     AboutHeaderIcon,
     ConfirmScreen,
@@ -18,6 +18,7 @@ from textual_utils import (
     set_translation,
 )
 
+from mastermind import game
 from mastermind.constants import (
     APP_METADATA,
     ICON,
@@ -35,6 +36,9 @@ class MastermindApp(App):
     ENABLE_COMMAND_PALETTE = False
     BINDINGS = list(KEY_TO_BINDING.values())
 
+    new_game = game.new
+    check_code = game.check_code
+
     def __init__(self) -> None:
         super().__init__()
 
@@ -45,11 +49,10 @@ class MastermindApp(App):
         set_translation(app_settings.language)
         self.translate_bindings()
 
-        self.board: Board = Board()
+        self.board: Board
 
     def compose(self) -> ComposeResult:
         yield Header()
-        yield self.board
         yield Footer()
 
     async def on_mount(self) -> None:
@@ -58,8 +61,9 @@ class MastermindApp(App):
             icon=ICON,
             app_metadata=APP_METADATA,
         )
-
         self.translate_about_header_icon()
+
+        self.new_game(game_exists=False)
 
     def translate_bindings(self) -> None:
         for key, binding in KEY_TO_BINDING.items():
@@ -76,21 +80,8 @@ class MastermindApp(App):
         self.translate_bindings()
         self.translate_about_header_icon()
 
-    def on_button_pressed(self, message: Button.Pressed):
-        if message.button.id != "check":
-            return
-
-        message.button.remove()
-
-        self.board.current_row.disabled = True
-
-        for code_peg in self.board.current_row.code_pegs:
-            code_peg.children[0].children[1].remove()
-
-        if self.board.current_row_number < app_settings.variation.num_rows:
-            self.board.add_row()
-        else:
-            self.notify("Koniec", timeout=2)
+    def action_check_code(self):
+        self.check_code()
 
     @work
     async def action_new_game(self) -> None:
@@ -101,9 +92,7 @@ class MastermindApp(App):
                 question="Are you sure you want to start a new game?",
             )
         ):
-            self.board.remove()
-            self.board = Board()
-            self.mount(self.board)
+            self.new_game()
 
     @work
     async def action_settings(self) -> None:

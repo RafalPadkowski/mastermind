@@ -15,7 +15,9 @@ class Row(Horizontal):
         num_pegs: int = app_settings.variation.num_pegs
         self.code_pegs: list[CodePeg] = [CodePeg() for _ in range(num_pegs)]
 
-        self.check_button: Button = Button("❔", classes="check", id="check")
+        self.check_button: Button = Button(
+            "❔", classes="check", id="check", action="app.check_code"
+        )
 
     def compose(self) -> ComposeResult:
         yield Label(f"{self.row_number:02}", classes="num")
