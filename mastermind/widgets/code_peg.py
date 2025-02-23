@@ -8,7 +8,7 @@ from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS
 from mastermind.settings import app_settings
 
 
-class CodePeg(Select):
+class CodePeg(Select[int]):
     def __init__(self) -> None:
         num_colors: int = app_settings.variation.num_colors
 

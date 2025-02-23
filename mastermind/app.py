@@ -4,7 +4,7 @@ from typing import Any
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.widgets import Footer, Header, Select, Switch
+from textual.widgets import Button, Footer, Header, Select, Switch
 from textual_utils import (
     AboutHeaderIcon,
     ConfirmScreen,
@@ -87,14 +87,23 @@ class MastermindApp(App):
 
         self.game = Game()
 
-    def action_check_code(self):
-        self.board.current_row.children[-1].remove()
+    def action_check_code(self) -> None:
+        self.board.current_row.query_one("#check", Button).remove()
         self.board.current_row.disabled = True
 
+        code_peg_values: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
-            code_peg.children[0].children[1].remove()
+            code_peg.query_one("SelectCurrent Static.down-arrow").remove()
 
-        self.game.check_code()
+            code_peg_value: int
+            if isinstance(code_peg.value, int):
+                code_peg_value = code_peg.value
+            else:
+                code_peg_value = 0
+
+            code_peg_values.append(code_peg_value)
+
+        self.game.check_code(breaker_code=code_peg_values)
 
         if self.board.current_row_number < app_settings.variation.num_rows:
             self.board.add_row()
