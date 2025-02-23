@@ -167,10 +167,23 @@ class MastermindApp(App):
         if settings_dict is not None:
             old_language = app_settings.language
 
+            old_variation = app_settings.variation
+            old_duplicate_colors = app_settings.duplicate_colors
+            old_blank_color = app_settings.blank_color
+
             app_settings.set(settings_dict)
 
             if old_language != app_settings.language:
                 set_translation(app_settings.language)
                 self.translate()
+
+            if (
+                old_variation.name != app_settings.variation.name
+                or old_duplicate_colors != app_settings.duplicate_colors
+                or old_blank_color != app_settings.blank_color
+            ):
+                self.notify(
+                    "Zmieniły się ustawienia gry. Rozpocznij nową grę.", timeout=3
+                )
 
             save_settings(settings_dict, SETTINGS_PATH)
