@@ -35,8 +35,8 @@ VARIATIONS: Final[dict[str, Variation]] = {
 
 @dataclass
 class Settings:
-    language: str = "pl"
-    variation: Variation = VARIATIONS["mini"]
+    language: str = "en"
+    variation: Variation = VARIATIONS["original"]
     duplicate_colors: bool = False
     blank_color: bool = False
 
