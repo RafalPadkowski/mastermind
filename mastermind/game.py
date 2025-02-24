@@ -25,15 +25,15 @@ class Game:
                 num_red_pegs += 1
                 red_idxs.append(i)
 
-        breaker_code_copy = breaker_code.copy()
-        mastercode_copy = self.mastercode.copy()
+        breaker_code_no_reds = [
+            color for i, color in enumerate(breaker_code) if i not in red_idxs
+        ]
+        mastercode_no_reds = [
+            color for i, color in enumerate(self.mastercode) if i not in red_idxs
+        ]
 
-        for red_idx in red_idxs:
-            breaker_code_copy.pop(red_idx)
-            mastercode_copy.pop(red_idx)
-
-        for color in breaker_code_copy:
-            if color in mastercode_copy:
+        for color in breaker_code_no_reds:
+            if color in mastercode_no_reds:
                 num_white_pegs += 1
 
         return num_red_pegs, num_white_pegs
