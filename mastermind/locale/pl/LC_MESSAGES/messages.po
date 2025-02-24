@@ -76,4 +76,13 @@ msgid "No"
 msgstr "Nie"
 
 msgid "New game settings will be applied to a new game"
-msgstr "Nowe ustawienia gry zostaną zastosowane w nowej grze"
+msgstr "Nowe ustawienia gry zostaną użyte w nowej grze"
+
+msgid "Congratulations!"
+msgstr "Gratulacje!"
+
+msgid "Better luck next time"
+msgstr "Powodzenia następnym razem"
+
+msgid "Code"
+msgstr "Kod"

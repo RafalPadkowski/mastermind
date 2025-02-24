@@ -50,21 +50,12 @@ Select:focus > SelectCurrent {
     border: tall $border;
 }
 
-/*
 .feedback_pegs {
     width: 15;
     margin-top: 1;
     margin-left: 4;
     padding-left: 1;
 }
-
-.static_color_peg {
-    width: 12;
-    margin-left: 2;
-    text-align: center;
-    border: tall grey;
-}
-*/
 
 FooterKey:first-of-type  {
   dock: right;

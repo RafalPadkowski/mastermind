@@ -4,7 +4,7 @@ from typing import Any
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.widgets import Button, Footer, Header, Select, Switch
+from textual.widgets import Button, Footer, Header, Label, Select, Switch
 from textual_utils import (
     AboutHeaderIcon,
     ConfirmScreen,
@@ -20,6 +20,9 @@ from textual_utils import (
 
 from mastermind.constants import (
     APP_METADATA,
+    BLANK_COLOR,
+    CODE_PEG_COLORS,
+    FEEDBACK_PEG_COLORS,
     ICON,
     KEY_TO_BINDING,
     LOCALEDIR,
@@ -103,12 +106,48 @@ class MastermindApp(App):
 
             code_peg_values.append(code_peg_value)
 
-        self.game.check_code(breaker_code=code_peg_values)
+        num_red_pegs: int
+        num_white_pegs: int
+        num_red_pegs, num_white_pegs = self.game.check_breaker_code(
+            breaker_code=code_peg_values
+        )
 
-        if self.board.current_row_number < app_settings.variation.num_rows:
-            self.board.add_row()
+        self.board.current_row.mount(
+            Label(
+                "".join(
+                    [
+                        (FEEDBACK_PEG_COLORS[0] + " ") * num_red_pegs,
+                        (FEEDBACK_PEG_COLORS[1] + " ") * num_white_pegs,
+                        (BLANK_COLOR + " ")
+                        * (
+                            app_settings.variation.num_pegs
+                            - num_red_pegs
+                            - num_white_pegs
+                        ),
+                    ]
+                ),
+                classes="feedback_pegs",
+            )
+        )
+
+        if num_red_pegs == app_settings.variation.num_pegs:
+            self.notify(_("Congratulations"))
         else:
-            self.notify("Koniec", timeout=2)
+            if self.board.current_row_number < app_settings.variation.num_rows:
+                self.board.add_row()
+            else:
+                mastercode: list[int] = self.game.get_mastercode()
+                mastercode_str: str = ""
+                for color in mastercode:
+                    if color == 0:
+                        mastercode_str += BLANK_COLOR + " "
+                    else:
+                        mastercode_str += CODE_PEG_COLORS[color - 1] + " "
+
+                self.notify(
+                    f"{_('Better luck next time')}\n{_('Code')}: {mastercode_str}",
+                    timeout=25,
+                )
 
     @work
     async def action_new_game(self) -> None:

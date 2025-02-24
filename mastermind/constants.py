@@ -19,7 +19,7 @@ LOCALEDIR = Path(__file__).parent / "locale"
 SETTINGS_PATH: Final[Path] = Path(__file__).parent / "settings" / "settings.toml"
 
 BLANK_COLOR: Final[str] = "⭕"
-CODE_PEG_COLORS: Final[list[str]] = ["🔴", "🟡", "🟣", "🟢", "🟤", "🔵", "⚪", "🟠"]
+CODE_PEG_COLORS: Final[list[str]] = ["🔴", "🟢", "🔵", "🟡", "🟣", "🟤", "⚪", "🟠"]
 FEEDBACK_PEG_COLORS: Final[list[str]] = ["🔴", "⚪"]
 
 KEY_TO_BINDING: Final[dict[str, Binding]] = {
