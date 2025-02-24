@@ -1,9 +1,12 @@
 [tool.poetry]
-name = "mastermind"
-version = "0.1.0"
-description = ""
+name = "textual-mastermind"
+version = "1.0.0"
+description = "Mastermind game built with Textual"
 authors = ["Rafal Padkowski <rafaelp@poczta.onet.pl>"]
 readme = "README.md"
+packages = [
+    { include = "mastermind" },
+]
 
 [tool.poetry.dependencies]
 python = "^3.13"
