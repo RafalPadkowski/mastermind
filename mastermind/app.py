@@ -131,7 +131,7 @@ class MastermindApp(App):
         )
 
         if num_red_pegs == app_settings.variation.num_pegs:
-            self.notify(_("Congratulations"))
+            self.notify(_("Congratulations!"))
         else:
             if self.board.current_row_number < app_settings.variation.num_rows:
                 self.board.add_row()
