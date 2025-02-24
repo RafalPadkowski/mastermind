@@ -2,18 +2,21 @@ from textual.app import ComposeResult
 from textual.containers import Horizontal
 from textual.widgets import Button, Label
 
-from mastermind.settings import app_settings
+from mastermind.game import Game
 from mastermind.widgets.code_peg import CodePeg
 
 
 class Row(Horizontal):
-    def __init__(self, row_number: int) -> None:
+    def __init__(self, game: Game, row_number: int) -> None:
         super().__init__(classes="row")
+
+        self.game = game
 
         self.row_number = row_number
 
-        num_pegs: int = app_settings.variation.num_pegs
-        self.code_pegs: list[CodePeg] = [CodePeg() for _ in range(num_pegs)]
+        self.code_pegs: list[CodePeg] = [
+            CodePeg(self.game) for _ in range(self.game.num_pegs)
+        ]
 
         self.check_button: Button = Button(
             "❔", classes="check", id="check", action="app.check_code"

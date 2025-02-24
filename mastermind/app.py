@@ -85,10 +85,10 @@ class MastermindApp(App):
         if hasattr(self, "game"):
             self.board.remove()
 
-        self.board = Board()
-        self.mount(self.board)
-
         self.game = Game()
+
+        self.board = Board(self.game)
+        self.mount(self.board)
 
     def action_check_code(self) -> None:
         self.board.current_row.query_one("#check", Button).remove()

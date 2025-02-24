@@ -5,15 +5,15 @@ from textual.widgets import Select
 from textual.widgets._select import SelectOverlay
 
 from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS
-from mastermind.settings import app_settings
+from mastermind.game import Game
 
 
 class CodePeg(Select[int]):
-    def __init__(self) -> None:
-        num_colors: int = app_settings.variation.num_colors
+    def __init__(self, game: Game) -> None:
+        self.game = game
 
         super().__init__(
-            options=zip(CODE_PEG_COLORS, range(1, num_colors + 1)),
+            options=zip(CODE_PEG_COLORS, range(1, self.game.num_colors + 1)),
             prompt=BLANK_COLOR,
             classes="code_peg",
         )
