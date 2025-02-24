@@ -119,21 +119,17 @@ class MastermindApp(App):
                         (FEEDBACK_PEG_COLORS[0] + " ") * num_red_pegs,
                         (FEEDBACK_PEG_COLORS[1] + " ") * num_white_pegs,
                         (BLANK_COLOR + " ")
-                        * (
-                            app_settings.variation.num_pegs
-                            - num_red_pegs
-                            - num_white_pegs
-                        ),
+                        * (self.game.num_pegs - num_red_pegs - num_white_pegs),
                     ]
                 ),
                 classes="feedback_pegs",
             )
         )
 
-        if num_red_pegs == app_settings.variation.num_pegs:
+        if num_red_pegs == self.game.num_pegs:
             self.notify(_("Congratulations!"))
         else:
-            if self.board.current_row_number < app_settings.variation.num_rows:
+            if self.board.current_row_number < self.game.num_rows:
                 self.board.add_row()
             else:
                 mastercode: list[int] = self.game.get_mastercode()
@@ -146,7 +142,7 @@ class MastermindApp(App):
 
                 self.notify(
                     f"{_('Better luck next time')}\n{_('Code')}: {mastercode_str}",
-                    timeout=25,
+                    timeout=30,
                 )
 
     @work
