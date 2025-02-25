@@ -1,6 +1,6 @@
 [tool.poetry]
 name = "textual-mastermind"
-version = "1.0.0"
+version = "1.0.1"
 description = "Mastermind game built with Textual"
 authors = ["Rafal Padkowski <rafaelp@poczta.onet.pl>"]
 readme = "README.md"

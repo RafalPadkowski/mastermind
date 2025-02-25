@@ -18,8 +18,9 @@ class Row(Horizontal):
             CodePeg(self.game) for _ in range(self.game.num_pegs)
         ]
 
+        check_button_label: str = ("❔ " * self.game.num_pegs)[:-1]
         self.check_button: Button = Button(
-            "❔", classes="check", id="check", action="app.check_code"
+            check_button_label, classes="check", id="check", action="app.check_code"
         )
 
     def compose(self) -> ComposeResult:
