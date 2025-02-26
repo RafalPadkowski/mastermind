@@ -4,7 +4,9 @@ from typing import Any
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
-from textual.widgets import Button, Footer, Header, Label, Select, Switch
+from textual.events import Click
+from textual.widget import Widget
+from textual.widgets import Footer, Header, Label, Select, Switch
 from textual_utils import (
     AboutHeaderIcon,
     ConfirmScreen,
@@ -90,6 +92,11 @@ class MastermindApp(App):
         self.board = Board(self.game)
         self.mount(self.board)
 
+    async def on_click(self, event: Click) -> None:
+        if isinstance(event.widget, Widget):
+            if event.widget.id == "check":
+                await self.run_action("check_code")
+
     async def action_check_code(self) -> None:
         code_peg_values: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
@@ -109,7 +116,7 @@ class MastermindApp(App):
             breaker_code=code_peg_values
         )
 
-        self.board.current_row.query_one("#check", Button).remove()
+        self.board.current_row.query_one("#check").remove()
 
         self.board.current_row.mount(
             Label(

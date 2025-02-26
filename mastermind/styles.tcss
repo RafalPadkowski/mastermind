@@ -40,14 +40,14 @@ Select:focus > SelectCurrent {
 }
 
 .check {
+    width: 16;
+    margin-top: 1;
     margin-left: 4;
-    min-width: 10;
-    border: tall dimgrey;
-    text_style: none;
+    padding-left: 2;
 }
 
-.check:focus {
-    border: tall $border;
+.check:hover {
+    text-style: italic;
 }
 
 .feedback_pegs {

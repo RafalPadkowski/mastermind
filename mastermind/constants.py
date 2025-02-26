@@ -6,7 +6,7 @@ from textual_utils import AppMetadata
 
 APP_METADATA = AppMetadata(
     name="Master Mind",
-    version="1.0.2",
+    version="1.0.3",
     codename="🔴 ⚪",
     author="Rafal Padkowski",
     email="rafaelp@poczta.onet.pl",
@@ -21,6 +21,9 @@ SETTINGS_PATH: Final[Path] = Path(__file__).parent / "settings" / "settings.toml
 BLANK_COLOR: Final[str] = "⭕"
 CODE_PEG_COLORS: Final[list[str]] = ["🔴", "🟢", "🔵", "🟡", "🟣", "🟤", "⚪", "🟠"]
 FEEDBACK_PEG_COLORS: Final[list[str]] = ["🔴", "⚪"]
+
+CHECK_DEFAULT_TEXT: Final[str] = "❔"
+CHECK_HOVER_TEXT: Final[str] = "❓"
 
 KEY_TO_BINDING: Final[dict[str, Binding]] = {
     "ctrl+q": Binding(
