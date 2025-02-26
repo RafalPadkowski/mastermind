@@ -6,7 +6,7 @@ from textual_utils import AppMetadata
 
 APP_METADATA = AppMetadata(
     name="Master Mind",
-    version="2.0",
+    version="1.0.2",
     codename="🔴 ⚪",
     author="Rafal Padkowski",
     email="rafaelp@poczta.onet.pl",
