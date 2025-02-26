@@ -90,10 +90,7 @@ class MastermindApp(App):
         self.board = Board(self.game)
         self.mount(self.board)
 
-    def action_check_code(self) -> None:
-        self.board.current_row.query_one("#check", Button).remove()
-        self.board.current_row.disabled = True
-
+    async def action_check_code(self) -> None:
         code_peg_values: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
             code_peg.query_one("SelectCurrent Static.down-arrow").remove()
@@ -108,9 +105,11 @@ class MastermindApp(App):
 
         num_red_pegs: int
         num_white_pegs: int
-        num_red_pegs, num_white_pegs = self.game.check_breaker_code(
+        num_red_pegs, num_white_pegs = await self.game.check_breaker_code(
             breaker_code=code_peg_values
         )
+
+        self.board.current_row.query_one("#check", Button).remove()
 
         self.board.current_row.mount(
             Label(
@@ -125,6 +124,8 @@ class MastermindApp(App):
                 classes="feedback_pegs",
             )
         )
+
+        self.board.current_row.disabled = True
 
         if num_red_pegs == self.game.num_pegs:
             self.notify(_("Congratulations!"))
