@@ -66,7 +66,7 @@ class MastermindApp(App):
         )
         self.translate_about_header_icon()
 
-        self.create_new_game()
+        await self.run_action("create_new_game")
 
     def translate_bindings(self) -> None:
         for key, binding in KEY_TO_BINDING.items():
@@ -83,7 +83,7 @@ class MastermindApp(App):
         self.translate_bindings()
         self.translate_about_header_icon()
 
-    def create_new_game(self):
+    async def action_create_new_game(self):
         if hasattr(self, "game"):
             self.board.remove()
 
@@ -112,7 +112,7 @@ class MastermindApp(App):
 
         num_red_pegs: int
         num_white_pegs: int
-        num_red_pegs, num_white_pegs = await self.game.check_breaker_code(
+        num_red_pegs, num_white_pegs = await self.game.check_code(
             breaker_code=code_peg_values
         )
 
@@ -162,7 +162,7 @@ class MastermindApp(App):
                 question="Are you sure you want to start a new game?",
             )
         ):
-            self.create_new_game()
+            await self.run_action("create_new_game")
 
     @work
     async def action_settings(self) -> None:

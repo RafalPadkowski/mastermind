@@ -19,7 +19,7 @@ class Game:
         else:
             self.mastercode = random.choices(colors, k=self.num_pegs)
 
-    async def check_breaker_code(self, breaker_code: list[int]) -> tuple[int, int]:
+    async def check_code(self, breaker_code: list[int]) -> tuple[int, int]:
         num_red_pegs: int = 0
         num_white_pegs: int = 0
 
