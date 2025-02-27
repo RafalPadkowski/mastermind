@@ -1,3 +1,4 @@
+import asyncio
 import dataclasses
 from typing import Any
 
@@ -66,7 +67,7 @@ class MastermindApp(App):
         )
         self.translate_about_header_icon()
 
-        await self.run_action("create_new_game")
+        await self.create_new_game()
 
     def translate_bindings(self) -> None:
         for key, binding in KEY_TO_BINDING.items():
@@ -83,7 +84,8 @@ class MastermindApp(App):
         self.translate_bindings()
         self.translate_about_header_icon()
 
-    async def action_create_new_game(self):
+    async def create_new_game(self):
+        await asyncio.sleep(0)
         if hasattr(self, "game"):
             self.board.remove()
 
@@ -162,7 +164,7 @@ class MastermindApp(App):
                 question="Are you sure you want to start a new game?",
             )
         ):
-            await self.run_action("create_new_game")
+            await self.create_new_game()
 
     @work
     async def action_settings(self) -> None:
