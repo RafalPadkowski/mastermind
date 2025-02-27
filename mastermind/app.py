@@ -1,4 +1,3 @@
-import asyncio
 import dataclasses
 from typing import Any
 
@@ -67,7 +66,7 @@ class MastermindApp(App):
         )
         self.translate_about_header_icon()
 
-        await self.create_new_game()
+        self.create_new_game()
 
     def translate_bindings(self) -> None:
         for key, binding in KEY_TO_BINDING.items():
@@ -84,8 +83,7 @@ class MastermindApp(App):
         self.translate_bindings()
         self.translate_about_header_icon()
 
-    async def create_new_game(self):
-        await asyncio.sleep(0)
+    def create_new_game(self):
         if hasattr(self, "game"):
             self.board.remove()
 
@@ -94,12 +92,12 @@ class MastermindApp(App):
         self.board = Board(self.game)
         self.mount(self.board)
 
-    async def on_click(self, event: Click) -> None:
+    def on_click(self, event: Click) -> None:
         if isinstance(event.widget, Widget):
             if event.widget.id == "check":
-                await self.run_action("check_code")
+                self.on_click_check()
 
-    async def action_check_code(self) -> None:
+    def on_click_check(self) -> None:
         code_peg_values: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
             code_peg.query_one("SelectCurrent Static.down-arrow").remove()
@@ -114,7 +112,7 @@ class MastermindApp(App):
 
         num_red_pegs: int
         num_white_pegs: int
-        num_red_pegs, num_white_pegs = await self.game.check_code(
+        num_red_pegs, num_white_pegs = self.game.check_code(
             breaker_code=code_peg_values
         )
 
@@ -142,16 +140,16 @@ class MastermindApp(App):
             if self.board.current_row_number < self.game.num_rows:
                 self.board.add_row()
             else:
-                mastercode: list[int] = self.game.get_mastercode()
-                mastercode_str: str = ""
-                for color in mastercode:
+                maker_code: list[int] = self.game.get_maker_code()
+                maker_code_str: str = ""
+                for color in maker_code:
                     if color == 0:
-                        mastercode_str += BLANK_COLOR + " "
+                        maker_code_str += BLANK_COLOR + " "
                     else:
-                        mastercode_str += CODE_PEG_COLORS[color - 1] + " "
+                        maker_code_str += CODE_PEG_COLORS[color - 1] + " "
 
                 self.notify(
-                    f"{_('Better luck next time')}\n{_('Code')}: {mastercode_str}",
+                    f"{_('Better luck next time')}\n{_('Code')}: {maker_code_str}",
                     timeout=30,
                 )
 
@@ -164,7 +162,7 @@ class MastermindApp(App):
                 question="Are you sure you want to start a new game?",
             )
         ):
-            await self.create_new_game()
+            self.create_new_game()
 
     @work
     async def action_settings(self) -> None:
