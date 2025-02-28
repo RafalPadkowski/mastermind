@@ -92,12 +92,12 @@ class MastermindApp(App):
         self.board = Board(self.game)
         self.mount(self.board)
 
-    def on_click(self, event: Click) -> None:
+    async def on_click(self, event: Click) -> None:
         if isinstance(event.widget, Widget):
             if event.widget.id == "check":
-                self.on_click_check()
+                await self.on_click_check()
 
-    def on_click_check(self) -> None:
+    async def on_click_check(self) -> None:
         code_peg_values: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
             code_peg.query_one("SelectCurrent Static.down-arrow").remove()
@@ -112,7 +112,7 @@ class MastermindApp(App):
 
         num_red_pegs: int
         num_white_pegs: int
-        num_red_pegs, num_white_pegs = self.game.check_code(
+        num_red_pegs, num_white_pegs = await self.game.check_code(
             breaker_code=code_peg_values
         )
 
