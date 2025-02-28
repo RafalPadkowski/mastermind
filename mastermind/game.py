@@ -39,6 +39,7 @@ class Game:
         for color in breaker_code_no_reds:
             if color in maker_code_no_reds:
                 num_white_pegs += 1
+                maker_code_no_reds.remove(color)
 
         return num_red_pegs, num_white_pegs
 
