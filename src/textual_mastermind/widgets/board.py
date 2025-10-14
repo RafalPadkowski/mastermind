@@ -1,8 +1,8 @@
 from textual.app import ComposeResult
 from textual.containers import VerticalScroll
 
-from mastermind.game import Game
-from mastermind.widgets.row import Row
+from ..game import Game
+from .row import Row
 
 
 class Board(VerticalScroll):

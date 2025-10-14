@@ -1,7 +1,7 @@
 from textual.widgets import Label
 
-from mastermind.constants import CHECK_DEFAULT_TEXT, CHECK_HOVER_TEXT
-from mastermind.game import Game
+from ..constants import CHECK_DEFAULT_TEXT, CHECK_HOVER_TEXT
+from ..game import Game
 
 
 class Check(Label):

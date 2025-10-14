@@ -4,8 +4,8 @@ from textual.binding import Binding
 from textual.widgets import Select
 from textual.widgets._select import SelectOverlay
 
-from mastermind.constants import BLANK_COLOR, CODE_PEG_COLORS
-from mastermind.game import Game
+from ..constants import BLANK_COLOR, CODE_PEG_COLORS
+from ..game import Game
 
 
 class CodePeg(Select[int]):

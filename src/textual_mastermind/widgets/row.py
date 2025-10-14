@@ -2,9 +2,9 @@ from textual.app import ComposeResult
 from textual.containers import Horizontal
 from textual.widgets import Label
 
-from mastermind.game import Game
-from mastermind.widgets.check import Check
-from mastermind.widgets.code_peg import CodePeg
+from ..game import Game
+from .check import Check
+from .code_peg import CodePeg
 
 
 class Row(Horizontal):

@@ -1,4 +1,4 @@
-from mastermind.app import MastermindApp
+from textual_mastermind.app import MastermindApp
 
 
 def main():

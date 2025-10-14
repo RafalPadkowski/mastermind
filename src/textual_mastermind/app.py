@@ -20,7 +20,7 @@ from textual_utils import (
     set_translation,
 )
 
-from mastermind.constants import (
+from .constants import (
     APP_METADATA,
     BLANK_COLOR,
     CODE_PEG_COLORS,
@@ -30,9 +30,9 @@ from mastermind.constants import (
     LOCALEDIR,
     SETTINGS_PATH,
 )
-from mastermind.game import Game
-from mastermind.settings import LANGUAGES, VARIATIONS, app_settings
-from mastermind.widgets.board import Board
+from .game import Game
+from .settings import LANGUAGES, VARIATIONS, app_settings
+from .widgets.board import Board
 
 
 class MastermindApp(App):

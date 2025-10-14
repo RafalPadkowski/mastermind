@@ -1,6 +1,6 @@
 import random
 
-from mastermind.settings import app_settings
+from .settings import app_settings
 
 
 class Game:

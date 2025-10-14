@@ -1,24 +1,22 @@
-[tool.poetry]
+[project]
 name = "textual-mastermind"
 version = "1.0.10"
 description = "Mastermind game built with Textual"
-authors = ["Rafal Padkowski <rafaelp@poczta.onet.pl>"]
+authors = [{ name = "Rafal Padkowski", email = "rafaelp@poczta.onet.pl" }]
+requires-python = ">=3.13"
 readme = "README.md"
-packages = [
-    { include = "mastermind" },
+dependencies = [
+    "textual>=2.1.2",
+    "textual-utils>=1.0.8,<2",
 ]
 
-[tool.poetry.dependencies]
-python = "^3.13"
-textual = ">=2.1.2"
-textual-utils = "^1.0.8"
+[project.scripts]
+mm = "textual_mastermind:main"
 
-[tool.poetry.group.dev.dependencies]
-textual-dev = ">=1.7.0"
+[dependency-groups]
+dev = ["textual-dev>=1.7.0"]
 
 [build-system]
-requires = ["poetry-core"]
-build-backend = "poetry.core.masonry.api"
+requires = ["uv_build>=0.9.2,<0.10.0"]
+build-backend = "uv_build"
 
-[tool.poetry.scripts]
-mm = "mastermind:main"
