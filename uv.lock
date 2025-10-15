@@ -135,6 +135,11 @@ wheels = [
 ]
 
 [[package]]
+name = "config"
+version = "1.0.0"
+source = { git = "https://github.com/RafalPadkowski/config.git#936af2661ced96cc04ec437c7603ee1fb9b8b8bb" }
+
+[[package]]
 name = "frozenlist"
 version = "1.8.0"
 source = { registry = "https://pypi.org/simple" }
@@ -208,6 +213,14 @@ wheels = [
 ]
 
 [[package]]
+name = "i18n"
+version = "0.1.0"
+source = { git = "https://github.com/RafalPadkowski/i18n.git#798ad06dd2115b7ca327c5255857406cb67aecc1" }
+dependencies = [
+    { name = "loguru" },
+]
+
+[[package]]
 name = "idna"
 version = "3.11"
 source = { registry = "https://pypi.org/simple" }
@@ -238,6 +251,19 @@ dependencies = [
 sdist = { url = "https://files.pythonhosted.org/packages/2a/ae/bb56c6828e4797ba5a4821eec7c43b8bf40f69cda4d4f5f8c8a2810ec96a/linkify-it-py-2.0.3.tar.gz", hash = "sha256:68cda27e162e9215c17d786649d1da0021a451bdc436ef9e0fa0ba5234b9b048", size = 27946, upload-time = "2024-02-04T14:48:04.179Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/04/1e/b832de447dee8b582cac175871d2f6c3d5077cc56d5575cadba1fd1cccfa/linkify_it_py-2.0.3-py3-none-any.whl", hash = "sha256:6bcbc417b0ac14323382aef5c5192c0075bf8a9d6b41820a2b66371eac6b6d79", size = 19820, upload-time = "2024-02-04T14:48:02.496Z" },
+]
+
+[[package]]
+name = "loguru"
+version = "0.7.3"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "colorama", marker = "sys_platform == 'win32'" },
+    { name = "win32-setctime", marker = "sys_platform == 'win32'" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/3a/05/a1dae3dffd1116099471c643b8924f5aa6524411dc6c63fdae648c4f1aca/loguru-0.7.3.tar.gz", hash = "sha256:19480589e77d47b8d85b2c827ad95d49bf31b0dcde16593892eb51dd18706eb6", size = 63559, upload-time = "2024-12-06T11:20:56.608Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/0c/29/0348de65b8cc732daa3e33e67806420b2ae89bdce2b04af740289c5c6c8c/loguru-0.7.3-py3-none-any.whl", hash = "sha256:31a33c10c8e1e10422bfd431aeb5d351c7cf7fa671e3c4df004162264b28220c", size = 61595, upload-time = "2024-12-06T11:20:54.538Z" },
 ]
 
 [[package]]
@@ -587,6 +613,8 @@ name = "textual-mastermind"
 version = "1.0.10"
 source = { editable = "." }
 dependencies = [
+    { name = "config" },
+    { name = "i18n" },
     { name = "textual" },
     { name = "textual-utils" },
 ]
@@ -598,12 +626,14 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "textual", specifier = ">=2.1.2" },
-    { name = "textual-utils", specifier = ">=1.0.8,<2" },
+    { name = "config", git = "https://github.com/RafalPadkowski/config.git" },
+    { name = "i18n", git = "https://github.com/RafalPadkowski/i18n.git" },
+    { name = "textual", specifier = ">=6.3.0" },
+    { name = "textual-utils", specifier = ">=2.1.0" },
 ]
 
 [package.metadata.requires-dev]
-dev = [{ name = "textual-dev", specifier = ">=1.7.0" }]
+dev = [{ name = "textual-dev", specifier = ">=1.8.0" }]
 
 [[package]]
 name = "textual-serve"
@@ -623,24 +653,16 @@ wheels = [
 
 [[package]]
 name = "textual-utils"
-version = "1.0.9"
+version = "2.1.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
+    { name = "config" },
+    { name = "i18n" },
     { name = "textual" },
-    { name = "tomli-w" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/f1/ea/dc7a2b46f7c8e3df0f9bb4cd25c6a6a7946962bb9589485bc40687348cf4/textual_utils-1.0.9.tar.gz", hash = "sha256:0dec0c07cc38a81a0c0263b9a22f64f2756c59206980306af7e2098c1f1a16e9", size = 4809, upload-time = "2025-07-11T10:40:12.084Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/64/04/1c4962a070636f56ee66847353e6c9b21d8e65d65621344202c93c06253f/textual_utils-2.1.0.tar.gz", hash = "sha256:ef5c48a4aed0bf414a774faffaf607b9c7ed2f0466a46310ba332a4c6f6e76b4", size = 7966, upload-time = "2025-10-14T12:54:12.121Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/ae/94/08b8527c916a070188284ac7d8eeec9f400d8f746ee99d3719de85bbbd8b/textual_utils-1.0.9-py3-none-any.whl", hash = "sha256:ed49000f1e895a8bdbbb6818c092645a57a48e20ebb039f5263ed520858e313c", size = 7160, upload-time = "2025-07-11T10:40:10.925Z" },
-]
-
-[[package]]
-name = "tomli-w"
-version = "1.2.0"
-source = { registry = "https://pypi.org/simple" }
-sdist = { url = "https://files.pythonhosted.org/packages/19/75/241269d1da26b624c0d5e110e8149093c759b7a286138f4efd61a60e75fe/tomli_w-1.2.0.tar.gz", hash = "sha256:2dd14fac5a47c27be9cd4c976af5a12d87fb1f0b4512f81d69cce3b35ae25021", size = 7184, upload-time = "2025-01-15T12:07:24.262Z" }
-wheels = [
-    { url = "https://files.pythonhosted.org/packages/c7/18/c86eb8e0202e32dd3df50d43d7ff9854f8e0603945ff398974c1d91ac1ef/tomli_w-1.2.0-py3-none-any.whl", hash = "sha256:188306098d013b691fcadc011abd66727d3c414c571bb01b1a174ba8c983cf90", size = 6675, upload-time = "2025-01-15T12:07:22.074Z" },
+    { url = "https://files.pythonhosted.org/packages/95/43/58be5143ee7f4c63e75de2354662aa5caa32c79ba514222fc043c27ebc19/textual_utils-2.1.0-py3-none-any.whl", hash = "sha256:00ff70971f199c5fafb75f0833945405b8a7aafc5fef223d547b71b27ad3ea2a", size = 6637, upload-time = "2025-10-14T12:54:11.259Z" },
 ]
 
 [[package]]
@@ -659,6 +681,15 @@ source = { registry = "https://pypi.org/simple" }
 sdist = { url = "https://files.pythonhosted.org/packages/91/7a/146a99696aee0609e3712f2b44c6274566bc368dfe8375191278045186b8/uc-micro-py-1.0.3.tar.gz", hash = "sha256:d321b92cff673ec58027c04015fcaa8bb1e005478643ff4a500882eaab88c48a", size = 6043, upload-time = "2024-02-09T16:52:01.654Z" }
 wheels = [
     { url = "https://files.pythonhosted.org/packages/37/87/1f677586e8ac487e29672e4b17455758fce261de06a0d086167bb760361a/uc_micro_py-1.0.3-py3-none-any.whl", hash = "sha256:db1dffff340817673d7b466ec86114a9dc0e9d4d9b5ba229d9d60e5c12600cd5", size = 6229, upload-time = "2024-02-09T16:52:00.371Z" },
+]
+
+[[package]]
+name = "win32-setctime"
+version = "1.2.0"
+source = { registry = "https://pypi.org/simple" }
+sdist = { url = "https://files.pythonhosted.org/packages/b3/8f/705086c9d734d3b663af0e9bb3d4de6578d08f46b1b101c2442fd9aecaa2/win32_setctime-1.2.0.tar.gz", hash = "sha256:ae1fdf948f5640aae05c511ade119313fb6a30d7eabe25fef9764dca5873c4c0", size = 4867, upload-time = "2024-12-07T15:28:28.314Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/e1/07/c6fe3ad3e685340704d314d765b7912993bcb8dc198f0e7a89382d37974b/win32_setctime-1.2.0-py3-none-any.whl", hash = "sha256:95d644c4e708aba81dc3704a116d8cbc974d70b3bdb8be1d150e36be6e9d1390", size = 4083, upload-time = "2024-12-07T15:28:26.465Z" },
 ]
 
 [[package]]

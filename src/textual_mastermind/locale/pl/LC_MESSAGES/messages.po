@@ -86,3 +86,7 @@ msgstr "Powodzenia następnym razem"
 
 msgid "Code"
 msgstr "Kod"
+
+msgid "Break the hidden code"
+msgstr "Odgadnij ukryty kod"
+

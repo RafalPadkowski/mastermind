@@ -2,17 +2,6 @@ from pathlib import Path
 from typing import Final
 
 from textual.binding import Binding
-from textual_utils import AppMetadata
-
-APP_METADATA = AppMetadata(
-    name="Master Mind",
-    version="1.0.9",
-    codename="🔴 ⚪",
-    author="Rafal Padkowski",
-    email="rafaelp@poczta.onet.pl",
-)
-
-ICON: Final[str] = "❔"
 
 LOCALEDIR = Path(__file__).parent / "locale"
 
