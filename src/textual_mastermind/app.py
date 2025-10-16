@@ -1,4 +1,4 @@
-from dataclasses import dataclass, field, replace
+from dataclasses import dataclass, field, fields, replace
 from importlib.metadata import metadata
 from typing import cast
 
@@ -219,76 +219,35 @@ class MastermindApp(App[None]):
 
     @work
     async def action_settings(self) -> None:
-        setting_rows: dict[str, SettingRow] = {
-            key: value
-            for key, value in zip(
-                app_settings.__dict__.keys(),
-                [
-                    SettingRow(
-                        label="Language:",
-                        widget=Select(
-                            options=zip(
-                                [_(value) for value in LANGUAGES.values()],
-                                LANGUAGES.keys(),
-                            ),
-                            value=app_settings.language,
-                            allow_blank=False,
-                        ),
-                    ),
-                    SettingRow(
-                        label="Variation:",
-                        widget=Select(
-                            options=zip(
-                                [
-                                    variation.description
-                                    for variation in VARIATIONS.values()
-                                ],
-                                VARIATIONS.keys(),
-                            ),
-                            value=app_settings.variation.name,
-                            allow_blank=False,
-                        ),
-                    ),
-                    SettingRow(
-                        label="Duplicate colors:",
-                        widget=Switch(value=app_settings.duplicate_colors),
-                    ),
-                    SettingRow(
-                        label="Blank color:",
-                        widget=Switch(value=app_settings.blank_color),
-                    ),
-                ],
-            )
-        }
-
-        settings_dict = await self.push_screen_wait(
+        if await self.push_screen_wait(
             SettingsScreen(
                 dialog_title="Settings",
-                dialog_subtitle=APP_METADATA.name,
-                setting_rows=setting_rows,
+                dialog_subtitle=self.app_metadata.name,
+                settings=[
+                    getattr(self.config.settings, f.name)
+                    for f in fields(self.config.settings)
+                ],
             )
-        )
+        ):
+            settings_changed = False
 
-        if settings_dict is not None:
-            old_language = app_settings.language
+            if self.config.settings.language.changed:
+                settings_changed = True
 
-            old_variation = app_settings.variation
-            old_duplicate_colors = app_settings.duplicate_colors
-            old_blank_color = app_settings.blank_color
+                tr.language = self.config.settings.language.current_value
 
-            app_settings.set(settings_dict)
-
-            if old_language != app_settings.language:
-                set_translation(app_settings.language)
-                self.translate()
-
-            if (
-                old_variation.name != app_settings.variation.name
-                or old_duplicate_colors != app_settings.duplicate_colors
-                or old_blank_color != app_settings.blank_color
+            if any(
+                [
+                    self.config.settings.variation.changed,
+                    self.config.settings.duplicate_colors.changed,
+                    self.config.settings.blank_color.changed,
+                ]
             ):
+                settings_changed = True
+
                 self.notify(
-                    _("New game settings will be applied to a new game"), timeout=5
+                    tr("New game settings will be applied to a new game"), timeout=5
                 )
 
-            save_settings(settings_dict, SETTINGS_PATH)
+            if settings_changed:
+                self.config.save_settings()
