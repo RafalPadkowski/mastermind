@@ -1,7 +1,5 @@
 from dataclasses import dataclass
 
-from i18n import tr
-
 
 @dataclass(frozen=True)
 class Variation:
@@ -12,11 +10,9 @@ class Variation:
 
     @property
     def description(self) -> str:
-        num_pegs_str = f"{self.num_pegs} pegs"
-
         return (
-            f"{self.name} ({self.num_rows} {tr('rows')}, "
-            f"{tr(num_pegs_str)}, {self.num_colors} {tr('colors')})"
+            f"{self.name} ({self.num_rows} rows, "
+            f"{self.num_pegs} pegs, {self.num_colors} colors)"
         )
 
 

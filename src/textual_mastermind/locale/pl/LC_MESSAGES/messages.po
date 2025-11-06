@@ -45,17 +45,14 @@ msgstr "polski"
 msgid "English"
 msgstr "angielski"
 
-msgid "rows"
-msgstr "rzędów"
+msgid "original (10 rows, 4 pegs, 6 colors)"
+msgstr "oryginalna (10 rzędów, 4 pionki, 6 kolorów)"
 
-msgid "4 pegs"
-msgstr "4 pionki"
+msgid "mini (6 rows, 4 pegs, 6 colors)"
+msgstr "mini (6 rzędów, 4 pionki, 6 kolorów)"
 
-msgid "5 pegs"
-msgstr "5 pionków"
-
-msgid "colors"
-msgstr "kolorów"
+msgid "super (12 rows, 5 pegs, 8 colors)"
+msgstr "super (12 rzędów, 5 pionków, 8 kolorów)"
 
 msgid "Quit"
 msgstr "Wyjście"
