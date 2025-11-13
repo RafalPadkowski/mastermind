@@ -1,9 +1,9 @@
-from dataclasses import dataclass, field, fields, replace
+from dataclasses import dataclass, fields, replace
 from importlib.metadata import metadata
-from typing import cast
+from typing import Any, cast
 
-from config import Config
-from config.settings import SettingBoolean, SettingOption, SettingOptions
+from config import load_config, save_settings
+from config.settings import SettingBoolean, SettingOptions
 from i18n import tr
 from textual import work
 from textual.app import App, ComposeResult
@@ -43,47 +43,19 @@ class MastermindApp(App[None]):
         super().__init__()
 
         @dataclass
-        class AppUi:
-            icon: str = field(init=False)
+        class Ui:
+            icon: str
 
         @dataclass
-        class AppSettings:
+        class Settings:
             language: SettingOptions
             variation: SettingOptions
             duplicate_colors: SettingBoolean
             blank_color: SettingBoolean
 
-        class AppConfig(Config[AppUi, AppSettings]):
-            ui: AppUi
-            settings: AppSettings
-
-        self.config = AppConfig(
-            ui=AppUi(),
-            settings=AppSettings(
-                language=SettingOptions(
-                    label="Language:",
-                    default_value="en",
-                    options=[
-                        SettingOption(display_str="English", value="en"),
-                        SettingOption(display_str="Polish", value="pl"),
-                    ],
-                ),
-                variation=SettingOptions(
-                    label="Variation:",
-                    default_value="original",
-                    options=[
-                        SettingOption(v.description, k) for k, v in variations.items()
-                    ],
-                ),
-                duplicate_colors=SettingBoolean(
-                    label="Duplicate colors:",
-                    default_value=False,
-                ),
-                blank_color=SettingBoolean(
-                    label="Blank color:",
-                    default_value=False,
-                ),
-            ),
+        self.ui, self.settings, _ = cast(
+            tuple[Ui, Settings, dict[str, Any]],
+            load_config(ui_cls=Ui, settings_cls=Settings),
         )
 
         pkg_name = cast(str, __package__)
@@ -92,14 +64,14 @@ class MastermindApp(App[None]):
         self.app_metadata = AppMetadata(
             name="Mastermind",
             version=pkg_metadata["Version"],
-            icon=self.config.ui.icon,
+            icon=self.ui.icon,
             description="Break the hidden code",
             author=pkg_metadata["Author"],
             email=pkg_metadata["Author-email"].split("<")[1][:-1],
         )
 
         tr.localedir = LOCALEDIR
-        tr.language = self.config.settings.language.current_value
+        tr.language = self.settings.language.current_value
 
         self.translate_bindings()
 
@@ -211,7 +183,7 @@ class MastermindApp(App[None]):
         if await self.push_screen_wait(
             ConfirmScreen(
                 dialog_title="New game",
-                dialog_subtitle=APP_METADATA.name,
+                dialog_subtitle=self.app_metadata.name,
                 question="Are you sure you want to start a new game?",
             )
         ):
@@ -224,23 +196,23 @@ class MastermindApp(App[None]):
                 dialog_title="Settings",
                 dialog_subtitle=self.app_metadata.name,
                 settings=[
-                    getattr(self.config.settings, f.name)
-                    for f in fields(self.config.settings)
+                    getattr(self.settings, f.name) for f in fields(self.settings)
                 ],
             )
         ):
             settings_changed = False
 
-            if self.config.settings.language.changed:
+            if self.settings.language.changed:
                 settings_changed = True
 
-                tr.language = self.config.settings.language.current_value
+                tr.language = self.settings.language.current_value
+                self.translate()
 
             if any(
                 [
-                    self.config.settings.variation.changed,
-                    self.config.settings.duplicate_colors.changed,
-                    self.config.settings.blank_color.changed,
+                    self.settings.variation.changed,
+                    self.settings.duplicate_colors.changed,
+                    self.settings.blank_color.changed,
                 ]
             ):
                 settings_changed = True
@@ -250,4 +222,4 @@ class MastermindApp(App[None]):
                 )
 
             if settings_changed:
-                self.config.save_settings()
+                save_settings(self.settings)

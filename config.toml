@@ -1,0 +1,64 @@
+[ui]
+icon = "❔"
+
+
+[settings]
+[settings.language]
+label = "Language:"
+default_value = "en"
+current_value = "pl"
+
+[[settings.language.options]]
+value = "en"
+display_str = "English"
+
+[[settings.language.options]]
+value = "pl"
+display_str = "Polish"
+
+
+[settings.variation]
+label = "Variation:"
+default_value = "original"
+current_value = "original"
+
+[[settings.variation.options]]
+value = "original"
+display_str = "original (10 rows, 4 pegs, 6 colors)"
+
+[[settings.variation.options]]
+value = "mini"
+display_str = "mini (6 rows, 4 pegs, 6 colors)"
+
+[[settings.variation.options]]
+value = "super"
+display_str = "super (12 rows, 5 pegs, 8 colors)"
+
+
+[settings.duplicate_colors]
+label = "Duplicate colors:"
+default_value = false
+current_value = false
+
+
+[settings.blank_color]
+label = "Blank color:"
+default_value = false
+current_value = false
+
+
+[variations]
+[variations.original]
+num_rows = 10
+num_pegs = 4
+num_colors = 6
+
+[variations.mini]
+num_rows = 6
+num_pegs = 4
+num_colors = 6
+
+[variations.super]
+num_rows = 12
+num_pegs = 5
+num_colors = 8
