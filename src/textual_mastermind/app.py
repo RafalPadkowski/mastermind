@@ -20,9 +20,6 @@ from textual_utils import (
 )
 
 from .constants import (
-    BLANK_COLOR,
-    CODE_PEG_COLORS,
-    FEEDBACK_PEG_COLORS,
     KEY_TO_BINDING,
     LOCALEDIR,
     SETTINGS_PATH,
@@ -45,6 +42,11 @@ class MastermindApp(App[None]):
         @dataclass
         class Ui:
             icon: str
+            blank_color: str
+            code_peg_colors: list[str]
+            feedback_peg_colors: list[str]
+            check_default_text: str
+            check_hover_text: str
 
         @dataclass
         class Settings:
