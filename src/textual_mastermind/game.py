@@ -1,6 +1,6 @@
 import random
 
-from .config_types import Variation
+from .app_config import Variation
 
 
 class Game:

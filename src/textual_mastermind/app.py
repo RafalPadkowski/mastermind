@@ -18,7 +18,8 @@ from textual_utils import (
     mount_about_header_icon,
 )
 
-from .config_types import Settings, Ui, Variation
+from . import app_config
+from .app_config import Settings, Ui
 from .constants import (
     CONFIG_FILE,
     KEY_TO_BINDING,
@@ -37,14 +38,14 @@ class MastermindApp(App[None]):
     def __init__(self) -> None:
         super().__init__()
 
-        config_dict, self.settings = cast(
+        config_dict, app_config.settings = cast(
             tuple[dict[str, Any], Settings],
             load_config(config_file=str(CONFIG_FILE), settings_cls=Settings),
         )
 
-        self.ui: Ui = config_dict["ui"]
+        app_config.variations = config_dict["variations"].items()
 
-        self.variations: dict[str, Variation] = config_dict["variations"].items()
+        app_config.ui = cast(Ui, config_dict["ui"])
 
         pkg_name = cast(str, __package__)
         pkg_metadata = metadata(pkg_name)
@@ -52,14 +53,14 @@ class MastermindApp(App[None]):
         self.app_metadata = AppMetadata(
             name="Mastermind",
             version=pkg_metadata["Version"],
-            icon=self.ui["icon"],
+            icon=app_config.ui["icon"],
             description="Break the hidden code",
             author=pkg_metadata["Author"],
             email=pkg_metadata["Author-email"].split("<")[1][:-1],
         )
 
         tr.localedir = LOCALE_DIR
-        tr.language = self.settings.language.current_value
+        tr.language = app_config.settings.language.current_value
 
         self.translate_bindings()
 
@@ -184,23 +185,24 @@ class MastermindApp(App[None]):
                 dialog_title="Settings",
                 dialog_subtitle=self.app_metadata.name,
                 settings=[
-                    getattr(self.settings, f.name) for f in fields(self.settings)
+                    getattr(app_config.settings, f.name)
+                    for f in fields(app_config.settings)
                 ],
             )
         ):
             settings_changed = False
 
-            if self.settings.language.changed:
+            if app_config.settings.language.changed:
                 settings_changed = True
 
-                tr.language = self.settings.language.current_value
+                tr.language = app_config.settings.language.current_value
                 self.translate()
 
             if any(
                 [
-                    self.settings.variation.changed,
-                    self.settings.duplicate_colors.changed,
-                    self.settings.blank_color.changed,
+                    app_config.settings.variation.changed,
+                    app_config.settings.duplicate_colors.changed,
+                    app_config.settings.blank_color.changed,
                 ]
             ):
                 settings_changed = True
@@ -210,4 +212,4 @@ class MastermindApp(App[None]):
                 )
 
             if settings_changed:
-                save_settings(str(CONFIG_FILE), self.settings)
+                save_settings(str(CONFIG_FILE), app_config.settings)
