@@ -3,9 +3,9 @@ from typing import Final
 
 from textual.binding import Binding
 
-LOCALEDIR = Path(__file__).parent / "locale"
+LOCALE_DIR: Final[Path] = Path(__file__).parent / "locale"
 
-SETTINGS_PATH: Final[Path] = Path(__file__).parent / "settings" / "settings.toml"
+CONFIG_FILE: Final[Path] = Path(__file__).parent / "config.toml"
 
 KEY_TO_BINDING: Final[dict[str, Binding]] = {
     "ctrl+q": Binding(

@@ -137,7 +137,7 @@ wheels = [
 [[package]]
 name = "config"
 version = "1.0.0"
-source = { git = "https://github.com/RafalPadkowski/config.git#f154a7e3d1761775c9199aeec23a23add100d564" }
+source = { git = "https://github.com/RafalPadkowski/config.git#7e39ce4c7cde692205d71b523898d04439d59b2c" }
 dependencies = [
     { name = "tomlkit" },
 ]

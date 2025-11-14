@@ -20,9 +20,9 @@ from textual_utils import (
 )
 
 from .constants import (
+    CONFIG_FILE,
     KEY_TO_BINDING,
-    LOCALEDIR,
-    SETTINGS_PATH,
+    LOCALE_DIR,
 )
 
 # from .game import Game
@@ -57,7 +57,7 @@ class MastermindApp(App[None]):
 
         self.ui, self.settings, _ = cast(
             tuple[Ui, Settings, dict[str, Any]],
-            load_config(ui_cls=Ui, settings_cls=Settings),
+            load_config(config_file=str(CONFIG_FILE), ui_cls=Ui, settings_cls=Settings),
         )
 
         pkg_name = cast(str, __package__)
@@ -72,7 +72,7 @@ class MastermindApp(App[None]):
             email=pkg_metadata["Author-email"].split("<")[1][:-1],
         )
 
-        tr.localedir = LOCALEDIR
+        tr.localedir = LOCALE_DIR
         tr.language = self.settings.language.current_value
 
         self.translate_bindings()
@@ -224,4 +224,4 @@ class MastermindApp(App[None]):
                 )
 
             if settings_changed:
-                save_settings(self.settings)
+                save_settings(str(CONFIG_FILE), self.settings)
