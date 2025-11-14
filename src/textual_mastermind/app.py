@@ -26,9 +26,7 @@ from .constants import (
 )
 
 # from .game import Game
-from .settings import variations
-
-# from .widgets.board import Board
+from .widgets.board import Board
 
 
 class MastermindApp(App[None]):
@@ -55,10 +53,20 @@ class MastermindApp(App[None]):
             duplicate_colors: SettingBoolean
             blank_color: SettingBoolean
 
-        self.ui, self.settings, _ = cast(
+        self.ui, self.settings, config_dict = cast(
             tuple[Ui, Settings, dict[str, Any]],
             load_config(config_file=str(CONFIG_FILE), ui_cls=Ui, settings_cls=Settings),
         )
+
+        @dataclass
+        class Variation:
+            num_rows: int
+            num_pegs: int
+            num_colors: int
+
+        self.variations: dict[str, Variation] = {
+            k: Variation(**v) for k, v in config_dict["variations"].items()
+        }
 
         pkg_name = cast(str, __package__)
         pkg_metadata = metadata(pkg_name)
@@ -77,7 +85,7 @@ class MastermindApp(App[None]):
 
         self.translate_bindings()
 
-        # self.board: Board
+        self.board: Board
         # self.game: Game
 
     def compose(self) -> ComposeResult:
