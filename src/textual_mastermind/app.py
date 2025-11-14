@@ -1,16 +1,15 @@
-from dataclasses import dataclass, fields, replace
+from dataclasses import fields, replace
 from importlib.metadata import metadata
 from typing import Any, cast
 
 from config import load_config, save_settings
-from config.settings import SettingBoolean, SettingOptions
 from i18n import tr
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.events import Click
 from textual.widget import Widget
-from textual.widgets import Footer, Header, Label, Select, Switch
+from textual.widgets import Footer, Header, Label
 from textual_utils import (
     AboutHeaderIcon,
     AppMetadata,
@@ -19,6 +18,7 @@ from textual_utils import (
     mount_about_header_icon,
 )
 
+from .config_types import Settings, Ui, Variation
 from .constants import (
     CONFIG_FILE,
     KEY_TO_BINDING,
@@ -26,7 +26,7 @@ from .constants import (
 )
 
 # from .game import Game
-from .widgets.board import Board
+# from .widgets.board import Board
 
 
 class MastermindApp(App[None]):
@@ -37,32 +37,10 @@ class MastermindApp(App[None]):
     def __init__(self) -> None:
         super().__init__()
 
-        @dataclass
-        class Ui:
-            icon: str
-            blank_color: str
-            code_peg_colors: list[str]
-            feedback_peg_colors: list[str]
-            check_default_text: str
-            check_hover_text: str
-
-        @dataclass
-        class Settings:
-            language: SettingOptions
-            variation: SettingOptions
-            duplicate_colors: SettingBoolean
-            blank_color: SettingBoolean
-
         self.ui, self.settings, config_dict = cast(
             tuple[Ui, Settings, dict[str, Any]],
             load_config(config_file=str(CONFIG_FILE), ui_cls=Ui, settings_cls=Settings),
         )
-
-        @dataclass
-        class Variation:
-            num_rows: int
-            num_pegs: int
-            num_colors: int
 
         self.variations: dict[str, Variation] = {
             k: Variation(**v) for k, v in config_dict["variations"].items()
@@ -85,7 +63,7 @@ class MastermindApp(App[None]):
 
         self.translate_bindings()
 
-        self.board: Board
+        # self.board: Board
         # self.game: Game
 
     def compose(self) -> ComposeResult:

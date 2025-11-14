@@ -1,13 +1,11 @@
 import random
 
-from .settings import app_settings
-
 
 class Game:
-    def __init__(self) -> None:
-        self.num_rows = app_settings.variation.num_rows
-        self.num_pegs = app_settings.variation.num_pegs
-        self.num_colors = app_settings.variation.num_colors
+    def __init__(self, num_rows: int, num_pegs: int, num_colors: int) -> None:
+        self.num_rows = num_rows
+        self.num_pegs = num_pegs
+        self.num_colors = num_colors
 
         colors: list[int] = list(range(1, self.num_colors + 1))
         if app_settings.blank_color:
