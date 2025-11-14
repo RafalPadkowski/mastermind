@@ -1,8 +1,10 @@
 import random
 
+from .config_types import Settings, Ui, Variation
+
 
 class Game:
-    def __init__(self, num_rows: int, num_pegs: int, num_colors: int) -> None:
+    def __init__(self, settings: Settings, variations: dict[str, Variation]) -> None:
         self.num_rows = num_rows
         self.num_pegs = num_pegs
         self.num_colors = num_colors

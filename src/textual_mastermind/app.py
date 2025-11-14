@@ -37,14 +37,14 @@ class MastermindApp(App[None]):
     def __init__(self) -> None:
         super().__init__()
 
-        self.ui, self.settings, config_dict = cast(
-            tuple[Ui, Settings, dict[str, Any]],
-            load_config(config_file=str(CONFIG_FILE), ui_cls=Ui, settings_cls=Settings),
+        config_dict, self.settings = cast(
+            tuple[dict[str, Any], Settings],
+            load_config(config_file=str(CONFIG_FILE), settings_cls=Settings),
         )
 
-        self.variations: dict[str, Variation] = {
-            k: Variation(**v) for k, v in config_dict["variations"].items()
-        }
+        self.ui: Ui = config_dict["ui"]
+
+        self.variations: dict[str, Variation] = config_dict["variations"].items()
 
         pkg_name = cast(str, __package__)
         pkg_metadata = metadata(pkg_name)
@@ -52,7 +52,7 @@ class MastermindApp(App[None]):
         self.app_metadata = AppMetadata(
             name="Mastermind",
             version=pkg_metadata["Version"],
-            icon=self.ui.icon,
+            icon=self.ui["icon"],
             description="Break the hidden code",
             author=pkg_metadata["Author"],
             email=pkg_metadata["Author-email"].split("<")[1][:-1],

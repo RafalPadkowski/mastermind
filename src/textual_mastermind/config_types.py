@@ -1,10 +1,10 @@
 from dataclasses import dataclass
+from typing import TypedDict
 
 from config.settings import SettingBoolean, SettingOptions
 
 
-@dataclass
-class Ui:
+class Ui(TypedDict):
     icon: str
     blank_color: str
     code_peg_colors: list[str]
@@ -21,8 +21,7 @@ class Settings:
     blank_color: SettingBoolean
 
 
-@dataclass
-class Variation:
+class Variation(TypedDict):
     num_rows: int
     num_pegs: int
     num_colors: int
