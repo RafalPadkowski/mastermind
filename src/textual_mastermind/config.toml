@@ -1,12 +1,3 @@
-[ui]
-icon = "❔"
-blank_color = "⭕"
-code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "🟤", "⚪", "🟠"]
-feedback_peg_colors = ["🔴", "⚪"]
-check_default_text = "❔"
-check_hover_text = "❓"
-
-
 [settings]
 [settings.language]
 label = "Language:"
@@ -27,13 +18,13 @@ options = [
   { value = "super", display_str = "super (12 rows, 5 pegs, 8 colors)" },
 ]
 
-[settings.duplicate_colors]
-label = "Duplicate colors:"
+[settings.blank_color]
+label = "Blank color:"
 default_value = false
 current_value = false
 
-[settings.blank_color]
-label = "Blank color:"
+[settings.duplicate_colors]
+label = "Duplicate colors:"
 default_value = false
 current_value = false
 
@@ -53,3 +44,12 @@ num_colors = 6
 num_rows = 12
 num_pegs = 5
 num_colors = 8
+
+
+[ui]
+icon = "❔"
+blank_color = "⭕"
+code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "🟤", "⚪", "🟠"]
+feedback_peg_colors = ["🔴", "⚪"]
+check_default_text = "❔"
+check_hover_text = "❓"

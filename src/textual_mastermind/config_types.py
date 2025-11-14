@@ -17,8 +17,8 @@ class Ui(TypedDict):
 class Settings:
     language: SettingOptions
     variation: SettingOptions
-    duplicate_colors: SettingBoolean
     blank_color: SettingBoolean
+    duplicate_colors: SettingBoolean
 
 
 class Variation(TypedDict):

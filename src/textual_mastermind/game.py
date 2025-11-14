@@ -1,41 +1,41 @@
 import random
 
-from .config_types import Settings, Ui, Variation
+from .config_types import Variation
 
 
 class Game:
-    def __init__(self, settings: Settings, variations: dict[str, Variation]) -> None:
-        self.num_rows = num_rows
-        self.num_pegs = num_pegs
-        self.num_colors = num_colors
+    def __init__(
+        self, variation: Variation, blank_color: bool, duplicate_colors: bool
+    ) -> None:
+        self.num_rows = variation["num_rows"]
+        self.num_pegs = variation["num_pegs"]
+        self.num_colors = variation["num_colors"]
 
         colors: list[int] = list(range(1, self.num_colors + 1))
-        if app_settings.blank_color:
+        if blank_color:
             colors.append(0)
 
         self.maker_code: list[int]
-        if not app_settings.duplicate_colors:
-            self.maker_code = random.sample(colors, k=self.num_pegs)
-        else:
+        if duplicate_colors:
             self.maker_code = random.choices(colors, k=self.num_pegs)
+        else:
+            self.maker_code = random.sample(colors, k=self.num_pegs)
 
-    async def check_code(self, breaker_code: list[int]) -> tuple[int, int]:
-        num_red_pegs: int = 0
-        num_white_pegs: int = 0
-
-        red_idxs: list[int] = []
-        for i, breaker_code_color in enumerate(breaker_code):
-            if self.maker_code[i] == breaker_code_color:
-                num_red_pegs += 1
-                red_idxs.append(i)
-
+    def check_code(self, breaker_code: list[int]) -> tuple[int, int]:
         breaker_code_no_reds = [
-            color for i, color in enumerate(breaker_code) if i not in red_idxs
+            color
+            for i, color in enumerate(breaker_code)
+            if self.maker_code[i] != breaker_code[i]
         ]
         maker_code_no_reds = [
-            color for i, color in enumerate(self.maker_code) if i not in red_idxs
+            color
+            for i, color in enumerate(self.maker_code)
+            if self.maker_code[i] != breaker_code[i]
         ]
 
+        num_red_pegs: int = len(breaker_code) - len(breaker_code_no_reds)
+
+        num_white_pegs: int = 0
         for color in breaker_code_no_reds:
             if color in maker_code_no_reds:
                 num_white_pegs += 1
