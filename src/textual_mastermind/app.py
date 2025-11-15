@@ -19,9 +19,9 @@ from textual_utils import (
 )
 
 from .app_config import Settings, app_config
+from .bindings import GlOBAL_BINDINGS
 from .constants import (
     CONFIG_FILE,
-    KEY_TO_BINDING,
     LOCALE_DIR,
 )
 from .game import Game
@@ -31,7 +31,7 @@ from .widgets.board import Board
 class MastermindApp(App[None]):
     CSS_PATH = "styles.tcss"
     ENABLE_COMMAND_PALETTE = False
-    BINDINGS = list(KEY_TO_BINDING.values())
+    BINDINGS = list(GlOBAL_BINDINGS.values())
 
     def __init__(self) -> None:
         super().__init__()
@@ -83,7 +83,7 @@ class MastermindApp(App[None]):
         self.create_new_game()
 
     def translate_bindings(self) -> None:
-        for key, binding in KEY_TO_BINDING.items():
+        for key, binding in GlOBAL_BINDINGS.items():
             current_binding: Binding = self._bindings.key_to_bindings[key][0]
             self._bindings.key_to_bindings[key] = [
                 replace(current_binding, description=tr(binding.description))
