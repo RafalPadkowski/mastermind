@@ -4,7 +4,7 @@ from textual.binding import Binding
 from textual.widgets import Select
 from textual.widgets._select import SelectOverlay
 
-from ..constants import BLANK_COLOR, CODE_PEG_COLORS
+from .. import app_config
 from ..game import Game
 
 
@@ -13,8 +13,10 @@ class CodePeg(Select[int]):
         self.game = game
 
         super().__init__(
-            options=zip(CODE_PEG_COLORS, range(1, self.game.num_colors + 1)),
-            prompt=BLANK_COLOR,
+            options=zip(
+                app_config.ui["code_peg_colors"], range(1, self.game.num_colors + 1)
+            ),
+            prompt=app_config.ui["blank_color"],
             classes="code_peg",
         )
 

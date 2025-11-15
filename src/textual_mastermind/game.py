@@ -1,22 +1,22 @@
 import random
 
-from .app_config import Variation
+from . import app_config
 
 
 class Game:
-    def __init__(
-        self, variation: Variation, blank_color: bool, duplicate_colors: bool
-    ) -> None:
+    def __init__(self) -> None:
+        variation = app_config.variations[app_config.settings.variation.current_value]
+
         self.num_rows = variation["num_rows"]
         self.num_pegs = variation["num_pegs"]
         self.num_colors = variation["num_colors"]
 
         colors: list[int] = list(range(1, self.num_colors + 1))
-        if blank_color:
+        if app_config.settings.blank_color:
             colors.append(0)
 
         self.maker_code: list[int]
-        if duplicate_colors:
+        if app_config.settings.duplicate_colors:
             self.maker_code = random.choices(colors, k=self.num_pegs)
         else:
             self.maker_code = random.sample(colors, k=self.num_pegs)

@@ -25,9 +25,8 @@ from .constants import (
     KEY_TO_BINDING,
     LOCALE_DIR,
 )
-
-# from .game import Game
-# from .widgets.board import Board
+from .game import Game
+from .widgets.board import Board
 
 
 class MastermindApp(App[None]):
@@ -43,7 +42,7 @@ class MastermindApp(App[None]):
             load_config(config_file=str(CONFIG_FILE), settings_cls=Settings),
         )
 
-        app_config.variations = config_dict["variations"].items()
+        app_config.variations = config_dict["variations"]
 
         app_config.ui = cast(Ui, config_dict["ui"])
 
@@ -64,8 +63,8 @@ class MastermindApp(App[None]):
 
         self.translate_bindings()
 
-        # self.board: Board
-        # self.game: Game
+        self.board: Board
+        self.game: Game
 
     def compose(self) -> ComposeResult:
         yield Header()
@@ -80,7 +79,7 @@ class MastermindApp(App[None]):
 
         self.title = self.app_metadata.name
 
-        # self.create_new_game()
+        self.create_new_game()
 
     def translate_bindings(self) -> None:
         for key, binding in KEY_TO_BINDING.items():
@@ -126,7 +125,7 @@ class MastermindApp(App[None]):
 
         num_red_pegs: int
         num_white_pegs: int
-        num_red_pegs, num_white_pegs = await self.game.check_code(
+        num_red_pegs, num_white_pegs = self.game.check_code(
             breaker_code=code_peg_values
         )
 
@@ -136,9 +135,10 @@ class MastermindApp(App[None]):
             Label(
                 "".join(
                     [
-                        (FEEDBACK_PEG_COLORS[0] + " ") * num_red_pegs,
-                        (FEEDBACK_PEG_COLORS[1] + " ") * num_white_pegs,
-                        (BLANK_COLOR + " ")
+                        (app_config.ui["feedback_peg_colors"][0] + " ") * num_red_pegs,
+                        (app_config.ui["feedback_peg_colors"][1] + " ")
+                        * num_white_pegs,
+                        (app_config.ui["blank_color"] + " ")
                         * (self.game.num_pegs - num_red_pegs - num_white_pegs),
                     ]
                 ),
@@ -149,7 +149,7 @@ class MastermindApp(App[None]):
         self.board.current_row.disabled = True
 
         if num_red_pegs == self.game.num_pegs:
-            self.notify(_("Congratulations!"))
+            self.notify(tr("Congratulations!"))
         else:
             if self.board.current_row_number < self.game.num_rows:
                 self.board.add_row()
@@ -158,12 +158,14 @@ class MastermindApp(App[None]):
                 maker_code_str: str = ""
                 for color in maker_code:
                     if color == 0:
-                        maker_code_str += BLANK_COLOR + " "
+                        maker_code_str += app_config.ui["blank_color"] + " "
                     else:
-                        maker_code_str += CODE_PEG_COLORS[color - 1] + " "
+                        maker_code_str += (
+                            app_config.ui["code_peg_colors"][color - 1] + " "
+                        )
 
                 self.notify(
-                    f"{_('Better luck next time')}\n{_('Code')}: {maker_code_str}",
+                    f"{tr('Better luck next time')}\n{tr('Code')}: {maker_code_str}",
                     timeout=30,
                 )
 
