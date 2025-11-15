@@ -174,27 +174,29 @@ class MastermindApp(App[None]):
 
     @work
     async def action_new_game(self) -> None:
-        if await self.push_screen_wait(
-            ConfirmScreen(
-                dialog_title="New game",
-                dialog_subtitle=self.app_metadata.name,
-                question="Are you sure you want to start a new game?",
-            )
-        ):
+        dialog = ConfirmScreen(
+            dialog_title="New game",
+            dialog_subtitle=self.app_metadata.name,
+            question="Are you sure you want to start a new game?",
+        )
+        dialog.styles.background = self.styles.background
+
+        if await self.push_screen_wait(dialog):
             self.create_new_game()
 
     @work
     async def action_settings(self) -> None:
-        if await self.push_screen_wait(
-            SettingsScreen(
-                dialog_title="Settings",
-                dialog_subtitle=self.app_metadata.name,
-                settings=[
-                    getattr(app_config.settings, f.name)
-                    for f in fields(app_config.settings)
-                ],
-            )
-        ):
+        dialog = SettingsScreen(
+            dialog_title="Settings",
+            dialog_subtitle=self.app_metadata.name,
+            settings=[
+                getattr(app_config.settings, f.name)
+                for f in fields(app_config.settings)
+            ],
+        )
+        dialog.styles.background = self.styles.background
+
+        if await self.push_screen_wait(dialog):
             settings_changed = False
 
             if app_config.settings.language.changed:
