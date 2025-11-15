@@ -178,29 +178,27 @@ class MastermindApp(App[None]):
 
     @work
     async def action_new_game(self) -> None:
-        dialog = ConfirmScreen(
-            dialog_title="New game",
-            dialog_subtitle=self.app_metadata.name,
-            question="Are you sure you want to start a new game?",
-        )
-        dialog.styles.background = self.styles.background
-
-        if await self.push_screen_wait(dialog):
+        if await self.push_screen_wait(
+            ConfirmScreen(
+                dialog_title="New game",
+                dialog_subtitle=self.app_metadata.name,
+                question="Are you sure you want to start a new game?",
+            )
+        ):
             self.create_new_game()
 
     @work
     async def action_settings(self) -> None:
-        dialog = SettingsScreen(
-            dialog_title="Settings",
-            dialog_subtitle=self.app_metadata.name,
-            settings=[
-                getattr(app_config.settings, f.name)
-                for f in fields(app_config.settings)
-            ],
-        )
-        dialog.styles.background = self.styles.background
-
-        if await self.push_screen_wait(dialog):
+        if await self.push_screen_wait(
+            SettingsScreen(
+                dialog_title="Settings",
+                dialog_subtitle=self.app_metadata.name,
+                settings=[
+                    getattr(app_config.settings, field.name)
+                    for field in fields(app_config.settings)
+                ],
+            )
+        ):
             settings_changed = False
 
             if app_config.settings.language.changed:
@@ -219,7 +217,7 @@ class MastermindApp(App[None]):
                 settings_changed = True
 
                 self.notify(
-                    tr("New game settings will be applied to a new game"), timeout=5
+                    tr("New game settings will be applied to a new game"), timeout=3
                 )
 
             if settings_changed:

@@ -40,7 +40,7 @@ FooterKey:first-of-type  {
   border-left: vkey $foreground 20%;
 }
 
-AboutScreen {
+Screen {
     background: $background;
 }
 
