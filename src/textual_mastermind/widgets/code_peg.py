@@ -5,16 +5,15 @@ from textual.widgets import Select
 from textual.widgets._select import SelectOverlay
 
 from .. import app_config
-from ..game import Game
 
 
 class CodePeg(Select[int]):
-    def __init__(self, game: Game) -> None:
-        self.game = game
+    def __init__(self) -> None:
+        variation = app_config.variations[app_config.settings.variation.current_value]
 
         super().__init__(
             options=zip(
-                app_config.ui["code_peg_colors"], range(1, self.game.num_colors + 1)
+                app_config.ui["code_peg_colors"], range(1, variation["num_colors"] + 1)
             ),
             prompt=app_config.ui["blank_color"],
             classes="code_peg",

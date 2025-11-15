@@ -2,24 +2,24 @@ from textual.app import ComposeResult
 from textual.containers import Horizontal
 from textual.widgets import Label
 
-from ..game import Game
+from .. import app_config
 from .check import Check
 from .code_peg import CodePeg
 
 
 class Row(Horizontal):
-    def __init__(self, game: Game, row_number: int) -> None:
+    def __init__(self, row_number: int) -> None:
         super().__init__(classes="row")
 
-        self.game = game
+        variation = app_config.variations[app_config.settings.variation.current_value]
 
         self.row_number = row_number
 
         self.code_pegs: list[CodePeg] = [
-            CodePeg(self.game) for _ in range(self.game.num_pegs)
+            CodePeg() for _ in range(variation["num_pegs"])
         ]
 
-        self.check: Check = Check(self.game)
+        self.check: Check = Check()
 
     def compose(self) -> ComposeResult:
         yield Label(f"{self.row_number:02}", classes="num")

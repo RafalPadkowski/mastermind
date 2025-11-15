@@ -102,7 +102,7 @@ class MastermindApp(App[None]):
 
         self.game = Game()
 
-        self.board = Board(self.game)
+        self.board = Board()
         self.mount(self.board)
 
     async def on_click(self, event: Click) -> None:
