@@ -4,12 +4,12 @@ from textual.binding import Binding
 from textual.widgets import Select
 from textual.widgets._select import SelectOverlay
 
-from .. import app_config
+from ..app_config import app_config
 
 
 class CodePeg(Select[int]):
     def __init__(self) -> None:
-        variation = app_config.variations[app_config.settings.variation.current_value]
+        variation = app_config.variation
 
         super().__init__(
             options=zip(

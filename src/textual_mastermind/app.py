@@ -18,8 +18,7 @@ from textual_utils import (
     mount_about_header_icon,
 )
 
-from . import app_config
-from .app_config import Settings, Ui
+from .app_config import Settings, app_config
 from .constants import (
     CONFIG_FILE,
     KEY_TO_BINDING,
@@ -37,14 +36,16 @@ class MastermindApp(App[None]):
     def __init__(self) -> None:
         super().__init__()
 
-        config_dict, app_config.settings = cast(
+        config_dict, settings = cast(
             tuple[dict[str, Any], Settings],
             load_config(config_file=str(CONFIG_FILE), settings_cls=Settings),
         )
 
-        app_config.variations = config_dict["variations"]
-
-        app_config.ui = cast(Ui, config_dict["ui"])
+        app_config.init(
+            ui=config_dict["ui"],
+            settings=settings,
+            variations=config_dict["variations"],
+        )
 
         pkg_name = cast(str, __package__)
         pkg_metadata = metadata(pkg_name)

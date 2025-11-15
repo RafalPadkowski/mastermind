@@ -1,3 +1,12 @@
+[ui]
+icon = "❔"
+blank_color = "⭕"
+code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "🟤", "⚪", "🟠"]
+feedback_peg_colors = ["🔴", "⚪"]
+check_default_text = "❔"
+check_hover_text = "❓"
+
+
 [settings]
 [settings.language]
 label = "Language:"
@@ -44,12 +53,3 @@ num_colors = 6
 num_rows = 12
 num_pegs = 5
 num_colors = 8
-
-
-[ui]
-icon = "❔"
-blank_color = "⭕"
-code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "🟤", "⚪", "🟠"]
-feedback_peg_colors = ["🔴", "⚪"]
-check_default_text = "❔"
-check_hover_text = "❓"

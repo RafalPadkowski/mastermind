@@ -1,11 +1,11 @@
 from textual.widgets import Label
 
-from .. import app_config
+from ..app_config import app_config
 
 
 class Check(Label):
     def __init__(self) -> None:
-        variation = app_config.variations[app_config.settings.variation.current_value]
+        variation = app_config.variation
 
         self.default_text = (
             f"{app_config.ui['check_default_text']} " * variation["num_pegs"]

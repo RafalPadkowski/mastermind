@@ -1,11 +1,11 @@
 import random
 
-from . import app_config
+from .app_config import app_config
 
 
 class Game:
     def __init__(self) -> None:
-        variation = app_config.variations[app_config.settings.variation.current_value]
+        variation = app_config.variation
 
         self.num_rows = variation["num_rows"]
         self.num_pegs = variation["num_pegs"]
