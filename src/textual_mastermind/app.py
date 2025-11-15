@@ -7,6 +7,7 @@ from i18n import tr
 from textual import work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
+from textual.containers import Horizontal
 from textual.events import Click
 from textual.widget import Widget
 from textual.widgets import Footer, Header, Label
@@ -26,6 +27,7 @@ from .constants import (
 )
 from .game import Game
 from .widgets.board import Board
+from .widgets.panel import Panel
 
 
 class MastermindApp(App[None]):
@@ -69,6 +71,8 @@ class MastermindApp(App[None]):
 
     def compose(self) -> ComposeResult:
         yield Header()
+        with Horizontal(id="body"):
+            yield Panel()
         yield Footer()
 
     async def on_mount(self) -> None:
@@ -80,7 +84,7 @@ class MastermindApp(App[None]):
 
         self.title = self.app_metadata.name
 
-        self.create_new_game()
+        # self.create_new_game()
 
     def translate_bindings(self) -> None:
         for binding in GlOBAL_BINDINGS:

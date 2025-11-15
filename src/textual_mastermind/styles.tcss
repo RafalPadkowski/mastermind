@@ -14,30 +14,7 @@ Header {
     background: indigo;
 }
 
-.code_peg {
-    width: 12;
-    margin-left: 2;
-}
 
-.code_peg:disabled {
-    opacity: 1;
-}
-
-SelectCurrent {
-  border: tall dimgrey;
-}
-
-Select:focus > SelectCurrent {
-  border: tall $border;
-}
-
-.code_peg SelectCurrent #label {
-    padding-left: 2;
-}
-
-.code_peg SelectOverlay {
-    text-align: center;
-}
 
 .check {
     width: 16;
@@ -65,4 +42,33 @@ FooterKey:first-of-type  {
 
 AboutScreen {
     background: $background;
+}
+
+Panel Button {
+    margin-left: 1;
+    margin-bottom: 1;
+    min-width: 12;
+    text-style: none;
+    border: tall dimgrey;
+}
+
+Panel Select {
+    margin-left: 1;
+    width: 12;
+}
+
+Panel SelectCurrent {
+  border: tall dimgrey;
+}
+
+Panel Select:focus > SelectCurrent {
+  border: tall $border;
+}
+
+Panel SelectCurrent #label {
+    padding-left: 2;
+}
+
+Panel SelectOverlay {
+    text-align: center;
 }

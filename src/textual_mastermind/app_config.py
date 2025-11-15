@@ -9,6 +9,7 @@ class Ui(TypedDict):
     blank_color: str
     code_peg_colors: list[str]
     feedback_peg_colors: list[str]
+    check_text: str
     check_default_text: str
     check_hover_text: str
 

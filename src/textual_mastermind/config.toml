@@ -1,8 +1,9 @@
 [ui]
-icon = "❔"
+icon = "🔴"
 blank_color = "⭕"
 code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "🟤", "⚪", "🟠"]
 feedback_peg_colors = ["🔴", "⚪"]
+check_text = "❔"
 check_default_text = "❔"
 check_hover_text = "❓"
 
