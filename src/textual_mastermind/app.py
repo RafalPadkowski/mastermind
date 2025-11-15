@@ -31,7 +31,7 @@ from .widgets.board import Board
 class MastermindApp(App[None]):
     CSS_PATH = "styles.tcss"
     ENABLE_COMMAND_PALETTE = False
-    BINDINGS = list(GlOBAL_BINDINGS.values())
+    BINDINGS = GlOBAL_BINDINGS
 
     def __init__(self) -> None:
         super().__init__()
@@ -83,11 +83,13 @@ class MastermindApp(App[None]):
         self.create_new_game()
 
     def translate_bindings(self) -> None:
-        for key, binding in GlOBAL_BINDINGS.items():
-            current_binding: Binding = self._bindings.key_to_bindings[key][0]
-            self._bindings.key_to_bindings[key] = [
-                replace(current_binding, description=tr(binding.description))
-            ]
+        for binding in GlOBAL_BINDINGS:
+            if isinstance(binding, Binding):
+                key = binding.key
+                current_binding: Binding = self._bindings.key_to_bindings[key][0]
+                self._bindings.key_to_bindings[key] = [
+                    replace(current_binding, description=tr(binding.description))
+                ]
 
     def translate_about_header_icon(self) -> None:
         about_header_icon: AboutHeaderIcon = self.query_one(AboutHeaderIcon)
