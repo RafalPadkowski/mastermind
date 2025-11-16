@@ -9,7 +9,6 @@ from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal
 from textual.events import Click
-from textual.widget import Widget
 from textual.widgets import Button, Footer, Header, Label
 from textual_utils import (
     AboutHeaderIcon,
@@ -133,23 +132,21 @@ class MastermindApp(App[None]):
 
     @on(Click, ".check")
     def on_check_click(self) -> None:
-        code_peg_values: list[int] = []
+        breaker_code: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
-            code_peg.query_one("SelectCurrent Static.down-arrow").remove()
+            color_str = cast(str, code_peg.label)
 
-            code_peg_value: int
-            if isinstance(code_peg.value, int):
-                code_peg_value = code_peg.value
+            color: int
+            if color_str == app_config.ui["blank_color"]:
+                color = 0
             else:
-                code_peg_value = 0
+                color = app_config.ui["code_peg_colors"].index(color_str) + 1
 
-            code_peg_values.append(code_peg_value)
+            breaker_code.append(color)
 
         num_red_pegs: int
         num_white_pegs: int
-        num_red_pegs, num_white_pegs = self.game.check_code(
-            breaker_code=code_peg_values
-        )
+        num_red_pegs, num_white_pegs = self.game.check_code(breaker_code)
 
         self.board.current_row.query_one("#check").remove()
 
