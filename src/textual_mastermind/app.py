@@ -131,12 +131,8 @@ class MastermindApp(App[None]):
         else:
             event.button.label = app_config.ui["blank_color"]
 
-    async def on_click(self, event: Click) -> None:
-        if isinstance(event.widget, Widget):
-            if event.widget.id == "check":
-                await self.on_click_check()
-
-    async def on_click_check(self) -> None:
+    @on(Click, ".check")
+    def on_check_click(self) -> None:
         code_peg_values: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
             code_peg.query_one("SelectCurrent Static.down-arrow").remove()
