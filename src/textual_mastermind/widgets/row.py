@@ -1,10 +1,9 @@
 from textual.app import ComposeResult
 from textual.containers import Horizontal
-from textual.widgets import Label
+from textual.widgets import Button, Label
 
 from ..app_config import app_config
 from .check import Check
-from .code_peg import CodePeg
 
 
 class Row(Horizontal):
@@ -15,8 +14,9 @@ class Row(Horizontal):
 
         variation = app_config.variation
 
-        self.code_pegs: list[CodePeg] = [
-            CodePeg() for _ in range(variation["num_pegs"])
+        self.code_pegs: list[Button] = [
+            Button(label=app_config.ui["blank_color"], classes="code_peg")
+            for _ in range(variation["num_pegs"])
         ]
 
         self.check: Check = Check()

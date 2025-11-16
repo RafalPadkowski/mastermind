@@ -4,7 +4,7 @@ from typing import Any, cast
 
 from config import load_config, save_settings
 from i18n import tr
-from textual import work
+from textual import on, work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
 from textual.containers import Horizontal

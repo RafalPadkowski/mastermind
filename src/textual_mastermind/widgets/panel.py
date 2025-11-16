@@ -3,7 +3,7 @@ import dataclasses
 from textual.app import ComposeResult
 from textual.binding import Binding
 from textual.containers import Vertical
-from textual.widgets import Button, Select
+from textual.widgets import Select
 from textual.widgets._select import SelectOverlay
 
 from ..app_config import app_config
@@ -31,5 +31,4 @@ class ColorSelect(Select[int]):
 
 class Panel(Vertical):
     def compose(self) -> ComposeResult:
-        yield Button(app_config.ui["check_text"])
         yield ColorSelect()
