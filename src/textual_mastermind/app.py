@@ -10,7 +10,7 @@ from textual.binding import Binding
 from textual.containers import Horizontal
 from textual.events import Click
 from textual.widget import Widget
-from textual.widgets import Footer, Header, Label
+from textual.widgets import Button, Footer, Header, Label
 from textual_utils import (
     AboutHeaderIcon,
     AppMetadata,
@@ -115,6 +115,21 @@ class MastermindApp(App[None]):
         self.query_one("#body", Horizontal).mount(self.board)
 
         self.game = Game()
+
+    @on(Button.Pressed, ".code_peg")
+    def on_code_peg_pressed(self, event: Button.Pressed):
+        color_select_value: int
+        if isinstance(self.color_select.value, int):
+            color_select_value = self.color_select.value
+        else:
+            color_select_value = 0
+
+        if color_select_value != 0:
+            event.button.label = app_config.ui["code_peg_colors"][
+                color_select_value - 1
+            ]
+        else:
+            event.button.label = app_config.ui["blank_color"]
 
     async def on_click(self, event: Click) -> None:
         if isinstance(event.widget, Widget):
