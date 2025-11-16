@@ -44,8 +44,13 @@ Screen {
     background: $background;
 }
 
-Panel Button {
+Panel {
     margin-left: 1;
+    margin-right: 1;
+    width: auto;
+}
+
+Panel Button {
     margin-bottom: 1;
     min-width: 12;
     text-style: none;
@@ -53,16 +58,11 @@ Panel Button {
 }
 
 Panel Select {
-    margin-left: 1;
     width: 12;
 }
 
 Panel SelectCurrent {
   border: tall dimgrey;
-}
-
-Panel Select:focus > SelectCurrent {
-  border: tall $border;
 }
 
 Panel SelectCurrent #label {

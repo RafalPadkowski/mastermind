@@ -27,7 +27,7 @@ from .constants import (
 )
 from .game import Game
 from .widgets.board import Board
-from .widgets.panel import Panel
+from .widgets.panel import ColorSelect, Panel
 
 
 class MastermindApp(App[None]):
@@ -71,6 +71,7 @@ class MastermindApp(App[None]):
 
     def compose(self) -> ComposeResult:
         yield Header()
+
         with Horizontal(id="body"):
             yield Panel()
         yield Footer()
@@ -84,7 +85,9 @@ class MastermindApp(App[None]):
 
         self.title = self.app_metadata.name
 
-        # self.create_new_game()
+        self.color_select: ColorSelect = self.query_one(ColorSelect)
+
+        self.create_new_game()
 
     def translate_bindings(self) -> None:
         for binding in GlOBAL_BINDINGS:
@@ -105,12 +108,13 @@ class MastermindApp(App[None]):
 
     def create_new_game(self):
         if hasattr(self, "game"):
+            self.color_select.clear()
             self.board.remove()
 
-        self.game = Game()
-
         self.board = Board()
-        self.mount(self.board)
+        self.query_one("#body", Horizontal).mount(self.board)
+
+        self.game = Game()
 
     async def on_click(self, event: Click) -> None:
         if isinstance(event.widget, Widget):
