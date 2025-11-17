@@ -61,3 +61,4 @@ class Board(VerticalScroll):
         self.current_row_number += 1
         self.current_row = Row(row_number=self.current_row_number)
         self.mount(self.current_row)
+        self.scroll_end()
