@@ -113,6 +113,8 @@ class MastermindApp(App[None]):
         body.mount(self.panel)
         body.mount(self.board)
 
+        self.set_focus(self.panel)
+
         self.game = Game()
 
     @on(Button.Pressed, ".code_peg")

@@ -1,6 +1,6 @@
 [project]
 name = "textual-mastermind"
-version = "3.0.1"
+version = "3.0.2"
 description = "Mastermind game built with Textual"
 authors = [{ name = "Rafal Padkowski", email = "rafaelp@poczta.onet.pl" }]
 requires-python = ">=3.13"
