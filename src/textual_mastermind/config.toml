@@ -11,7 +11,7 @@ check_hover_text = "❓"
 [settings.language]
 label = "Language:"
 default_value = "en"
-current_value = "pl"
+current_value = "en"
 options = [
   { value = "en", display_str = "English" },
   { value = "pl", display_str = "Polish" },
