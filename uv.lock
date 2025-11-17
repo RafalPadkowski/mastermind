@@ -135,14 +135,6 @@ wheels = [
 ]
 
 [[package]]
-name = "config"
-version = "1.0.0"
-source = { git = "https://github.com/RafalPadkowski/config.git#8008c70f6491da3025b479feeeff47953a011874" }
-dependencies = [
-    { name = "tomlkit" },
-]
-
-[[package]]
 name = "frozenlist"
 version = "1.8.0"
 source = { registry = "https://pypi.org/simple" }
@@ -213,14 +205,6 @@ wheels = [
     { url = "https://files.pythonhosted.org/packages/89/76/c615883b7b521ead2944bb3480398cbb07e12b7b4e4d073d3752eb721558/frozenlist-1.8.0-cp314-cp314t-win_amd64.whl", hash = "sha256:06be8f67f39c8b1dc671f5d83aaefd3358ae5cdcf8314552c57e7ed3e6475bdd", size = 49451, upload-time = "2025-10-06T05:37:53.425Z" },
     { url = "https://files.pythonhosted.org/packages/e0/a3/5982da14e113d07b325230f95060e2169f5311b1017ea8af2a29b374c289/frozenlist-1.8.0-cp314-cp314t-win_arm64.whl", hash = "sha256:102e6314ca4da683dca92e3b1355490fed5f313b768500084fbe6371fddfdb79", size = 42507, upload-time = "2025-10-06T05:37:54.513Z" },
     { url = "https://files.pythonhosted.org/packages/9a/9a/e35b4a917281c0b8419d4207f4334c8e8c5dbf4f3f5f9ada73958d937dcc/frozenlist-1.8.0-py3-none-any.whl", hash = "sha256:0c18a16eab41e82c295618a77502e17b195883241c563b00f0aa5106fc4eaa0d", size = 13409, upload-time = "2025-10-06T05:38:16.721Z" },
-]
-
-[[package]]
-name = "i18n"
-version = "0.1.0"
-source = { git = "https://github.com/RafalPadkowski/i18n.git#798ad06dd2115b7ca327c5255857406cb67aecc1" }
-dependencies = [
-    { name = "loguru" },
 ]
 
 [[package]]
@@ -611,11 +595,9 @@ wheels = [
 
 [[package]]
 name = "textual-mastermind"
-version = "2.0.0"
+version = "2.0.1"
 source = { editable = "." }
 dependencies = [
-    { name = "config" },
-    { name = "i18n" },
     { name = "textual" },
     { name = "textual-utils" },
 ]
@@ -627,10 +609,8 @@ dev = [
 
 [package.metadata]
 requires-dist = [
-    { name = "config", git = "https://github.com/RafalPadkowski/config.git" },
-    { name = "i18n", git = "https://github.com/RafalPadkowski/i18n.git" },
-    { name = "textual", specifier = ">=6.3.0" },
-    { name = "textual-utils", specifier = ">=2.1.0" },
+    { name = "textual", specifier = ">=6.6.0" },
+    { name = "textual-utils", specifier = ">=2.1.1" },
 ]
 
 [package.metadata.requires-dev]
@@ -654,16 +634,40 @@ wheels = [
 
 [[package]]
 name = "textual-utils"
-version = "2.1.0"
+version = "2.1.1"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
-    { name = "config" },
-    { name = "i18n" },
     { name = "textual" },
+    { name = "tilsit-config" },
+    { name = "tilsit-i18n" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/64/04/1c4962a070636f56ee66847353e6c9b21d8e65d65621344202c93c06253f/textual_utils-2.1.0.tar.gz", hash = "sha256:ef5c48a4aed0bf414a774faffaf607b9c7ed2f0466a46310ba332a4c6f6e76b4", size = 7966, upload-time = "2025-10-14T12:54:12.121Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/23/08/32b9b94c059937cfb94c5356e17e37138d4f61b0033011a2887a5d766f9d/textual_utils-2.1.1.tar.gz", hash = "sha256:7ebd73efb642b9870abbb6150d5c4d36709a3775f628d563ff005568bd677d07", size = 8555, upload-time = "2025-11-17T09:48:44.055Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/95/43/58be5143ee7f4c63e75de2354662aa5caa32c79ba514222fc043c27ebc19/textual_utils-2.1.0-py3-none-any.whl", hash = "sha256:00ff70971f199c5fafb75f0833945405b8a7aafc5fef223d547b71b27ad3ea2a", size = 6637, upload-time = "2025-10-14T12:54:11.259Z" },
+    { url = "https://files.pythonhosted.org/packages/80/d4/19dca5ab65e41d8e725b25cd5c0d79584a3b3dc1da46abec29ac4641c440/textual_utils-2.1.1-py3-none-any.whl", hash = "sha256:7a0159ec640e8f086d02b30287ff1e03898b066ab46b32910055bde567f86d18", size = 6656, upload-time = "2025-11-17T09:48:42.637Z" },
+]
+
+[[package]]
+name = "tilsit-config"
+version = "1.0.1"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "tomlkit" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/a9/70/9860d16d88eccef6c2365f868eba9d9192f0b2ab91cb2fca7051d0c51717/tilsit_config-1.0.1.tar.gz", hash = "sha256:4d0a449d6f94d5a84282bdf80d85440e755655f655ab65dd2be54a95839315f4", size = 318104, upload-time = "2025-11-17T09:35:21.14Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/43/da/2760470e812b239ce1183db07277c7ae446e9ba45122b4e84a6d3f9537e7/tilsit_config-1.0.1-py3-none-any.whl", hash = "sha256:460ec70f4ed3f9758a4f026c29c8e827cfdd4d9493a53515aaed7514f43ba3b8", size = 401413, upload-time = "2025-11-17T09:35:19.011Z" },
+]
+
+[[package]]
+name = "tilsit-i18n"
+version = "1.0.0"
+source = { registry = "https://pypi.org/simple" }
+dependencies = [
+    { name = "loguru" },
+]
+sdist = { url = "https://files.pythonhosted.org/packages/e4/7a/1be1c170bdbff19f4c25e37e43d052a8e297dd9b24b0b876f166d8561e44/tilsit_i18n-1.0.0.tar.gz", hash = "sha256:75014336a73bd5f9d03eb1ad8cd9b54a54ebc1af39f14cac9140e98ccdc0fa7d", size = 2062, upload-time = "2025-11-17T09:22:53.918Z" }
+wheels = [
+    { url = "https://files.pythonhosted.org/packages/47/d3/d8d56b26ae1b9900bc25364ddf1ceeaf63609bb86ef65abbfcc2cc5300dc/tilsit_i18n-1.0.0-py3-none-any.whl", hash = "sha256:9c888baaeba3e6c84e71cc4c299ec5caa96c797908def5b309a4b71aed2d1b02", size = 3025, upload-time = "2025-11-17T09:22:51.872Z" },
 ]
 
 [[package]]

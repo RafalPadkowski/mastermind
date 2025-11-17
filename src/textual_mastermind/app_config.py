@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from typing import TypedDict
 
-from config.settings import SettingBoolean, SettingOptions
+from tilsit_config.settings import SettingBoolean, SettingOptions
 
 
 class Ui(TypedDict):

@@ -2,8 +2,6 @@ from dataclasses import fields, replace
 from importlib.metadata import metadata
 from typing import Any, cast
 
-from config import load_config, save_settings
-from i18n import tr
 from textual import on, work
 from textual.app import App, ComposeResult
 from textual.binding import Binding
@@ -17,6 +15,8 @@ from textual_utils import (
     SettingsScreen,
     mount_about_header_icon,
 )
+from tilsit_config import load_config, save_settings
+from tilsit_i18n import tr
 
 from .app_config import Settings, app_config
 from .bindings import GlOBAL_BINDINGS
