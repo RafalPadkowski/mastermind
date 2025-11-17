@@ -65,16 +65,13 @@ class MastermindApp(App[None]):
 
         self.translate_bindings()
 
+        self.panel: Panel
         self.board: Board
         self.game: Game
 
     def compose(self) -> ComposeResult:
         yield Header()
-
-        self.panel = Panel()
-
-        with Horizontal(id="body"):
-            yield self.panel
+        yield Horizontal(id="body")
         yield Footer()
 
     async def on_mount(self) -> None:
@@ -105,17 +102,16 @@ class MastermindApp(App[None]):
         self.translate_bindings()
         self.translate_about_header_icon()
 
-    def create_new_game(self):
+    def create_new_game(self) -> None:
         if hasattr(self, "game"):
-            for color_button in self.panel.color_buttons:
-                color_button.remove_class("active")
-
-            self.panel.color_buttons[0].add_class("active")
-
+            self.panel.remove()
             self.board.remove()
 
+        self.panel = Panel()
         self.board = Board()
-        self.query_one("#body", Horizontal).mount(self.board)
+        body: Horizontal = self.query_one("#body", Horizontal)
+        body.mount(self.panel)
+        body.mount(self.board)
 
         self.game = Game()
 
