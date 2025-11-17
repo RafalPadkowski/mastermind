@@ -7,13 +7,17 @@ Panel {
     margin-left: 1;
     margin-right: 1;
     width: auto;
+    height: 100%;
 }
 
 Panel Button {
-    margin-bottom: 1;
-    min-width: 12;
+    min-width: 8;
     text-style: none;
-    border: tall dimgrey;
+    border: tall $background;
+}
+
+Panel Button.active {
+    border: tall $primary;
 }
 
 Panel Select {
@@ -32,9 +36,14 @@ Panel SelectOverlay {
     text-align: center;
 }
 
+Board {
+    width: 1fr;
+    overflow-x: auto;
+}
 
 .row {
     height: 4;
+    width: auto;
 }
 
 .num {

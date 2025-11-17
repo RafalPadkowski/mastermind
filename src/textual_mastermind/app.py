@@ -26,7 +26,7 @@ from .constants import (
 )
 from .game import Game
 from .widgets.board import Board
-from .widgets.panel import ColorSelect, Panel
+from .widgets.panel import Panel
 
 
 class MastermindApp(App[None]):
@@ -71,8 +71,10 @@ class MastermindApp(App[None]):
     def compose(self) -> ComposeResult:
         yield Header()
 
+        self.panel = Panel()
+
         with Horizontal(id="body"):
-            yield Panel()
+            yield self.panel
         yield Footer()
 
     async def on_mount(self) -> None:
@@ -83,8 +85,6 @@ class MastermindApp(App[None]):
         self.translate_about_header_icon()
 
         self.title = self.app_metadata.name
-
-        self.color_select: ColorSelect = self.query_one(ColorSelect)
 
         self.create_new_game()
 
@@ -107,7 +107,11 @@ class MastermindApp(App[None]):
 
     def create_new_game(self):
         if hasattr(self, "game"):
-            self.color_select.clear()
+            for color_button in self.panel.color_buttons:
+                color_button.remove_class("active")
+
+            self.panel.color_buttons[0].add_class("active")
+
             self.board.remove()
 
         self.board = Board()
@@ -117,16 +121,9 @@ class MastermindApp(App[None]):
 
     @on(Button.Pressed, ".code_peg")
     def on_code_peg_pressed(self, event: Button.Pressed):
-        color_select_value: int
-        if isinstance(self.color_select.value, int):
-            color_select_value = self.color_select.value
-        else:
-            color_select_value = 0
-
-        if color_select_value != 0:
-            event.button.label = app_config.ui["code_peg_colors"][
-                color_select_value - 1
-            ]
+        active_color: int = self.panel.active_color
+        if active_color != 0:
+            event.button.label = app_config.ui["code_peg_colors"][active_color - 1]
         else:
             event.button.label = app_config.ui["blank_color"]
 

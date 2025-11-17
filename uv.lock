@@ -595,7 +595,7 @@ wheels = [
 
 [[package]]
 name = "textual-mastermind"
-version = "2.0.2"
+version = "3.0.0"
 source = { editable = "." }
 dependencies = [
     { name = "textual" },
