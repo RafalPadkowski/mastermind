@@ -1,4 +1,3 @@
-from dataclasses import fields
 from importlib.metadata import metadata
 from typing import Any, cast
 
@@ -187,8 +186,7 @@ class MastermindApp(App[None]):
                 dialog_title="Settings",
                 dialog_subtitle=self.app_metadata.name,
                 settings=[
-                    getattr(app_config.settings, field.name)
-                    for field in fields(app_config.settings)
+                    app_config.settings.language,
                 ],
             )
         ):
@@ -199,19 +197,6 @@ class MastermindApp(App[None]):
 
                 tr.language = app_config.settings.language.current_value
                 self.translate()
-
-            if any(
-                [
-                    app_config.settings.variation.changed,
-                    app_config.settings.duplicate_colors.changed,
-                    app_config.settings.blank_color.changed,
-                ]
-            ):
-                settings_changed = True
-
-                self.notify(
-                    tr("New game settings will be applied to a new game"), timeout=3
-                )
 
             if settings_changed:
                 save_settings(str(CONFIG_FILE), app_config.settings)
