@@ -1,19 +1,19 @@
-from dataclasses import fields, replace
+from dataclasses import fields
 from importlib.metadata import metadata
 from typing import Any, cast
 
 from textual import on, work
 from textual.app import App, ComposeResult
-from textual.binding import Binding
 from textual.containers import Horizontal
 from textual.events import Click
 from textual.widgets import Button, Footer, Header, Label
 from textual_utils import (
-    AboutHeaderIcon,
     AppMetadata,
     ConfirmScreen,
     SettingsScreen,
     mount_about_header_icon,
+    translate_about_header_icon,
+    translate_bindings,
 )
 from tilsit_config import load_config, save_settings
 from tilsit_i18n import tr
@@ -63,8 +63,6 @@ class MastermindApp(App[None]):
         tr.localedir = LOCALE_DIR
         tr.language = app_config.settings.language.current_value
 
-        self.translate_bindings()
-
         self.panel: Panel
         self.board: Board
         self.game: Game
@@ -79,28 +77,16 @@ class MastermindApp(App[None]):
             current_app=self,
             app_metadata=self.app_metadata,
         )
-        self.translate_about_header_icon()
 
         self.title = self.app_metadata.name
 
+        self.translate()
+
         self.create_new_game()
 
-    def translate_bindings(self) -> None:
-        for binding in GlOBAL_BINDINGS:
-            if isinstance(binding, Binding):
-                key = binding.key
-                current_binding: Binding = self._bindings.key_to_bindings[key][0]
-                self._bindings.key_to_bindings[key] = [
-                    replace(current_binding, description=tr(binding.description))
-                ]
-
-    def translate_about_header_icon(self) -> None:
-        about_header_icon: AboutHeaderIcon = self.query_one(AboutHeaderIcon)
-        about_header_icon.tooltip = tr("About")
-
     def translate(self) -> None:
-        self.translate_bindings()
-        self.translate_about_header_icon()
+        translate_about_header_icon(app=self)
+        translate_bindings(screen=self, bindings=GlOBAL_BINDINGS)
 
     def create_new_game(self) -> None:
         if hasattr(self, "game"):

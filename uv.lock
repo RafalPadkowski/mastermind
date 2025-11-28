@@ -634,16 +634,16 @@ wheels = [
 
 [[package]]
 name = "textual-utils"
-version = "2.1.1"
+version = "2.3.0"
 source = { registry = "https://pypi.org/simple" }
 dependencies = [
     { name = "textual" },
     { name = "tilsit-config" },
     { name = "tilsit-i18n" },
 ]
-sdist = { url = "https://files.pythonhosted.org/packages/23/08/32b9b94c059937cfb94c5356e17e37138d4f61b0033011a2887a5d766f9d/textual_utils-2.1.1.tar.gz", hash = "sha256:7ebd73efb642b9870abbb6150d5c4d36709a3775f628d563ff005568bd677d07", size = 8555, upload-time = "2025-11-17T09:48:44.055Z" }
+sdist = { url = "https://files.pythonhosted.org/packages/86/19/604ad963a6d3f825e03a7daf08f1e4e8f622175e17f656645a2d8138a257/textual_utils-2.3.0.tar.gz", hash = "sha256:09b0f279b144298258afb6e7e4d9f5a5c458111de00d4fe6d10834ad8d0ba0ac", size = 8809, upload-time = "2025-11-27T21:01:49.577Z" }
 wheels = [
-    { url = "https://files.pythonhosted.org/packages/80/d4/19dca5ab65e41d8e725b25cd5c0d79584a3b3dc1da46abec29ac4641c440/textual_utils-2.1.1-py3-none-any.whl", hash = "sha256:7a0159ec640e8f086d02b30287ff1e03898b066ab46b32910055bde567f86d18", size = 6656, upload-time = "2025-11-17T09:48:42.637Z" },
+    { url = "https://files.pythonhosted.org/packages/09/33/0c13ad751a5aababf3353d41fbe571e69bf58c558f08eace304c94310563/textual_utils-2.3.0-py3-none-any.whl", hash = "sha256:47963380c738fe817078252dcb03cab132ec932a17978a0f8bd5870c098e45d4", size = 7201, upload-time = "2025-11-27T21:01:48.343Z" },
 ]
 
 [[package]]
