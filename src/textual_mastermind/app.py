@@ -180,7 +180,7 @@ class MastermindApp(App[None]):
 
                 self.notify(
                     f"{tr('Better luck next time')}\n{tr('Code')}: {maker_code_str}",
-                    timeout=30,
+                    timeout=60,
                 )
 
     @work

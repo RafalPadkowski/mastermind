@@ -1,7 +1,7 @@
 [ui]
 icon = "❔"
 blank_color = "⭕"
-code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "🟤", "⚪", "🟠"]
+code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "⚪", "🟤", "⚫"]
 feedback_peg_colors = ["🔴", "⚪"]
 check_default_text = "❔"
 check_hover_text = "❓"
@@ -11,7 +11,7 @@ check_hover_text = "❓"
 [settings.language]
 label = "Language:"
 default_value = "en"
-current_value = "en"
+current_value = "pl"
 options = [
   { value = "en", display_str = "English" },
   { value = "pl", display_str = "Polish" },
@@ -20,7 +20,7 @@ options = [
 [settings.variation]
 label = "Variation:"
 default_value = "original"
-current_value = "original"
+current_value = "super"
 options = [
   { value = "original", display_str = "original (10 rows, 4 pegs, 6 colors)" },
   { value = "mini", display_str = "mini (6 rows, 4 pegs, 6 colors)" },
