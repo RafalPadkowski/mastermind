@@ -1,5 +1,6 @@
 [ui]
 icon = "❔"
+new_game_icon = "📜"
 blank_color = "⭕"
 code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "⚪", "🟤", "⚫"]
 feedback_peg_colors = ["🔴", "⚪"]

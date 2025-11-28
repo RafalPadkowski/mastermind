@@ -28,3 +28,20 @@ GlOBAL_BINDINGS: Final[list[Binding | tuple[str, str] | tuple[str, str, str]]] =
         key_display="F3",
     ),
 ]
+
+NEW_GAME_BINDINGS: Final[list[Binding | tuple[str, str] | tuple[str, str, str]]] = [
+    Binding(
+        key="escape",
+        action="escape",
+        description="Cancel",
+        key_display="esc",
+        show=True,
+    ),
+    Binding(
+        key="greater_than_sign",
+        action="next",
+        description="Next",
+        key_display=">",
+        show=True,
+    ),
+]

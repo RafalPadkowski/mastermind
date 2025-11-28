@@ -8,7 +8,6 @@ from textual.events import Click
 from textual.widgets import Button, Footer, Header, Label
 from textual_utils import (
     AppMetadata,
-    ConfirmScreen,
     SettingsScreen,
     mount_about_header_icon,
     translate_about_header_icon,
@@ -18,13 +17,14 @@ from tilsit_config import load_config, save_settings
 from tilsit_i18n import tr
 
 from .app_config import Settings, app_config
-from .bindings import GlOBAL_BINDINGS
+from .bindings import NEW_GAME_BINDINGS, GlOBAL_BINDINGS
 from .constants import (
     CONFIG_FILE,
     LOCALE_DIR,
 )
 from .game import Game
 from .widgets.board import Board
+from .widgets.new_game import NewGameScreen
 from .widgets.panel import Panel
 
 
@@ -79,6 +79,9 @@ class MastermindApp(App[None]):
 
         self.title = self.app_metadata.name
 
+        self.new_game_screen = NewGameScreen()
+        self.install_screen(self.new_game_screen, "New Game")
+
         self.translate()
 
         self.create_new_game()
@@ -86,6 +89,7 @@ class MastermindApp(App[None]):
     def translate(self) -> None:
         translate_about_header_icon(app=self)
         translate_bindings(screen=self, bindings=GlOBAL_BINDINGS)
+        translate_bindings(screen=self.new_game_screen, bindings=NEW_GAME_BINDINGS)
 
     def create_new_game(self) -> None:
         if hasattr(self, "game"):
@@ -170,14 +174,17 @@ class MastermindApp(App[None]):
 
     @work
     async def action_new_game(self) -> None:
-        if await self.push_screen_wait(
-            ConfirmScreen(
-                dialog_title="New game",
-                dialog_subtitle=self.app_metadata.name,
-                question="Are you sure you want to start a new game?",
-            )
-        ):
-            self.create_new_game()
+        if await self.push_screen_wait("New Game"):
+            if any(
+                [
+                    app_config.settings.variation.changed,
+                    app_config.settings.duplicate_colors.changed,
+                    app_config.settings.blank_color.changed,
+                ]
+            ):
+                self.create_new_game()
+
+                save_settings(str(CONFIG_FILE), app_config.settings)
 
     @work
     async def action_settings(self) -> None:
@@ -190,13 +197,8 @@ class MastermindApp(App[None]):
                 ],
             )
         ):
-            settings_changed = False
-
             if app_config.settings.language.changed:
-                settings_changed = True
-
                 tr.language = app_config.settings.language.current_value
                 self.translate()
 
-            if settings_changed:
                 save_settings(str(CONFIG_FILE), app_config.settings)

@@ -87,3 +87,10 @@ msgstr "Kod"
 msgid "Break the hidden code"
 msgstr "Odgadnij ukryty kod"
 
+msgid "Next"
+msgstr "Dalej"
+
+msgid "Cancel"
+msgstr "Anuluj"
+
+

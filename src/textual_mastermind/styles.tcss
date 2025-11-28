@@ -85,6 +85,13 @@ Board {
     padding-left: 1;
 }
 
+NewGameScreen {
+    align: center middle;
+}
+
+NewGameScreen RadioSet {
+    width: 40%;
+}
 
 FooterKey:first-of-type  {
   dock: right;

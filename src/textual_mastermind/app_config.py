@@ -6,6 +6,7 @@ from tilsit_config.settings import SettingBoolean, SettingOptions
 
 class Ui(TypedDict):
     icon: str
+    new_game_icon: str
     blank_color: str
     code_peg_colors: list[str]
     feedback_peg_colors: list[str]
