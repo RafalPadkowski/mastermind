@@ -17,7 +17,7 @@ class NewGameScreen(ModalScreen[bool]):
     def compose(self) -> ComposeResult:
         yield Header(icon=app_config.ui["new_game_icon"])
 
-        variation_radio_buttons = {
+        self.variation_radio_buttons = {
             name: RadioButton(
                 label=tr(
                     f"{name} ({variation['num_rows']} rows, {variation['num_pegs']} pegs, {variation['num_colors']} colors)"
@@ -26,41 +26,41 @@ class NewGameScreen(ModalScreen[bool]):
             for name, variation in app_config.variations.items()
         }
 
-        variation_radio_buttons[
+        self.variation_radio_buttons[
             app_config.settings.variation.current_value
         ].value = True
 
         blank_color_str = tr("Blank color")
         duplicate_colors_str = tr("Duplicate colors")
 
-        labels = [rb.label for rb in variation_radio_buttons.values()] + [
+        labels = [rb.label for rb in self.variation_radio_buttons.values()] + [
             blank_color_str,
             duplicate_colors_str,
         ]
 
         yield Label(tr("Variation") + ":", classes="margin-bottom-1")
-        radio_set = RadioSet()
-        with radio_set:
-            for rb in variation_radio_buttons.values():
+        self.variation_radio_set = RadioSet()
+        with self.variation_radio_set:
+            for rb in self.variation_radio_buttons.values():
                 yield rb
 
         yield Label(tr("Additional options") + ":", classes="margin-bottom-1")
-        blank_color_cb = Checkbox(
+        self.blank_color_cb = Checkbox(
             blank_color_str,
             value=app_config.settings.blank_color.current_value,
             classes="margin-bottom-1",
         )
-        duplicate_colors_cb = Checkbox(
+        self.duplicate_colors_cb = Checkbox(
             duplicate_colors_str,
             value=app_config.settings.duplicate_colors.current_value,
             classes="margin-bottom-1",
         )
 
-        yield blank_color_cb
-        yield duplicate_colors_cb
+        yield self.blank_color_cb
+        yield self.duplicate_colors_cb
 
-        radio_set.styles.width = blank_color_cb.styles.width = (
-            duplicate_colors_cb.styles.width
+        self.variation_radio_set.styles.width = self.blank_color_cb.styles.width = (
+            self.duplicate_colors_cb.styles.width
         ) = (
             len(max(labels, key=len))
             + BORDER_WIDTH
@@ -78,4 +78,23 @@ class NewGameScreen(ModalScreen[bool]):
         self.dismiss(False)
 
     def action_next(self) -> None:
+        app_config.settings.variation.old_value = (
+            app_config.settings.variation.current_value
+        )
+        app_config.settings.variation.current_value = list(
+            self.variation_radio_buttons.keys()
+        )[self.variation_radio_set.pressed_index]
+
+        app_config.settings.blank_color.old_value = (
+            app_config.settings.blank_color.current_value
+        )
+        app_config.settings.blank_color.current_value = self.blank_color_cb.value
+
+        app_config.settings.duplicate_colors.old_value = (
+            app_config.settings.duplicate_colors.current_value
+        )
+        app_config.settings.duplicate_colors.current_value = (
+            self.duplicate_colors_cb.value
+        )
+
         self.dismiss(True)

@@ -172,7 +172,10 @@ class MastermindApp(App[None]):
     async def action_new_game(self) -> None:
         new_game_screen = NewGameScreen()
         translate_bindings(screen=new_game_screen, bindings=NEW_GAME_BINDINGS)
+
         if await self.push_screen_wait(new_game_screen):
+            self.create_new_game()
+
             if any(
                 [
                     app_config.settings.variation.changed,
@@ -180,8 +183,6 @@ class MastermindApp(App[None]):
                     app_config.settings.blank_color.changed,
                 ]
             ):
-                self.create_new_game()
-
                 save_settings(str(CONFIG_FILE), app_config.settings)
 
     @work
