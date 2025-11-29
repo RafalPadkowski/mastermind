@@ -79,9 +79,6 @@ class MastermindApp(App[None]):
 
         self.title = self.app_metadata.name
 
-        self.new_game_screen = NewGameScreen()
-        self.install_screen(self.new_game_screen, "New Game")
-
         self.translate()
 
         self.create_new_game()
@@ -89,7 +86,6 @@ class MastermindApp(App[None]):
     def translate(self) -> None:
         translate_about_header_icon(app=self)
         translate_bindings(screen=self, bindings=GlOBAL_BINDINGS)
-        translate_bindings(screen=self.new_game_screen, bindings=NEW_GAME_BINDINGS)
 
     def create_new_game(self) -> None:
         if hasattr(self, "game"):
@@ -174,7 +170,9 @@ class MastermindApp(App[None]):
 
     @work
     async def action_new_game(self) -> None:
-        if await self.push_screen_wait("New Game"):
+        new_game_screen = NewGameScreen()
+        translate_bindings(screen=new_game_screen, bindings=NEW_GAME_BINDINGS)
+        if await self.push_screen_wait(new_game_screen):
             if any(
                 [
                     app_config.settings.variation.changed,

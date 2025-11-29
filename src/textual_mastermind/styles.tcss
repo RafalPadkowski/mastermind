@@ -87,10 +87,19 @@ Board {
 
 NewGameScreen {
     align: center middle;
+    margin-bottom: 1;
+}
+
+NewGameScreen HeaderIcon:hover {
+    background: transparent;
+}
+
+.margin-bottom-1 {
+    margin-bottom: 1;
 }
 
 NewGameScreen RadioSet {
-    width: 40%;
+    margin-bottom: 3;
 }
 
 FooterKey:first-of-type  {

@@ -34,7 +34,7 @@ NEW_GAME_BINDINGS: Final[list[Binding | tuple[str, str] | tuple[str, str, str]]]
         key="escape",
         action="escape",
         description="Cancel",
-        key_display="esc",
+        key_display="Esc",
         show=True,
     ),
     Binding(

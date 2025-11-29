@@ -24,14 +24,17 @@ msgstr "Ustawienia"
 msgid "Language:"
 msgstr "Język:"
 
-msgid "Variation:"
-msgstr "Wersja:"
+msgid "Variation"
+msgstr "Wersja"
 
-msgid "Duplicate colors:"
-msgstr "Kolory mogą się powtarzać:"
+msgid "Additional options"
+msgstr "Dodatkowe opcje"
 
-msgid "Blank color:"
-msgstr "Puste miejsce jako dodatkowy kolor:"
+msgid "Duplicate colors"
+msgstr "Kolory mogą się powtarzać"
+
+msgid "Blank color"
+msgstr "Puste miejsce jako dodatkowy kolor"
 
 msgid "Save"
 msgstr "Zapisz"

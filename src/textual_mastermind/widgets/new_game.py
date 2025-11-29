@@ -1,10 +1,14 @@
 from textual.app import ComposeResult
 from textual.screen import ModalScreen
-from textual.widgets import Checkbox, Footer, Header, RadioButton, RadioSet
+from textual.widgets import Checkbox, Footer, Header, Label, RadioButton, RadioSet
 from tilsit_i18n import tr
 
 from ..app_config import app_config
 from ..bindings import NEW_GAME_BINDINGS
+
+BORDER_WIDTH = 1
+RADIO_SET_LEFT_PADDING_WIDTH = 5
+RADIO_SET_RIGHT_PADDING_WIDTH = 2
 
 
 class NewGameScreen(ModalScreen[bool]):
@@ -13,14 +17,58 @@ class NewGameScreen(ModalScreen[bool]):
     def compose(self) -> ComposeResult:
         yield Header(icon=app_config.ui["new_game_icon"])
 
-        with RadioSet():
-            for name, variation in app_config.variations.items():
-                yield RadioButton(
-                    tr(
-                        f"{name} ({variation['num_rows']} rows, {variation['num_pegs']} pegs, {variation['num_colors']} colors)"
-                    )
+        variation_radio_buttons = {
+            name: RadioButton(
+                label=tr(
+                    f"{name} ({variation['num_rows']} rows, {variation['num_pegs']} pegs, {variation['num_colors']} colors)"
                 )
-        # yield Checkbox(tr("Download data from the Internet"))
+            )
+            for name, variation in app_config.variations.items()
+        }
+
+        variation_radio_buttons[
+            app_config.settings.variation.current_value
+        ].value = True
+
+        blank_color_str = tr("Blank color")
+        duplicate_colors_str = tr("Duplicate colors")
+
+        labels = [rb.label for rb in variation_radio_buttons.values()] + [
+            blank_color_str,
+            duplicate_colors_str,
+        ]
+
+        yield Label(tr("Variation") + ":", classes="margin-bottom-1")
+        radio_set = RadioSet()
+        with radio_set:
+            for rb in variation_radio_buttons.values():
+                yield rb
+
+        yield Label(tr("Additional options") + ":", classes="margin-bottom-1")
+        blank_color_cb = Checkbox(
+            blank_color_str,
+            value=app_config.settings.blank_color.current_value,
+            classes="margin-bottom-1",
+        )
+        duplicate_colors_cb = Checkbox(
+            duplicate_colors_str,
+            value=app_config.settings.duplicate_colors.current_value,
+            classes="margin-bottom-1",
+        )
+
+        yield blank_color_cb
+        yield duplicate_colors_cb
+
+        radio_set.styles.width = blank_color_cb.styles.width = (
+            duplicate_colors_cb.styles.width
+        ) = (
+            len(max(labels, key=len))
+            + BORDER_WIDTH
+            + RADIO_SET_LEFT_PADDING_WIDTH
+            + RADIO_SET_RIGHT_PADDING_WIDTH
+            + BORDER_WIDTH
+        )
+
         yield Footer()
 
     def on_mount(self) -> None:
