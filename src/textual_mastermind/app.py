@@ -104,25 +104,25 @@ class MastermindApp(App[None]):
 
     @on(Button.Pressed, ".code_peg")
     def on_code_peg_pressed(self, event: Button.Pressed):
-        active_color: int = self.panel.active_color
-        if active_color != 0:
-            event.button.label = app_config.ui["code_peg_colors"][active_color - 1]
+        active_symbol: int = self.panel.active_symbol
+        if active_symbol != 0:
+            event.button.label = app_config.ui["code_symbols"][active_symbol - 1]
         else:
-            event.button.label = app_config.ui["blank_color"]
+            event.button.label = app_config.ui["code_blank_symbol"]
 
     @on(Click, ".check")
     def on_check_click(self) -> None:
         breaker_code: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
-            color_str = cast(str, code_peg.label)
+            symbol_str = cast(str, code_peg.label)
 
-            color: int
-            if color_str == app_config.ui["blank_color"]:
-                color = 0
+            symbol: int
+            if symbol_str == app_config.ui["code_blank_symbol"]:
+                symbol = 0
             else:
-                color = app_config.ui["code_peg_colors"].index(color_str) + 1
+                symbol = app_config.ui["code_symbols"].index(symbol_str) + 1
 
-            breaker_code.append(color)
+            breaker_code.append(symbol)
 
         num_red_pegs: int
         num_white_pegs: int
@@ -134,10 +134,9 @@ class MastermindApp(App[None]):
             Label(
                 "".join(
                     [
-                        (app_config.ui["feedback_peg_colors"][0] + " ") * num_red_pegs,
-                        (app_config.ui["feedback_peg_colors"][1] + " ")
-                        * num_white_pegs,
-                        (app_config.ui["blank_color"] + " ")
+                        (app_config.ui["feedback_symbols"][0] + " ") * num_red_pegs,
+                        (app_config.ui["feedback_symbols"][1] + " ") * num_white_pegs,
+                        (app_config.ui["feedback_blank_symbol"] + " ")
                         * (self.game.num_pegs - num_red_pegs - num_white_pegs),
                     ]
                 ),
@@ -155,12 +154,12 @@ class MastermindApp(App[None]):
             else:
                 maker_code: list[int] = self.game.get_maker_code()
                 maker_code_str: str = ""
-                for color in maker_code:
-                    if color == 0:
-                        maker_code_str += app_config.ui["blank_color"] + " "
+                for symbol in maker_code:
+                    if symbol == 0:
+                        maker_code_str += app_config.ui["code_blank_symbol"] + " "
                     else:
                         maker_code_str += (
-                            app_config.ui["code_peg_colors"][color - 1] + " "
+                            app_config.ui["code_symbols"][symbol - 1] + " "
                         )
 
                 self.notify(
@@ -179,8 +178,8 @@ class MastermindApp(App[None]):
             if any(
                 [
                     app_config.settings.variation.changed,
-                    app_config.settings.duplicate_colors.changed,
-                    app_config.settings.blank_color.changed,
+                    app_config.settings.duplicate_symbols.changed,
+                    app_config.settings.blank_symbol.changed,
                 ]
             ):
                 save_settings(str(CONFIG_FILE), app_config.settings)

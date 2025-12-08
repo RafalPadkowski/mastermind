@@ -34,7 +34,7 @@ class Row(Horizontal):
         variation = app_config.variation
 
         self.code_pegs: list[Button] = [
-            Button(label=app_config.ui["blank_color"], classes="code_peg")
+            Button(label=app_config.ui["code_blank_symbol"], classes="code_peg")
             for _ in range(variation["num_pegs"])
         ]
 

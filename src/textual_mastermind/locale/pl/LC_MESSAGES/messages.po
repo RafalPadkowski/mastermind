@@ -30,11 +30,11 @@ msgstr "Wersja"
 msgid "Additional options"
 msgstr "Dodatkowe opcje"
 
-msgid "Duplicate colors"
-msgstr "Kolory mogą się powtarzać"
+msgid "Duplicate symbols"
+msgstr "Symbole mogą się powtarzać"
 
-msgid "Blank color"
-msgstr "Puste miejsce jako dodatkowy kolor"
+msgid "Blank symbol"
+msgstr "Puste miejsce jako dodatkowy symbol"
 
 msgid "Save"
 msgstr "Zapisz"
@@ -48,14 +48,14 @@ msgstr "polski"
 msgid "English"
 msgstr "angielski"
 
-msgid "original (10 rows, 4 pegs, 6 colors)"
-msgstr "oryginalna (10 rzędów, 4 pionki, 6 kolorów)"
+msgid "original (10 rows, 4 pegs, 6 symbols)"
+msgstr "oryginalna (10 rzędów, 4 pionki, 6 symboli)"
 
-msgid "mini (6 rows, 4 pegs, 6 colors)"
-msgstr "mini (6 rzędów, 4 pionki, 6 kolorów)"
+msgid "mini (6 rows, 4 pegs, 6 symbols)"
+msgstr "mini (6 rzędów, 4 pionki, 6 symboli)"
 
-msgid "super (12 rows, 5 pegs, 8 colors)"
-msgstr "super (12 rzędów, 5 pionków, 8 kolorów)"
+msgid "super (12 rows, 5 pegs, 8 symbols)"
+msgstr "super (12 rzędów, 5 pionków, 8 symboli)"
 
 msgid "Quit"
 msgstr "Wyjście"
@@ -75,9 +75,6 @@ msgstr "Tak"
 msgid "No"
 msgstr "Nie"
 
-msgid "New game settings will be applied to a new game"
-msgstr "Nowe ustawienia gry zostaną użyte w nowej grze"
-
 msgid "Congratulations!"
 msgstr "Gratulacje!"
 
@@ -95,5 +92,4 @@ msgstr "Dalej"
 
 msgid "Cancel"
 msgstr "Anuluj"
-
 

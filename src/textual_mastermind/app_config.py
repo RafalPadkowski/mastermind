@@ -7,9 +7,10 @@ from tilsit_config.settings import SettingBoolean, SettingOptions
 class Ui(TypedDict):
     icon: str
     new_game_icon: str
-    blank_color: str
-    code_peg_colors: list[str]
-    feedback_peg_colors: list[str]
+    code_blank_symbol: str
+    code_symbols: list[str]
+    feedback_blank_symbol: str
+    feedback_symbols: list[str]
     check_default_text: str
     check_hover_text: str
 
@@ -18,14 +19,14 @@ class Ui(TypedDict):
 class Settings:
     language: SettingOptions
     variation: SettingOptions
-    blank_color: SettingBoolean
-    duplicate_colors: SettingBoolean
+    blank_symbol: SettingBoolean
+    duplicate_symbols: SettingBoolean
 
 
 class Variation(TypedDict):
     num_rows: int
     num_pegs: int
-    num_colors: int
+    num_symbols: int
 
 
 class AppConfig:

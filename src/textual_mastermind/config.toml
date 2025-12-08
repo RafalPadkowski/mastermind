@@ -1,9 +1,10 @@
 [ui]
 icon = "❔"
 new_game_icon = "📜"
-blank_color = "⭕"
-code_peg_colors = ["🔴", "🟢", "🔵", "🟡", "🟣", "⚪", "🟤", "⚫"]
-feedback_peg_colors = ["🔴", "⚪"]
+code_blank_symbol = "🇽"
+code_symbols = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭"]
+feedback_blank_symbol = "⭕"
+feedback_symbols = ["🔴", "⚪"]
 check_default_text = "❔"
 check_hover_text = "❓"
 
@@ -23,18 +24,18 @@ label = "Variation:"
 default_value = "original"
 current_value = "super"
 options = [
-  { value = "original", display_str = "original (10 rows, 4 pegs, 6 colors)" },
-  { value = "mini", display_str = "mini (6 rows, 4 pegs, 6 colors)" },
-  { value = "super", display_str = "super (12 rows, 5 pegs, 8 colors)" },
+  { value = "original", display_str = "original (10 rows, 4 pegs, 6 symbols)" },
+  { value = "mini", display_str = "mini (6 rows, 4 pegs, 6 symbols)" },
+  { value = "super", display_str = "super (12 rows, 5 pegs, 8 symbols)" },
 ]
 
-[settings.blank_color]
-label = "Blank color:"
+[settings.blank_symbol]
+label = "Blank symbol:"
 default_value = false
 current_value = false
 
-[settings.duplicate_colors]
-label = "Duplicate colors:"
+[settings.duplicate_symbols]
+label = "Duplicate symbols:"
 default_value = false
 current_value = false
 
@@ -43,14 +44,14 @@ current_value = false
 [variations.original]
 num_rows = 10
 num_pegs = 4
-num_colors = 6
+num_symbols = 6
 
 [variations.mini]
 num_rows = 6
 num_pegs = 4
-num_colors = 6
+num_symbols = 6
 
 [variations.super]
 num_rows = 12
 num_pegs = 5
-num_colors = 8
+num_symbols = 8

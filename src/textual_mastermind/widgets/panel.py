@@ -6,9 +6,9 @@ from textual.widgets import Button
 from ..app_config import app_config
 
 
-class ColorButton(Button):
+class SymbolButton(Button):
     class Toggled(Message):
-        def __init__(self, sender: "ColorButton") -> None:
+        def __init__(self, sender: "SymbolButton") -> None:
             super().__init__()
             self.sender = sender
 
@@ -24,24 +24,24 @@ class Panel(VerticalScroll):
     def compose(self) -> ComposeResult:
         variation = app_config.variation
 
-        self.color_buttons: list[ColorButton] = [
-            ColorButton(app_config.ui["blank_color"], classes="color_button active")
+        self.symbol_buttons: list[SymbolButton] = [
+            SymbolButton(app_config.ui["code_blank_symbol"], classes="active")
         ]
 
-        self.color_buttons.extend(
+        self.symbol_buttons.extend(
             [
-                ColorButton(color, classes="color_button")
-                for color in app_config.ui["code_peg_colors"][: variation["num_colors"]]
+                SymbolButton(symbol)
+                for symbol in app_config.ui["code_symbols"][: variation["num_symbols"]]
             ]
         )
 
-        for color_button in self.color_buttons:
-            yield color_button
+        for symbol_button in self.symbol_buttons:
+            yield symbol_button
 
-    def on_color_button_toggled(self, message: ColorButton.Toggled):
-        for color_button in self.color_buttons:
-            color_button.remove_class("active")
+    def on_symbol_button_toggled(self, message: SymbolButton.Toggled):
+        for symbol_button in self.symbol_buttons:
+            symbol_button.remove_class("active")
 
         message.sender.add_class("active")
 
-        self.active_color = self.color_buttons.index(message.sender)
+        self.active_symbol = self.symbol_buttons.index(message.sender)
