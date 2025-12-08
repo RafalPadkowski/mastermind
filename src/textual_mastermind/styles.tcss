@@ -51,7 +51,7 @@ Board {
     text-style: bold;
     width: 6;
     text-align: center;
-    background: indigo;
+    background: cornflowerblue;
 }
 
 .code_peg {
