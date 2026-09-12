@@ -186,17 +186,19 @@ class MastermindApp(App[None]):
 
     @work
     async def action_settings(self) -> None:
-        if await self.push_screen_wait(
-            SettingsScreen(
-                dialog_title="Settings",
-                dialog_subtitle=self.app_metadata.name,
-                settings=[
-                    app_config.settings.language,
-                ],
+        if (
+            await self.push_screen_wait(
+                SettingsScreen(
+                    dialog_title="Settings",
+                    dialog_subtitle=self.app_metadata.name,
+                    settings=[
+                        app_config.settings.language,
+                    ],
+                )
             )
+            and app_config.settings.language.changed
         ):
-            if app_config.settings.language.changed:
-                tr.language = app_config.settings.language.current_value
-                self.translate()
+            tr.language = app_config.settings.language.current_value
+            self.translate()
 
-                save_settings(str(CONFIG_FILE), app_config.settings)
+            save_settings(str(CONFIG_FILE), app_config.settings)
