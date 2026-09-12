@@ -1,47 +1,6 @@
-from dataclasses import dataclass
-from typing import TypedDict
+from importlib.resources import files
 
-from tilsit_config.settings import SettingBoolean, SettingOptions
+import tomlkit
 
-
-class Ui(TypedDict):
-    icon: str
-    new_game_icon: str
-    code_blank_symbol: str
-    code_symbols: list[str]
-    feedback_blank_symbol: str
-    feedback_symbols: list[str]
-    check_default_text: str
-    check_hover_text: str
-
-
-@dataclass
-class Settings:
-    language: SettingOptions
-    variation: SettingOptions
-    blank_symbol: SettingBoolean
-    duplicate_symbols: SettingBoolean
-
-
-class Variation(TypedDict):
-    num_rows: int
-    num_pegs: int
-    num_symbols: int
-
-
-class AppConfig:
-    ui: Ui
-    settings: Settings
-    variations: dict[str, Variation]
-
-    def init(self, ui: Ui, settings: Settings, variations: dict[str, Variation]):
-        self.ui = ui
-        self.settings = settings
-        self.variations = variations
-
-    @property
-    def variation(self) -> Variation:
-        return self.variations[self.settings.variation.current_value]
-
-
-app_config = AppConfig()
+with files(__package__).joinpath("config.toml").open("r", encoding="utf-8") as config:
+    app_config = tomlkit.load(config)

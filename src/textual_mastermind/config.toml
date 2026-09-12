@@ -1,5 +1,5 @@
 [ui]
-icon = "❔"
+main_icon = "❔"
 new_game_icon = "📜"
 code_blank_symbol = "-"
 code_symbols = ["R", "G", "B", "O", "Y", "W", "C", "M"]

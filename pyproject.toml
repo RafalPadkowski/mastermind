@@ -7,8 +7,6 @@ requires-python = ">=3.14"
 readme = "README.md"
 dependencies = [
     "textual>=8.2.8",
-    "textual-utils>=2.3.0",
-    "tilsit-i18n>=1.0.0",
     "tomlkit>=0.15.1",
 ]
 
@@ -23,4 +21,3 @@ dev = [
 [build-system]
 requires = ["uv_build>=0.12.13,<0.13.0"]
 build-backend = "uv_build"
-

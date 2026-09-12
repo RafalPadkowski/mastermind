@@ -102,13 +102,6 @@ NewGameScreen RadioSet {
     margin-bottom: 3;
 }
 
-FooterKey:first-of-type  {
-  dock: right;
-  padding-right: 1;
-  border-left: vkey $foreground 20%;
-}
-
-
 Screen {
     background: $background;
 }

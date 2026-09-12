@@ -1,91 +1,42 @@
-from importlib.metadata import metadata
-from typing import Any, cast
+from typing import cast
 
 from textual import on, work
 from textual.app import App, ComposeResult
 from textual.containers import Horizontal
 from textual.events import Click
 from textual.widgets import Button, Footer, Header, Label
-from textual_utils import (
-    AppMetadata,
-    SettingsScreen,
-    mount_about_header_icon,
-    translate_about_header_icon,
-    translate_bindings,
-)
-from tilsit_config import load_config, save_settings
-from tilsit_i18n import tr
 
-from .app_config import Settings, app_config
+from .app_config import app_config
 from .bindings import NEW_GAME_BINDINGS, GlOBAL_BINDINGS
-from .constants import (
-    CONFIG_FILE,
-    LOCALE_DIR,
-)
 from .game import Game
 from .widgets.board import Board
-from .widgets.new_game import NewGameScreen
+
+# from .widgets.new_game import NewGameScreen
 from .widgets.panel import Panel
+
+__title__ = "Mastermind"
 
 
 class MastermindApp(App[None]):
     CSS_PATH = "styles.tcss"
-    ENABLE_COMMAND_PALETTE = False
     BINDINGS = GlOBAL_BINDINGS
 
     def __init__(self) -> None:
         super().__init__()
-
-        config_dict, settings = cast(
-            tuple[dict[str, Any], Settings],
-            load_config(config_file=str(CONFIG_FILE), settings_cls=Settings),
-        )
-
-        app_config.init(
-            ui=config_dict["ui"],
-            settings=settings,
-            variations=config_dict["variations"],
-        )
-
-        pkg_name = cast(str, __package__)
-        pkg_metadata = metadata(pkg_name)
-
-        self.app_metadata = AppMetadata(
-            name="Mastermind",
-            version=pkg_metadata["Version"],
-            icon=app_config.ui["icon"],
-            description="Break the hidden code",
-            author=pkg_metadata["Author"],
-            email=pkg_metadata["Author-email"].split("<")[1][:-1],
-        )
-
-        tr.localedir = LOCALE_DIR
-        tr.language = app_config.settings.language.current_value
 
         self.panel: Panel
         self.board: Board
         self.game: Game
 
     def compose(self) -> ComposeResult:
-        yield Header()
+        yield Header(icon=app_config["ui"]["main_icon"])
         yield Horizontal(id="body")
         yield Footer()
 
     async def on_mount(self) -> None:
-        await mount_about_header_icon(
-            current_app=self,
-            app_metadata=self.app_metadata,
-        )
+        self.title = __title__
 
-        self.title = self.app_metadata.name
-
-        self.translate()
-
-        self.create_new_game()
-
-    def translate(self) -> None:
-        translate_about_header_icon(app=self)
-        translate_bindings(screen=self, bindings=GlOBAL_BINDINGS)
+        # self.create_new_game()
 
     def create_new_game(self) -> None:
         if hasattr(self, "game"):
