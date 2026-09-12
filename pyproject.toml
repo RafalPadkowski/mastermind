@@ -8,7 +8,6 @@ readme = "README.md"
 dependencies = [
     "textual>=8.2.8",
     "textual-utils>=2.3.0",
-    "tilsit-config>=1.0.1",
     "tilsit-i18n>=1.0.0",
 ]
 
