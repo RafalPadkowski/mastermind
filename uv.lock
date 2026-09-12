@@ -536,6 +536,7 @@ dependencies = [
     { name = "textual" },
     { name = "textual-utils" },
     { name = "tilsit-i18n" },
+    { name = "tomlkit" },
 ]
 
 [package.dev-dependencies]
@@ -548,6 +549,7 @@ requires-dist = [
     { name = "textual", specifier = ">=8.2.8" },
     { name = "textual-utils", specifier = ">=2.3.0" },
     { name = "tilsit-i18n", specifier = ">=1.0.0" },
+    { name = "tomlkit", specifier = ">=0.15.1" },
 ]
 
 [package.metadata.requires-dev]
