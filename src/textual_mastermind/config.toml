@@ -1,10 +1,10 @@
 [ui]
 icon = "❔"
 new_game_icon = "📜"
-code_blank_symbol = "🇽"
-code_symbols = ["🇦", "🇧", "🇨", "🇩", "🇪", "🇫", "🇬", "🇭"]
-feedback_blank_symbol = "⭕"
-feedback_symbols = ["🔴", "⚪"]
+code_blank_symbol = "-"
+code_symbols = ["R", "G", "B", "O", "Y", "W", "C", "M"]
+feedback_blank_symbol = "-"
+feedback_symbols = ["r", "w"]
 check_default_text = "❔"
 check_hover_text = "❓"
 
