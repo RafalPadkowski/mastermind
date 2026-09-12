@@ -535,6 +535,8 @@ source = { editable = "." }
 dependencies = [
     { name = "textual" },
     { name = "textual-utils" },
+    { name = "tilsit-config" },
+    { name = "tilsit-i18n" },
 ]
 
 [package.dev-dependencies]
@@ -546,6 +548,8 @@ dev = [
 requires-dist = [
     { name = "textual", specifier = ">=8.2.8" },
     { name = "textual-utils", specifier = ">=2.3.0" },
+    { name = "tilsit-config", specifier = ">=1.0.1" },
+    { name = "tilsit-i18n", specifier = ">=1.0.0" },
 ]
 
 [package.metadata.requires-dev]
