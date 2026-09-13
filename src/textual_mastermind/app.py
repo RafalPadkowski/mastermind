@@ -36,7 +36,7 @@ class MastermindApp(App[None]):
     async def on_mount(self) -> None:
         self.title = __title__
 
-        # self.create_new_game()
+        self.create_new_game()
 
     def create_new_game(self) -> None:
         if hasattr(self, "game"):
@@ -44,14 +44,14 @@ class MastermindApp(App[None]):
             self.board.remove()
 
         self.panel = Panel()
-        self.board = Board()
+        # self.board = Board()
         body: Horizontal = self.query_one("#body", Horizontal)
         body.mount(self.panel)
-        body.mount(self.board)
+        # body.mount(self.board)
 
         self.set_focus(self.panel)
 
-        self.game = Game()
+        # self.game = Game()
 
     @on(Button.Pressed, ".code_peg")
     def on_code_peg_pressed(self, event: Button.Pressed):

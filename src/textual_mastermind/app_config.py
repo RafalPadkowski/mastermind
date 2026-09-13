@@ -24,19 +24,19 @@ class Setting(TypedDict):
     current_value: Any
 
 
-class VariationSetting(Setting):
-    default_value: str
-    current_value: str
+# class VariationSetting(Setting):
+#     default_value: str
+#     current_value: str
 
 
-class BlankSymbolSetting(Setting):
-    default_value: bool
-    current_value: bool
+# class BlankSymbolSetting(Setting):
+#     default_value: bool
+#     current_value: bool
 
 
-class DuplicateSymbolsSetting(Setting):
-    default_value: bool
-    current_value: bool
+# class DuplicateSymbolsSetting(Setting):
+#     default_value: bool
+#     current_value: bool
 
 
 class AppConfig:
@@ -46,6 +46,10 @@ class AppConfig:
         self.ui = ui
         self.variations = variations
         self.settings = settings
+
+    @property
+    def current_variation(self) -> Variation:
+        return self.variations[self.settings["variation"]["current_value"]]
 
 
 with files(__package__).joinpath("config.toml").open("r", encoding="utf-8") as config:
