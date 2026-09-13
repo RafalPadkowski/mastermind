@@ -29,7 +29,7 @@ class MastermindApp(App[None]):
         self.game: Game
 
     def compose(self) -> ComposeResult:
-        yield Header(icon=app_config["ui"]["main_icon"])
+        yield Header(icon=app_config.ui["main_icon"])
         yield Horizontal(id="body")
         yield Footer()
 

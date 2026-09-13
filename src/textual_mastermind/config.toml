@@ -3,42 +3,8 @@ main_icon = "❔"
 new_game_icon = "📜"
 code_blank_symbol = "-"
 code_symbols = ["R", "G", "B", "O", "Y", "W", "C", "M"]
-feedback_blank_symbol = "-"
-feedback_symbols = ["r", "w"]
-check_default_text = "❔"
-check_hover_text = "❓"
-
-
-[settings]
-[settings.language]
-label = "Language:"
-default_value = "en"
-current_value = "en"
-options = [
-  { value = "en", display_str = "English" },
-  { value = "pl", display_str = "Polish" },
-]
-
-[settings.variation]
-label = "Variation:"
-default_value = "original"
-current_value = "original"
-options = [
-  { value = "original", display_str = "original (10 rows, 4 pegs, 6 symbols)" },
-  { value = "mini", display_str = "mini (6 rows, 4 pegs, 6 symbols)" },
-  { value = "super", display_str = "super (12 rows, 5 pegs, 8 symbols)" },
-]
-
-[settings.blank_symbol]
-label = "Blank symbol:"
-default_value = false
-current_value = false
-
-[settings.duplicate_symbols]
-label = "Duplicate symbols:"
-default_value = false
-current_value = false
-
+feedback_blank_symbol = "x"
+feedback_symbols = ["w", "r"]
 
 [variations]
 [variations.original]
@@ -55,3 +21,16 @@ num_symbols = 6
 num_rows = 12
 num_pegs = 5
 num_symbols = 8
+
+[settings]
+[settings.variation]
+default_value = "original"
+current_value = "original"
+
+[settings.blank_symbol]
+default_value = false
+current_value = false
+
+[settings.duplicate_symbols]
+default_value = false
+current_value = false
