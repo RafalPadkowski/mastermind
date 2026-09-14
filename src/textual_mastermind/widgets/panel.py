@@ -1,3 +1,4 @@
+from rich.text import Text
 from textual.app import ComposeResult
 from textual.containers import Horizontal, VerticalScroll
 from textual.widgets import Button, Select
@@ -10,16 +11,21 @@ class Panel(VerticalScroll):
         super().__init__()
 
     def compose(self) -> ComposeResult:
-        current_variation = app_config.current_variation
-
         code_symbols = app_config.ui["code_symbols"]
-        num_symbols = current_variation["num_symbols"]
+        code_colors = app_config.ui["code_colors"]
+        style = app_config.ui["style"]
 
-        with Horizontal():
-            for _ in range(current_variation["num_pegs"]):
-                yield Select(
-                    options=zip(code_symbols[:num_symbols], range(num_symbols)),
-                    prompt=app_config.ui["code_blank_symbol"],
-                )
+        options = zip(
+            [
+                Text(symbol, style=f"{color} {style}")
+                for symbol, color in zip(code_symbols, code_colors)
+            ],
+            range(app_config.current_variation["num_symbols"]),
+        )
 
-        yield Button("Check")
+        yield Select(
+            options=options,
+            prompt=app_config.ui["code_blank_symbol"],
+        )
+
+        # yield Button("Check", flat=True)

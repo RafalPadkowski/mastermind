@@ -3,8 +3,11 @@ main_icon = "❔"
 new_game_icon = "📜"
 code_blank_symbol = "-"
 code_symbols = ["R", "G", "B", "O", "Y", "W", "C", "M"]
-feedback_blank_symbol = "x"
+code_colors = ["tomato", "green", "cornflowerblue", "orange", "yellow", "white", "cyan", "fuchsia"]
+feedback_blank_symbol = "-"
 feedback_symbols = ["w", "r"]
+feedback_colors = ["tomato", "white"]
+style = ""
 
 [variations]
 [variations.original]
