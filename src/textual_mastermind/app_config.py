@@ -7,19 +7,19 @@ import tomlkit
 class Ui(TypedDict):
     main_icon: str
     new_game_icon: str
-    code_blank_symbol: str
-    code_symbols: list[str]
+    code_blank_letter: str
+    code_letters: list[str]
     code_colors: list[str]
     code_style: str
-    feedback_blank_symbol: str
-    feedback_symbols: list[str]
+    feedback_blank_letters: str
+    feedback_letters: list[str]
     feedback_colors: list[str]
 
 
 class Variation(TypedDict):
     num_rows: int
     num_pegs: int
-    num_symbols: int
+    num_colors: int
 
 
 class Setting(TypedDict):

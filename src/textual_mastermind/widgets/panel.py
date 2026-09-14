@@ -11,21 +11,21 @@ class Panel(VerticalScroll):
         super().__init__()
 
     def compose(self) -> ComposeResult:
-        code_symbols = app_config.ui["code_symbols"]
+        code_letters = app_config.ui["code_letters"]
         code_colors = app_config.ui["code_colors"]
         code_style = app_config.ui["code_style"]
 
         options = zip(
             [
-                Text(code_symbol, style=f"{code_color} {code_style}")
-                for code_symbol, code_color in zip(code_symbols, code_colors)
+                Text(code_letter, style=f"{code_color} {code_style}")
+                for code_letter, code_color in zip(code_letters, code_colors)
             ],
-            range(app_config.current_variation["num_symbols"]),
+            range(app_config.current_variation["num_colors"]),
         )
 
         yield Select(
             options=options,
-            prompt=app_config.ui["code_blank_symbol"],
+            prompt=app_config.ui["code_blank_letter"],
         )
 
         # yield Button("Check", flat=True)

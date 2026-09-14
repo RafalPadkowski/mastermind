@@ -1,39 +1,39 @@
 [ui]
 main_icon = "❔"
 new_game_icon = "📜"
-code_blank_symbol = "-"
-code_symbols = ["R", "G", "B", "O", "Y", "W", "C", "M"]
+code_blank_letter = "-"
+code_letters = ["R", "G", "B", "O", "Y", "W", "C", "M"]
 code_colors = ["tomato", "green", "cornflowerblue", "orange", "yellow", "white", "cyan", "fuchsia"]
 code_style = ""
-feedback_blank_symbol = "-"
-feedback_symbols = ["w", "r"]
+feedback_blank_letter = "-"
+feedback_letters = ["w", "r"]
 feedback_colors = ["tomato", "white"]
 
 [variations]
 [variations.original]
 num_rows = 10
 num_pegs = 4
-num_symbols = 6
+num_colors = 6
 
 [variations.mini]
 num_rows = 6
 num_pegs = 4
-num_symbols = 6
+num_colors = 6
 
 [variations.super]
 num_rows = 12
 num_pegs = 5
-num_symbols = 8
+num_colors = 8
 
 [settings]
 [settings.variation]
 default_value = "original"
 current_value = "original"
 
-[settings.blank_symbol]
+[settings.blank_color]
 default_value = false
 current_value = false
 
-[settings.duplicate_symbols]
+[settings.duplicate_colors]
 default_value = false
 current_value = false
