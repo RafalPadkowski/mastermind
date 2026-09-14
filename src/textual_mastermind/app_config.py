@@ -10,10 +10,10 @@ class Ui(TypedDict):
     code_blank_symbol: str
     code_symbols: list[str]
     code_colors: list[str]
+    code_style: str
     feedback_blank_symbol: str
     feedback_symbols: list[str]
     feedback_colors: list[str]
-    style: str
 
 
 class Variation(TypedDict):

@@ -13,12 +13,12 @@ class Panel(VerticalScroll):
     def compose(self) -> ComposeResult:
         code_symbols = app_config.ui["code_symbols"]
         code_colors = app_config.ui["code_colors"]
-        style = app_config.ui["style"]
+        code_style = app_config.ui["code_style"]
 
         options = zip(
             [
-                Text(symbol, style=f"{color} {style}")
-                for symbol, color in zip(code_symbols, code_colors)
+                Text(code_symbol, style=f"{code_color} {code_style}")
+                for code_symbol, code_color in zip(code_symbols, code_colors)
             ],
             range(app_config.current_variation["num_symbols"]),
         )

@@ -4,10 +4,10 @@ new_game_icon = "📜"
 code_blank_symbol = "-"
 code_symbols = ["R", "G", "B", "O", "Y", "W", "C", "M"]
 code_colors = ["tomato", "green", "cornflowerblue", "orange", "yellow", "white", "cyan", "fuchsia"]
+code_style = ""
 feedback_blank_symbol = "-"
 feedback_symbols = ["w", "r"]
 feedback_colors = ["tomato", "white"]
-style = ""
 
 [variations]
 [variations.original]
