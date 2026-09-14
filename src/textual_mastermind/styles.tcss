@@ -2,49 +2,42 @@ Header {
     margin-bottom: 1;
 }
 
+Panel {
+  width: auto;
+}
+
 Panel Select {
-    margin-left: 1;
-    margin-right: 1;
-    width: 13;
+    margin-left: 3;
+    width: 11;
 }
 
 Panel SelectCurrent #label {
-    padding-left: 3;
+    padding-left: 2;
 }
 
 Panel SelectOverlay {
     text-align: center;
 }
 
-Board {
-    width: 1fr;
-    overflow-x: auto;
-}
-
 .row {
-    height: 3;
+    height: 2;
     width: auto;
 }
 
 .num {
-    margin: 1 4 1 2;
+    margin: 1 3 1 3;
     text-style: bold;
     width: 6;
     text-align: center;
-    background: cornflowerblue;
+    background: saddlebrown;
 }
 
 .code_peg {
-    margin-left: 1;
-    margin-right: 1;
+    margin-top: 1;
+    margin-right: 2;
     min-width: 7;
-    # border: tall dimgrey;
+    border: none;
     text-style: none;
-    # padding-left: 2;
-}
-
-.code_peg:hover {
-    background: $primary;
 }
 
 .code_peg:disabled {
@@ -52,20 +45,17 @@ Board {
 }
 
 .check {
-    width: 16;
+    min-width: 9;
     margin-top: 1;
-    margin-left: 1;
-    padding-left: 1;
-}
-
-.check:hover {
-    text-style: italic;
+    margin-left: 4;
+    border: none;
+    text-style: none;
 }
 
 .feedback_pegs {
     width: 16;
     margin-top: 1;
-    margin-left: 1;
+    margin-left: 3;
     padding-left: 1;
 }
 

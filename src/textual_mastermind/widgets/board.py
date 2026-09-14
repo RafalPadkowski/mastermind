@@ -11,19 +11,18 @@ class Row(Horizontal):
 
         self.row_number = row_number
 
-        variation = app_config.variation
-
         self.code_pegs: list[Button] = [
-            Button(label=app_config.ui["code_blank_symbol"], classes="code_peg")
-            for _ in range(variation["num_pegs"])
+            Button(
+                flat=True, label=app_config.ui["code_blank_letter"], classes="code_peg"
+            )
+            for _ in range(app_config.current_variation["num_pegs"])
         ]
 
-        self.check: Check = Check()
+        self.check: Button = Button(flat=True, label="?", classes="check")
 
     def compose(self) -> ComposeResult:
         yield Label(f"{self.row_number:02}", classes="num")
-        for code_peg in self.code_pegs:
-            yield code_peg
+        yield from self.code_pegs
         yield self.check
 
 

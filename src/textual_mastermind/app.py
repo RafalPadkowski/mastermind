@@ -44,10 +44,10 @@ class MastermindApp(App[None]):
             self.board.remove()
 
         self.panel = Panel()
-        # self.board = Board()
+        self.board = Board()
         body: Horizontal = self.query_one("#body", Horizontal)
         body.mount(self.panel)
-        # body.mount(self.board)
+        body.mount(self.board)
 
         self.set_focus(self.panel)
 
