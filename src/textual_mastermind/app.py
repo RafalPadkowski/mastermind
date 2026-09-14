@@ -51,7 +51,7 @@ class MastermindApp(App[None]):
 
         self.set_focus(self.panel)
 
-        # self.game = Game()
+        self.game = Game()
 
     @on(Button.Pressed, ".code_peg")
     def on_code_peg_pressed(self, event: Button.Pressed):

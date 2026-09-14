@@ -27,21 +27,6 @@ class Setting(TypedDict):
     current_value: Any
 
 
-# class VariationSetting(Setting):
-#     default_value: str
-#     current_value: str
-
-
-# class BlankSymbolSetting(Setting):
-#     default_value: bool
-#     current_value: bool
-
-
-# class DuplicateSymbolsSetting(Setting):
-#     default_value: bool
-#     current_value: bool
-
-
 class AppConfig:
     def __init__(
         self, ui: Ui, variations: dict[str, Variation], settings: dict[str, Setting]
@@ -53,6 +38,14 @@ class AppConfig:
     @property
     def current_variation(self) -> Variation:
         return self.variations[self.settings["variation"]["current_value"]]
+
+    @property
+    def blank_color(self) -> bool:
+        return self.settings["blank_color"]["current_value"]
+
+    @property
+    def duplicate_colors(self) -> bool:
+        return self.settings["duplicate_colors"]["current_value"]
 
 
 with files(__package__).joinpath("config.toml").open("r", encoding="utf-8") as config:

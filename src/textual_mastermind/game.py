@@ -5,41 +5,41 @@ from .app_config import app_config
 
 class Game:
     def __init__(self) -> None:
-        variation = app_config.variation
+        current_variation = app_config.current_variation
 
-        self.num_rows = variation["num_rows"]
-        self.num_pegs = variation["num_pegs"]
-        self.num_symbols = variation["num_symbols"]
+        self.num_rows = current_variation["num_rows"]
+        self.num_pegs = current_variation["num_pegs"]
+        self.num_colors = current_variation["num_colors"]
 
-        symbols: list[int] = list(range(1, self.num_symbols + 1))
-        if app_config.settings.blank_symbol:
-            symbols.append(0)
+        colors: list[int] = list(range(1, self.num_colors + 1))
+        if app_config.blank_color:
+            colors.append(0)
 
         self.maker_code: list[int]
-        if app_config.settings.duplicate_symbols:
-            self.maker_code = random.choices(symbols, k=self.num_pegs)
+        if app_config.duplicate_colors:
+            self.maker_code = random.choices(colors, k=self.num_pegs)
         else:
-            self.maker_code = random.sample(symbols, k=self.num_pegs)
+            self.maker_code = random.sample(colors, k=self.num_pegs)
 
     def check_code(self, breaker_code: list[int]) -> tuple[int, int]:
         breaker_code_no_reds = [
-            symbol
-            for i, symbol in enumerate(breaker_code)
+            color
+            for i, color in enumerate(breaker_code)
             if self.maker_code[i] != breaker_code[i]
         ]
         maker_code_no_reds = [
-            symbol
-            for i, symbol in enumerate(self.maker_code)
+            color
+            for i, color in enumerate(self.maker_code)
             if self.maker_code[i] != breaker_code[i]
         ]
 
         num_red_pegs: int = len(breaker_code) - len(breaker_code_no_reds)
 
         num_white_pegs: int = 0
-        for symbol in breaker_code_no_reds:
-            if symbol in maker_code_no_reds:
+        for color in breaker_code_no_reds:
+            if color in maker_code_no_reds:
                 num_white_pegs += 1
-                maker_code_no_reds.remove(symbol)
+                maker_code_no_reds.remove(color)
 
         return num_red_pegs, num_white_pegs
 
