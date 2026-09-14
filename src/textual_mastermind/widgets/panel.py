@@ -10,20 +10,20 @@ class Panel(Vertical):
     def __init__(self) -> None:
         super().__init__()
 
+        self.select: Select
+
     def compose(self) -> ComposeResult:
-        code_letters = app_config.ui["code_letters"]
-        code_colors = app_config.ui["code_colors"]
-        code_style = app_config.ui["code_style"]
+        letters = [app_config.ui["code_blank_letter"]] + app_config.ui["code_letters"]
+        colors = ["$text"] + app_config.ui["code_colors"]
+        style = app_config.ui["code_style"]
 
         options = zip(
             [
-                Text(code_letter, style=f"{code_color} {code_style}")
-                for code_letter, code_color in zip(code_letters, code_colors)
+                Text(letter, style=f"{color} {style}")
+                for letter, color in zip(letters, colors)
             ],
-            range(app_config.current_variation["num_colors"]),
+            range(app_config.current_variation["num_colors"] + 1),
         )
 
-        yield Select(
-            options=options,
-            prompt=app_config.ui["code_blank_letter"],
-        )
+        self.select = Select(options, allow_blank=False)
+        yield self.select

@@ -1,9 +1,9 @@
 from typing import cast
 
+from rich.text import Text
 from textual import on, work
 from textual.app import App, ComposeResult
 from textual.containers import Horizontal
-from textual.events import Click
 from textual.widgets import Button, Footer, Header, Label
 
 from .app_config import app_config
@@ -55,13 +55,20 @@ class MastermindApp(App[None]):
 
     @on(Button.Pressed, ".code_peg")
     def on_code_peg_pressed(self, event: Button.Pressed):
-        active_symbol: int = self.panel.active_symbol
-        if active_symbol != 0:
-            event.button.label = app_config.ui["code_symbols"][active_symbol - 1]
-        else:
-            event.button.label = app_config.ui["code_blank_symbol"]
+        idx = cast(int, self.panel.select.value)
+        style = app_config.ui["code_style"]
 
-    @on(Click, ".check")
+        if idx == 0:
+            event.button.label = Text(
+                app_config.ui["code_blank_letter"], style=f"$text {style}"
+            )
+        else:
+            idx -= 1
+            letter = app_config.ui["code_letters"][idx]
+            color = app_config.ui["code_colors"][idx]
+            event.button.label = Text(letter, style=f"{color} {style}")
+
+    @on(Button.Pressed, ".check")
     def on_check_click(self) -> None:
         breaker_code: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
