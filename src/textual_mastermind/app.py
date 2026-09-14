@@ -10,9 +10,9 @@ from .app_config import app_config
 from .bindings import NEW_GAME_BINDINGS, GlOBAL_BINDINGS
 from .game import Game
 from .widgets.board import Board
+from .widgets.panel import Panel
 
 # from .widgets.new_game import NewGameScreen
-from .widgets.panel import Panel
 
 __title__ = "Mastermind"
 
@@ -26,6 +26,7 @@ class MastermindApp(App[None]):
 
         self.panel: Panel
         self.board: Board
+
         self.game: Game
 
     def compose(self) -> ComposeResult:
@@ -33,14 +34,13 @@ class MastermindApp(App[None]):
         yield Horizontal(id="body")
         yield Footer()
 
-    async def on_mount(self) -> None:
+    def on_mount(self) -> None:
         self.title = __title__
-
         self.create_new_game()
 
     def create_new_game(self) -> None:
         if hasattr(self, "game"):
-            self.panel.remove()
+            # self.panel.remove()
             self.board.remove()
 
         self.panel = Panel()
@@ -134,22 +134,3 @@ class MastermindApp(App[None]):
                 ]
             ):
                 save_settings(str(CONFIG_FILE), app_config.settings)
-
-    @work
-    async def action_settings(self) -> None:
-        if (
-            await self.push_screen_wait(
-                SettingsScreen(
-                    dialog_title="Settings",
-                    dialog_subtitle=self.app_metadata.name,
-                    settings=[
-                        app_config.settings.language,
-                    ],
-                )
-            )
-            and app_config.settings.language.changed
-        ):
-            tr.language = app_config.settings.language.current_value
-            self.translate()
-
-            save_settings(str(CONFIG_FILE), app_config.settings)

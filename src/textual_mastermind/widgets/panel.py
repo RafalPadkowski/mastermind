@@ -1,12 +1,12 @@
 from rich.text import Text
 from textual.app import ComposeResult
-from textual.containers import Horizontal, VerticalScroll
-from textual.widgets import Button, Select
+from textual.containers import Vertical
+from textual.widgets import Select
 
 from ..app_config import app_config
 
 
-class Panel(VerticalScroll):
+class Panel(Vertical):
     def __init__(self) -> None:
         super().__init__()
 
@@ -27,5 +27,3 @@ class Panel(VerticalScroll):
             options=options,
             prompt=app_config.ui["code_blank_letter"],
         )
-
-        # yield Button("Check", flat=True)
