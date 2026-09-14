@@ -2,17 +2,17 @@ Header {
     margin-bottom: 1;
 }
 
-Select {
+Panel Select {
     margin-left: 1;
     margin-right: 1;
     width: 13;
 }
 
-SelectCurrent #label {
+Panel SelectCurrent #label {
     padding-left: 3;
 }
 
-SelectOverlay {
+Panel SelectOverlay {
     text-align: center;
 }
 
