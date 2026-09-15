@@ -63,10 +63,6 @@ NewGameScreen {
     margin-bottom: 1;
 }
 
-NewGameScreen HeaderIcon:hover {
-    background: transparent;
-}
-
 .margin-bottom-1 {
     margin-bottom: 1;
 }

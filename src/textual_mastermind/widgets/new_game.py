@@ -30,33 +30,33 @@ class NewGameScreen(ModalScreen[bool]):
         blank_color_str = "Blank color"
         duplicate_colors_str = "Duplicate colors"
 
-        labels = [rb.label for rb in self.variation_radio_buttons.values()] + [
-            blank_color_str,
-            duplicate_colors_str,
-        ]
-
         yield Label("Variation:", classes="margin-bottom-1")
         self.variation_radio_set = RadioSet()
         with self.variation_radio_set:
             yield from self.variation_radio_buttons.values()
 
-        yield Label(tr("Additional options") + ":", classes="margin-bottom-1")
-        self.blank_symbol_cb = Checkbox(
-            blank_symbol_str,
-            value=app_config.settings.blank_symbol.current_value,
+        yield Label("Additional options:", classes="margin-bottom-1")
+        self.blank_color_cb = Checkbox(
+            blank_color_str,
+            value=app_config.settings["blank_color"]["current_value"],
             classes="margin-bottom-1",
         )
-        self.duplicate_symbols_cb = Checkbox(
-            duplicate_symbols_str,
-            value=app_config.settings.duplicate_symbols.current_value,
+        self.duplicate_colors_cb = Checkbox(
+            duplicate_colors_str,
+            value=app_config.settings["duplicate_colors"]["current_value"],
             classes="margin-bottom-1",
         )
 
-        yield self.blank_symbol_cb
-        yield self.duplicate_symbols_cb
+        yield self.blank_color_cb
+        yield self.duplicate_colors_cb
 
-        self.variation_radio_set.styles.width = self.blank_symbol_cb.styles.width = (
-            self.duplicate_symbols_cb.styles.width
+        labels = [rb.label for rb in self.variation_radio_buttons.values()] + [
+            blank_color_str,
+            duplicate_colors_str,
+        ]
+
+        self.variation_radio_set.styles.width = self.blank_color_cb.styles.width = (
+            self.duplicate_colors_cb.styles.width
         ) = (
             len(max(labels, key=len))
             + BORDER_WIDTH
@@ -68,7 +68,7 @@ class NewGameScreen(ModalScreen[bool]):
         yield Footer()
 
     def on_mount(self) -> None:
-        self.sub_title = tr("New game")
+        self.sub_title = "New game"
 
     def action_escape(self) -> None:
         self.dismiss(False)
