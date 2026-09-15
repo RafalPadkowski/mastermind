@@ -1,3 +1,7 @@
+Screen {
+    background: $background;
+}
+
 Header {
     margin-bottom: 1;
 }
@@ -7,7 +11,7 @@ Panel {
 }
 
 Panel Select {
-    margin-left: 3;
+    margin-left: 4;
     width: 11;
 }
 
@@ -25,15 +29,14 @@ Panel SelectOverlay {
 }
 
 .num {
-    margin: 1 3 1 3;
+    margin: 0 3 1 3;
     text-style: bold;
-    width: 6;
+    width: 4;
     text-align: center;
-    background: saddlebrown;
+    color: $text-muted;
 }
 
 .code_peg {
-    margin-top: 1;
     margin-right: 2;
     min-width: 7;
     border: none;
@@ -45,7 +48,6 @@ Panel SelectOverlay {
 }
 
 .check {
-    margin-top: 1;
     margin-left: 4;
     border: none;
     text-style: none;
@@ -53,7 +55,6 @@ Panel SelectOverlay {
 
 .feedback_pegs {
     width: 16;
-    margin-top: 1;
     margin-left: 3;
     padding-left: 1;
 }
@@ -69,8 +70,4 @@ NewGameScreen {
 
 NewGameScreen RadioSet {
     margin-bottom: 3;
-}
-
-Screen {
-    background: $background;
 }

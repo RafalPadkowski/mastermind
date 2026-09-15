@@ -49,6 +49,10 @@ class MastermindApp(App[None]):
             self.panel.select.value = 0
             self.board.remove()
 
+        self.sub_title = (
+            app_config.settings["variation"]["current_value"]
+        ).capitalize()
+
         self.board = Board()
         self.body.mount(self.board)
 
@@ -147,7 +151,8 @@ class MastermindApp(App[None]):
         new_game_screen = NewGameScreen()
 
         if await self.push_screen_wait(new_game_screen):
-            self.create_new_game()
+            # self.create_new_game()
+            return
 
             if any(
                 [

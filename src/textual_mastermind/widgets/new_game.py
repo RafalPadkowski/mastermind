@@ -94,3 +94,17 @@ class NewGameScreen(ModalScreen[bool]):
         )
 
         self.dismiss(True)
+
+
+def save_settings(config_file: str, settings: Dataclass):
+    with open(config_file, mode="rt", encoding="utf-8") as f:
+        config_doc = tomlkit.load(f)
+
+    config_dict = cast(dict[str, Any], config_doc)
+
+    for field in fields(settings):
+        setting: SettingType = getattr(settings, field.name)
+        config_dict["settings"][field.name]["current_value"] = setting.current_value
+
+    with open(config_file, mode="wt", encoding="utf-8") as f:
+        tomlkit.dump(config_doc, f)  # type: ignore[arg-type]
