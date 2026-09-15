@@ -60,7 +60,7 @@ class MastermindApp(App[None]):
 
         if idx == 0:
             event.button.label = Text(
-                app_config.ui["code_blank_letter"], style=f"$text {style}"
+                app_config.ui["code_blank_letter"], style=f"{style}"
             )
         else:
             idx -= 1
@@ -72,15 +72,15 @@ class MastermindApp(App[None]):
     def on_check_click(self) -> None:
         breaker_code: list[int] = []
         for code_peg in self.board.current_row.code_pegs:
-            symbol_str = cast(str, code_peg.label)
+            code_letter = cast(str, code_peg.label)
 
-            symbol: int
-            if symbol_str == app_config.ui["code_blank_symbol"]:
-                symbol = 0
+            color: int
+            if code_letter == app_config.ui["code_blank_letter"]:
+                color = 0
             else:
-                symbol = app_config.ui["code_symbols"].index(symbol_str) + 1
+                color = app_config.ui["code_letters"].index(code_letter) + 1
 
-            breaker_code.append(symbol)
+            breaker_code.append(color)
 
         num_red_pegs: int
         num_white_pegs: int
@@ -88,14 +88,30 @@ class MastermindApp(App[None]):
 
         self.board.current_row.query_one("#check").remove()
 
+        feedback_red_letter = app_config.ui["feedback_letters"][0]
+        feedback_red_color = app_config.ui["feedback_colors"][0]
+        feedback_white_letter = app_config.ui["feedback_letters"][1]
+        feedback_white_color = app_config.ui["feedback_colors"][1]
+        feedback_blank_letter = app_config.ui["feedback_blank_letter"]
+        feedback_style = app_config.ui["feedback_style"]
+
         self.board.current_row.mount(
             Label(
-                "".join(
+                Text("").join(
                     [
-                        (app_config.ui["feedback_symbols"][0] + " ") * num_red_pegs,
-                        (app_config.ui["feedback_symbols"][1] + " ") * num_white_pegs,
-                        (app_config.ui["feedback_blank_symbol"] + " ")
-                        * (self.game.num_pegs - num_red_pegs - num_white_pegs),
+                        Text(
+                            (feedback_red_letter + " ") * num_red_pegs,
+                            style=f"{feedback_red_color} {feedback_style}",
+                        ),
+                        Text(
+                            (feedback_white_letter + " ") * num_white_pegs,
+                            style=f"{feedback_white_color} {feedback_style}",
+                        ),
+                        Text(
+                            (feedback_blank_letter + " ")
+                            * (self.game.num_pegs - num_red_pegs - num_white_pegs),
+                            style=f"{feedback_style}",
+                        ),
                     ]
                 ),
                 classes="feedback_pegs",
@@ -105,23 +121,21 @@ class MastermindApp(App[None]):
         self.board.current_row.disabled = True
 
         if num_red_pegs == self.game.num_pegs:
-            self.notify(tr("Congratulations!"))
+            self.notify("Congratulations!")
         else:
             if self.board.current_row_number < self.game.num_rows:
                 self.board.add_row()
             else:
                 maker_code: list[int] = self.game.get_maker_code()
                 maker_code_str: str = ""
-                for symbol in maker_code:
-                    if symbol == 0:
-                        maker_code_str += app_config.ui["code_blank_symbol"] + " "
+                for color in maker_code:
+                    if color == 0:
+                        maker_code_str += app_config.ui["code_blank_letter"] + " "
                     else:
-                        maker_code_str += (
-                            app_config.ui["code_symbols"][symbol - 1] + " "
-                        )
+                        maker_code_str += app_config.ui["code_letters"][color - 1] + " "
 
                 self.notify(
-                    f"{tr('Better luck next time')}\n{tr('Code')}: {maker_code_str}",
+                    f"Better luck next time\nCode: {maker_code_str}",
                     timeout=60,
                 )
 

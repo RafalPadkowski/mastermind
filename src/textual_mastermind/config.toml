@@ -3,11 +3,12 @@ main_icon = "❔"
 new_game_icon = "📜"
 code_blank_letter = "-"
 code_letters = ["R", "G", "B", "O", "Y", "W", "S", "V"]
-code_colors = ["tomato", "darkgreen", "deepskyblue", "orange", "yellow", "white", "ansi_bright_black", "violet"]
+code_colors = ["red", "lawngreen", "deepskyblue", "orange", "yellow", "white", "ansi_bright_black", "violet"]
 code_style = ""
 feedback_blank_letter = "-"
-feedback_letters = ["w", "r"]
-feedback_colors = ["tomato", "white"]
+feedback_letters = ["r", "w"]
+feedback_colors = ["red", "white"]
+feedback_style = ""
 
 [variations]
 [variations.original]
@@ -28,7 +29,7 @@ num_colors = 8
 [settings]
 [settings.variation]
 default_value = "original"
-current_value = "super"
+current_value = "original"
 
 [settings.blank_color]
 default_value = false

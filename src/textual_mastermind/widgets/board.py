@@ -11,19 +11,24 @@ class Row(Horizontal):
 
         self.row_number = row_number
 
+        self.num_pegs = app_config.current_variation["num_pegs"]
+
         self.code_pegs: list[Button] = [
             Button(
                 flat=True, label=app_config.ui["code_blank_letter"], classes="code_peg"
             )
-            for _ in range(app_config.current_variation["num_pegs"])
+            for _ in range(self.num_pegs)
         ]
 
-        self.check: Button = Button(flat=True, label="?", classes="check")
+        self.check: Button = Button(flat=True, label="?", id="check", classes="check")
 
     def compose(self) -> ComposeResult:
         yield Label(f"{self.row_number:02}", classes="num")
         yield from self.code_pegs
         yield self.check
+
+    def on_mount(self) -> None:
+        self.check.styles.min_width = (2 * self.num_pegs) - 1
 
 
 class Board(VerticalScroll):
