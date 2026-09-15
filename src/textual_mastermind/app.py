@@ -10,9 +10,8 @@ from .app_config import app_config
 from .bindings import NEW_GAME_BINDINGS, GlOBAL_BINDINGS
 from .game import Game
 from .widgets.board import Board
+from .widgets.new_game import NewGameScreen
 from .widgets.panel import Panel
-
-# from .widgets.new_game import NewGameScreen
 
 __title__ = "Mastermind"
 
@@ -24,6 +23,7 @@ class MastermindApp(App[None]):
     def __init__(self) -> None:
         super().__init__()
 
+        self.body: Horizontal
         self.panel: Panel
         self.board: Board
 
@@ -31,7 +31,13 @@ class MastermindApp(App[None]):
 
     def compose(self) -> ComposeResult:
         yield Header(icon=app_config.ui["main_icon"])
-        yield Horizontal(id="body")
+
+        self.body = Horizontal()
+        self.panel = Panel()
+
+        with self.body:
+            yield self.panel
+
         yield Footer()
 
     def on_mount(self) -> None:
@@ -40,14 +46,11 @@ class MastermindApp(App[None]):
 
     def create_new_game(self) -> None:
         if hasattr(self, "game"):
-            # self.panel.remove()
+            self.panel.select.value = 0
             self.board.remove()
 
-        self.panel = Panel()
         self.board = Board()
-        body: Horizontal = self.query_one("#body", Horizontal)
-        body.mount(self.panel)
-        body.mount(self.board)
+        self.body.mount(self.board)
 
         self.set_focus(self.panel)
 
@@ -142,7 +145,6 @@ class MastermindApp(App[None]):
     @work
     async def action_new_game(self) -> None:
         new_game_screen = NewGameScreen()
-        translate_bindings(screen=new_game_screen, bindings=NEW_GAME_BINDINGS)
 
         if await self.push_screen_wait(new_game_screen):
             self.create_new_game()

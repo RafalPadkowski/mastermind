@@ -1,7 +1,6 @@
 from textual.app import ComposeResult
 from textual.screen import ModalScreen
 from textual.widgets import Checkbox, Footer, Header, Label, RadioButton, RadioSet
-from tilsit_i18n import tr
 
 from ..app_config import app_config
 from ..bindings import NEW_GAME_BINDINGS
@@ -19,30 +18,27 @@ class NewGameScreen(ModalScreen[bool]):
 
         self.variation_radio_buttons = {
             name: RadioButton(
-                label=tr(
-                    f"{name} ({variation['num_rows']} rows, {variation['num_pegs']} pegs, {variation['num_symbols']} symbols)"
-                )
+                label=f"{name} ({variation['num_rows']} rows, {variation['num_pegs']} pegs, {variation['num_colors']} colors)"
             )
             for name, variation in app_config.variations.items()
         }
 
         self.variation_radio_buttons[
-            app_config.settings.variation.current_value
+            app_config.settings["variation"]["current_value"]
         ].value = True
 
-        blank_symbol_str = tr("Blank symbol")
-        duplicate_symbols_str = tr("Duplicate symbols")
+        blank_color_str = "Blank color"
+        duplicate_colors_str = "Duplicate colors"
 
         labels = [rb.label for rb in self.variation_radio_buttons.values()] + [
-            blank_symbol_str,
-            duplicate_symbols_str,
+            blank_color_str,
+            duplicate_colors_str,
         ]
 
-        yield Label(tr("Variation") + ":", classes="margin-bottom-1")
+        yield Label("Variation:", classes="margin-bottom-1")
         self.variation_radio_set = RadioSet()
         with self.variation_radio_set:
-            for rb in self.variation_radio_buttons.values():
-                yield rb
+            yield from self.variation_radio_buttons.values()
 
         yield Label(tr("Additional options") + ":", classes="margin-bottom-1")
         self.blank_symbol_cb = Checkbox(
