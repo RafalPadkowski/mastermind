@@ -1,7 +1,8 @@
-from importlib.resources import files
+from pathlib import Path
 from typing import Any, TypedDict
 
 import tomlkit
+from tomlkit.toml_document import TOMLDocument
 
 
 class Ui(TypedDict):
@@ -24,6 +25,12 @@ class Variation(TypedDict):
     num_colors: int
 
 
+class Variations(TypedDict):
+    original: Variation
+    mini: Variation
+    super: Variation
+
+
 class Setting(TypedDict):
     default_value: Any
     current_value: Any
@@ -36,16 +43,28 @@ class Settings(TypedDict):
 
 
 class AppConfig:
-    def __init__(
-        self, ui: Ui, variations: dict[str, Variation], settings: Settings
-    ) -> None:
-        self.ui = ui
-        self.variations = variations
-        self.settings = settings
+    def __init__(self, config_path: Path) -> None:
+        self.config_path = config_path
+
+        config_dict = self.load_config(self.config_path)
+
+        self.ui: Ui = config_dict["ui"]
+        self.variations: Variations = config_dict["variations"]
+        self.settings: Settings = config_dict["settings"]
+
+    def load_config(self, config_path: Path) -> TOMLDocument:
+        with config_path.open("r", encoding="utf-8") as config_content:
+            config_dict = tomlkit.load(config_content)
+
+        return config_dict
 
     @property
     def variation_name(self) -> str:
         return self.settings["variation_name"]["current_value"]
+
+    @variation_name.setter
+    def variation_name(self, value: str) -> None:
+        self.settings["variation_name"]["current_value"] = value
 
     @property
     def variation(self) -> Variation:
@@ -55,16 +74,32 @@ class AppConfig:
     def allow_blank_color(self) -> bool:
         return self.settings["allow_blank_color"]["current_value"]
 
+    @allow_blank_color.setter
+    def allow_blank_color(self, value: bool) -> None:
+        self.settings["allow_blank_color"]["current_value"] = value
+
     @property
     def allow_duplicate_colors(self) -> bool:
         return self.settings["allow_duplicate_colors"]["current_value"]
 
+    @allow_duplicate_colors.setter
+    def allow_duplicate_colors(self, value: bool) -> None:
+        self.settings["allow_duplicate_colors"]["current_value"] = value
 
-with files(__package__).joinpath("config.toml").open("r", encoding="utf-8") as config:
-    config_dict = tomlkit.load(config)
+    def save_settings(self, *settings: str) -> None:
+        if not settings:
+            return
 
-app_config = AppConfig(
-    ui=config_dict["ui"],
-    variations=config_dict["variations"],
-    settings=config_dict["settings"],
-)
+        with self.config_path.open("r", encoding="utf-8") as config_content:
+            config_dict = tomlkit.load(config_content)
+
+        for setting in settings:
+            config_dict["settings"][setting]["current_value"] = self.settings[setting][
+                "current_value"
+            ]
+
+        with self.config_path.open("w", encoding="utf-8") as config_content:
+            tomlkit.dump(config_dict, config_content)
+
+
+app_config = AppConfig(config_path=Path(__file__).parent / "config.toml")

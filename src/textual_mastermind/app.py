@@ -33,10 +33,7 @@ class MastermindApp(App[None]):
         yield Header(icon=app_config.ui["main_icon"])
 
         self.body = Horizontal()
-        self.panel = Panel()
-
-        with self.body:
-            yield self.panel
+        yield self.body
 
         yield Footer()
 
@@ -46,7 +43,7 @@ class MastermindApp(App[None]):
 
     def create_new_game(self) -> None:
         if hasattr(self, "game"):
-            self.panel.select.value = 0
+            self.panel.remove()
             self.board.remove()
 
         blank_str = f"blank: {'on' if app_config.allow_blank_color else 'off'}"
@@ -57,6 +54,9 @@ class MastermindApp(App[None]):
         self.sub_title = (
             f"{app_config.variation_name.capitalize()} - {blank_str} - {duplicates_str}"
         )
+
+        self.panel = Panel()
+        self.body.mount(self.panel)
 
         self.board = Board()
         self.body.mount(self.board)
@@ -156,14 +156,4 @@ class MastermindApp(App[None]):
         new_game_screen = NewGameScreen()
 
         if await self.push_screen_wait(new_game_screen):
-            # self.create_new_game()
-            return
-
-            if any(
-                [
-                    app_config.settings.variation.changed,
-                    app_config.settings.duplicate_symbols.changed,
-                    app_config.settings.blank_symbol.changed,
-                ]
-            ):
-                save_settings(str(CONFIG_FILE), app_config.settings)
+            self.create_new_game()
