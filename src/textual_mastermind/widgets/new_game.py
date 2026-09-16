@@ -23,9 +23,7 @@ class NewGameScreen(ModalScreen[bool]):
             for name, variation in app_config.variations.items()
         }
 
-        self.variation_radio_buttons[
-            app_config.settings["variation"]["current_value"]
-        ].value = True
+        self.variation_radio_buttons[app_config.variation_name].value = True
 
         blank_color_str = "Allow blank color"
         duplicate_colors_str = "Allow duplicate colors"

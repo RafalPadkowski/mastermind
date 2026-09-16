@@ -27,7 +27,7 @@ num_pegs = 5
 num_colors = 8
 
 [settings]
-[settings.variation]
+[settings.variation_name]
 default_value = "original"
 current_value = "original"
 

@@ -49,9 +49,14 @@ class MastermindApp(App[None]):
             self.panel.select.value = 0
             self.board.remove()
 
+        blank_str = f"blank: {'on' if app_config.allow_blank_color else 'off'}"
+        duplicates_str = (
+            f"duplicates: {'on' if app_config.allow_duplicate_colors else 'off'}"
+        )
+
         self.sub_title = (
-            app_config.settings["variation"]["current_value"]
-        ).capitalize()
+            f"{app_config.variation_name.capitalize()} - {blank_str} - {duplicates_str}"
+        )
 
         self.board = Board()
         self.body.mount(self.board)

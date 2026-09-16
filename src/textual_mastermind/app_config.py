@@ -29,7 +29,7 @@ class Setting(TypedDict):
 
 
 class Settings(TypedDict):
-    variation: Setting
+    variation_name: Setting
     allow_blank_color: Setting
     allow_duplicate_colors: Setting
 
@@ -43,8 +43,12 @@ class AppConfig:
         self.settings = settings
 
     @property
+    def variation_name(self) -> str:
+        return self.settings["variation_name"]["current_value"]
+
+    @property
     def variation(self) -> Variation:
-        return self.variations[self.settings["variation"]["current_value"]]
+        return self.variations[self.settings["variation_name"]["current_value"]]
 
     @property
     def allow_blank_color(self) -> bool:
