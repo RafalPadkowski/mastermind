@@ -7,17 +7,17 @@ from textual.containers import Horizontal
 from textual.widgets import Button, Footer, Header, Label
 
 from .app_config import app_config
-from .bindings import NEW_GAME_BINDINGS, GlOBAL_BINDINGS
+from .bindings import GlOBAL_BINDINGS
+from .commands import AboutCommand
 from .game import Game
 from .widgets.board import Board
 from .widgets.new_game import NewGameScreen
 from .widgets.panel import Panel
 
-__title__ = "Mastermind"
-
 
 class MastermindApp(App[None]):
     CSS_PATH = "styles.tcss"
+    COMMANDS = App.COMMANDS | {AboutCommand}
     BINDINGS = GlOBAL_BINDINGS
 
     def __init__(self) -> None:
@@ -41,7 +41,7 @@ class MastermindApp(App[None]):
         yield Footer()
 
     def on_mount(self) -> None:
-        self.title = __title__
+        self.title = app_config.ui["title"]
         self.create_new_game()
 
     def create_new_game(self) -> None:

@@ -1,5 +1,6 @@
 [ui]
 main_icon = "❔"
+title = "Mastermind"
 new_game_icon = "📜"
 code_blank_letter = "-"
 code_letters = ["R", "G", "B", "O", "Y", "W", "S", "V"]

@@ -6,6 +6,7 @@ import tomlkit
 
 class Ui(TypedDict):
     main_icon: str
+    title: str
     new_game_icon: str
     code_blank_letter: str
     code_letters: list[str]
