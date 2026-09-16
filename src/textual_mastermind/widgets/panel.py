@@ -22,7 +22,7 @@ class Panel(Vertical):
                 Text(letter, style=f"{color} {style}")
                 for letter, color in zip(letters, colors)
             ],
-            range(app_config.current_variation["num_colors"] + 1),
+            range(app_config.variation["num_colors"] + 1),
         )
 
         self.select = Select(options, allow_blank=False)

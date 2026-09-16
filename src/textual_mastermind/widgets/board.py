@@ -11,7 +11,7 @@ class Row(Horizontal):
 
         self.row_number = row_number
 
-        self.num_pegs = app_config.current_variation["num_pegs"]
+        self.num_pegs = app_config.variation["num_pegs"]
 
         self.code_pegs: list[Button] = [
             Button(

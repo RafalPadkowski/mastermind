@@ -31,10 +31,10 @@ num_colors = 8
 default_value = "original"
 current_value = "original"
 
-[settings.blank_color]
+[settings.allow_blank_color]
 default_value = false
 current_value = false
 
-[settings.duplicate_colors]
+[settings.allow_duplicate_colors]
 default_value = false
 current_value = false

@@ -5,18 +5,18 @@ from .app_config import app_config
 
 class Game:
     def __init__(self) -> None:
-        current_variation = app_config.current_variation
+        variation = app_config.variation
 
-        self.num_rows = current_variation["num_rows"]
-        self.num_pegs = current_variation["num_pegs"]
-        self.num_colors = current_variation["num_colors"]
+        self.num_rows = variation["num_rows"]
+        self.num_pegs = variation["num_pegs"]
+        self.num_colors = variation["num_colors"]
 
         colors: list[int] = list(range(1, self.num_colors + 1))
-        if app_config.blank_color:
+        if app_config.allow_blank_color:
             colors.append(0)
 
         self.maker_code: list[int]
-        if app_config.duplicate_colors:
+        if app_config.allow_duplicate_colors:
             self.maker_code = random.choices(colors, k=self.num_pegs)
         else:
             self.maker_code = random.sample(colors, k=self.num_pegs)

@@ -28,25 +28,31 @@ class Setting(TypedDict):
     current_value: Any
 
 
+class Settings(TypedDict):
+    variation: Setting
+    allow_blank_color: Setting
+    allow_duplicate_colors: Setting
+
+
 class AppConfig:
     def __init__(
-        self, ui: Ui, variations: dict[str, Variation], settings: dict[str, Setting]
+        self, ui: Ui, variations: dict[str, Variation], settings: Settings
     ) -> None:
         self.ui = ui
         self.variations = variations
         self.settings = settings
 
     @property
-    def current_variation(self) -> Variation:
+    def variation(self) -> Variation:
         return self.variations[self.settings["variation"]["current_value"]]
 
     @property
-    def blank_color(self) -> bool:
-        return self.settings["blank_color"]["current_value"]
+    def allow_blank_color(self) -> bool:
+        return self.settings["allow_blank_color"]["current_value"]
 
     @property
-    def duplicate_colors(self) -> bool:
-        return self.settings["duplicate_colors"]["current_value"]
+    def allow_duplicate_colors(self) -> bool:
+        return self.settings["allow_duplicate_colors"]["current_value"]
 
 
 with files(__package__).joinpath("config.toml").open("r", encoding="utf-8") as config:

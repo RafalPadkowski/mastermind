@@ -27,8 +27,8 @@ class NewGameScreen(ModalScreen[bool]):
             app_config.settings["variation"]["current_value"]
         ].value = True
 
-        blank_color_str = "Blank color"
-        duplicate_colors_str = "Duplicate colors"
+        blank_color_str = "Allow blank color"
+        duplicate_colors_str = "Allow duplicate colors"
 
         yield Label("Variation:", classes="margin-bottom-1")
         self.variation_radio_set = RadioSet()
@@ -38,12 +38,12 @@ class NewGameScreen(ModalScreen[bool]):
         yield Label("Additional options:", classes="margin-bottom-1")
         self.blank_color_cb = Checkbox(
             blank_color_str,
-            value=app_config.settings["blank_color"]["current_value"],
+            value=app_config.allow_blank_color,
             classes="margin-bottom-1",
         )
         self.duplicate_colors_cb = Checkbox(
             duplicate_colors_str,
-            value=app_config.settings["duplicate_colors"]["current_value"],
+            value=app_config.allow_duplicate_colors,
             classes="margin-bottom-1",
         )
 
